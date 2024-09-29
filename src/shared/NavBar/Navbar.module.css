@@ -1,0 +1,23 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    align-items: center;
+}
+.navbar__logo-box{
+    display: flex;
+    gap: 15px;
+    cursor: pointer;
+}
+.title{
+    font-size: 30px;
+}
+.navbar__list{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.navbar__list-item{
+    font-size: 20px;
+    cursor: pointer;
+}

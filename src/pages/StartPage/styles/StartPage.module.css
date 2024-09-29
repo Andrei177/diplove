@@ -1,0 +1,29 @@
+.start-page{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    animation: show-page 0.5s ease;
+}
+@keyframes show-page{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.title{
+    font-size: 140px;
+    margin-bottom: 30px;
+}
+.description{
+    text-align: center;
+    font-size: 40px;
+}
+.btn{
+    background: black;
+    font-size: 20px;
+}
