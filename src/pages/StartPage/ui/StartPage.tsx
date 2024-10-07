@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom"
-import Button from "../../../shared/Button/Button"
-import s from "../styles/StartPage.module.css"
+import Button from "../../../shared/ui/Button/Button"
+import s from "./StartPage.module.css"
+import { Routes } from "../../../router/router.config";
 
 const StartPage = () => {
 
@@ -8,8 +9,8 @@ const StartPage = () => {
 
   return (
     <div className={s['start-page']}>
-      <h1 className={s.title}>Morphyx</h1>
-      <Button className={s.btn} onClick={() => navigate("/auth")}>Создать профиль</Button>
+      <h1 className={s.title}>Morfix</h1>
+      <Button className={s.btn} onClick={() => navigate(Routes.REGISTRATION)}>Создать профиль</Button>
       <p className={s.description}>
         Osertad pov plamiment. Säbel<br/>
         vovis. Hypov nesk, pyrade.<br/>

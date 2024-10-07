@@ -1,0 +1,1 @@
+export { Interes } from "./ui/Interes"
