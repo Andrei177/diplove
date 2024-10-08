@@ -1,4 +1,4 @@
-import { Routes } from "../../../router/router.config"
+import { Routes } from "../../../app/router/router.config"
 import { QuestionLayout } from "../../../shared/QuestionLayout"
 
 export const Gender = () => {
