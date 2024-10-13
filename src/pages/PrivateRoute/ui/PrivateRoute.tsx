@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react"
-import { Navigate, Outlet } from "react-router-dom"
+import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { checkRefreshValidity } from "../../../app/api/AuthService/AuthService";
 import { Routes } from "../../../app/router/router.config";
 import { useAuthStore } from "../../../app/store/store";
 import Navbar from "../../../shared/NavBar/Navbar";
+import { Loader } from "../../../shared/ui/Loader";
 
 export const PrivateRoute = () => {
 
   const {isAuth, setIsAuth, hasRefreshed, setHasRefreshed} = useAuthStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if(!hasRefreshed){
@@ -16,7 +20,10 @@ export const PrivateRoute = () => {
       setIsLoading(true);
 
       checkRefreshValidity()
-      .then(() => setIsAuth(true))
+      .then(() => {
+        setIsAuth(true)
+        if(pathname === Routes.ROOT) navigate(Routes.PROFILE)
+      })
       .catch((err) => {
         console.log(err, "ошибка при загрузке прайват роутов");
 
@@ -31,7 +38,7 @@ export const PrivateRoute = () => {
     return (
       <>
         <Navbar/>
-        <h1>Загрузка...</h1>
+        <Loader/>
       </>
     );
   } else if (!isLoading && !isAuth) {

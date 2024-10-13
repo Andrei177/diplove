@@ -24,7 +24,7 @@ export const Auth = () => {
     register(login, password)
     .then(() => {
       setIsAuth(true);
-      navigate(Routes.PROFILE)
+      navigate(Routes.GENDER)
     })
     .catch((err) => {
       console.log(err, "ошибка при регистрации");

@@ -5,10 +5,11 @@ import { useEffect, useState } from 'react';
 import { checkRefreshValidity } from './app/api/AuthService/AuthService.ts';
 import { useAuthStore } from './app/store/store.ts';
 import { Routes } from './app/router/router.config.ts';
+import { Loader } from './shared/ui/Loader/index.ts';
 
 function App() {
 
-  const {setIsAuth, hasRefreshed, setHasRefreshed} = useAuthStore();
+  const {isAuth, setIsAuth, hasRefreshed, setHasRefreshed} = useAuthStore();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -23,12 +24,12 @@ function App() {
         navigate(Routes.PROFILE)
       })
       .catch((err) => {
-        console.log(err, "Ошибка при загрузке страницы старт или логинов");
-        //navigate(Routes.PROFILE) // убрать потом
-        setIsAuth(false) // это тоже
+        console.log(err, "Ошибка при загрузке страницы старт или логинов, потому что запрос на рефреш вернулся в ошибкой");
+        setIsAuth(false)
       })
       .finally(() => setIsLoading(false))
     }
+    if(isAuth) navigate(Routes.PROFILE)
   }, [])
 
   return (
@@ -36,7 +37,7 @@ function App() {
       <Navbar />
       {
         isLoading
-        ?<h1>Загрузка...</h1>
+        ?<Loader/>
         :<main>
           <Outlet />
         </main>

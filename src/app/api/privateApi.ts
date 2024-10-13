@@ -28,24 +28,23 @@ $privateApi.interceptors.response.use(
   },
   async (error: AxiosError) => {
     const originalRequest = error.request;
-
     console.log(error, "Возникла ошибка при перехвате ответа от сервера");
     
 
-    if (error.status == 401) {
+    if (error.response && error.response.status == 401) {
+      console.log("Перехваченная ошибка оказалась 401, сейчас будет запрос на обновление токена");
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${API_URL}/users/token/refresh/`,
-          {},
           { withCredentials: true }
-        ); // если Влад поменяет на get, то убрать тело запроса
+        );
 
         localStorage.setItem("token", response.data.access);
 
         return $privateApi.request(originalRequest);
 
       } catch (err) {
-        console.log("НЕ АВТОРИЗОВАН");
+        console.log("НЕ АВТОРИЗОВАН, потому что рефреш токен не валиден");
       }
     }
   }

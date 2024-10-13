@@ -11,8 +11,8 @@
 .black{
     background: black;
 }
-.white{
-    background: white;
+.transparent{
+    background: transparent;
     color: black;
     border: 1px solid black;
 }

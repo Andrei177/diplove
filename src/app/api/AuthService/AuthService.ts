@@ -4,9 +4,10 @@ import { $publicApi } from "../publicApi";
 // пока не проверял во взаимодействии с бэкэндом
 
 export const checkRefreshValidity = async () => {
-    const { data } = await $privateApi.post("/users/token/refresh/");
-    if(data){
-        localStorage.setItem("token", data.access);
+    const response = await $privateApi.get("/users/token/refresh/");
+
+    if(response.data){
+        localStorage.setItem("token", response.data.access);
     }
 };
 

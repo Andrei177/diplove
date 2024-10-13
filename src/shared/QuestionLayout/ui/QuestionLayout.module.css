@@ -4,13 +4,21 @@
     justify-content: center;
     align-items: center;
 }
-.content{
+.wrapper{
     background-color: rgb(214, 214, 214);
     border-radius: 30px;
     padding: 30px;
     width: 560px;
+    height: 630px;
+    display: flex;
+    flex-direction: column;
+}
+.next_link{
+    width: 100%;
+    text-align: right;
 }
 .question{
+    flex: 1 1 auto;
     animation: show-question 0.5s ease;
 }
 @keyframes show-question{

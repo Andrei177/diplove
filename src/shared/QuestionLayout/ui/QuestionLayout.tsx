@@ -7,18 +7,25 @@ import { Link } from "react-router-dom";
 interface IPropsQuestionLayout {
     children: ReactNode;
     prevRoute: string;
-    nextRoute: string;
+    nextRoute?: string;
 }
 
 export const QuestionLayout: FC<IPropsQuestionLayout> = ({ children, prevRoute, nextRoute }) => {
     return (
         <div className={s.layout}>
-            <div className={s.content}>
+            <div className={s.wrapper}>
                 <Link to={prevRoute}><img src={backIcon} /></Link>
                 <div className={s.question}>
                     {children}
                 </div>
-                <Link to={nextRoute}><img src={nextIcon} /></Link>
+                <div className={s.next_link}>
+                    {
+                    nextRoute && 
+                    <Link to={nextRoute}>
+                        <img src={nextIcon} />
+                    </Link>
+                    }
+                </div>
             </div>
         </div>
     )
