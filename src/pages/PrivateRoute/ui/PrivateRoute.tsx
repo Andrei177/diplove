@@ -26,7 +26,6 @@ export const PrivateRoute = () => {
       })
       .catch((err) => {
         console.log(err, "ошибка при загрузке прайват роутов");
-
         setIsAuth(false)
       })
       .finally(() => setIsLoading(false))
@@ -36,10 +35,12 @@ export const PrivateRoute = () => {
 
   if (isLoading && !isAuth) {
     return (
-      <>
-        <Navbar/>
-        <Loader/>
-      </>
+      <div className='app'>
+        <Navbar />
+        <main>
+          <Loader />
+        </main>
+      </div>
     );
   } else if (!isLoading && !isAuth) {
     localStorage.removeItem('accessToken');

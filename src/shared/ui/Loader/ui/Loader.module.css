@@ -1,3 +1,9 @@
+.loader_wrapper{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .loader{
     border-radius: 50%;
     border: 10px dashed black;
