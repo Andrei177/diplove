@@ -1,9 +1,9 @@
 import { MainLayout } from "../../../shared/MainLayout"
 
-export const Chats = () => {
+export const Forms = () => {
   return (
     <MainLayout>
-      <h1>Чаты</h1>
+      <h1>Анкеты</h1>
     </MainLayout>
   )
 }

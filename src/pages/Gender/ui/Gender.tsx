@@ -9,7 +9,7 @@ export const Gender = () => {
   const {gender, setGender} = useQuestionsStore();
 
   return (
-    <QuestionLayout prevRoute={Routes.START_PAGE} nextRoute={Routes.NAME}>
+    <QuestionLayout prevRoute={Routes.START_PAGE} nextRoute={Routes.SEARCH_GENDER}>
       <div className={s.content}>
         <h1 className={s.title}>Привет!<br/>Давай знакомиться!</h1>
         <h2 className={s.subtitle}>Выберите свой пол, чтобы мы могли<br/>правильно настроить ваш профиль.</h2>

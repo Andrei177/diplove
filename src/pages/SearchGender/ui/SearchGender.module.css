@@ -1,0 +1,21 @@
+.content{
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    gap: 20px;
+}
+s.title{
+    font-size: 32px;
+    font-weight: 700;
+}
+.subtitle{
+    color: rgba(81, 81, 81, 1);
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 35px;
+}
+.btn{
+    font-size: 24px;
+    font-weight: 700;
+    width: 400px;
+}

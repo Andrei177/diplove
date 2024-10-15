@@ -16,3 +16,12 @@
 main{
   flex: 1 1 auto;
 }
+ul{
+  list-style-type: none;
+}
+a{
+  text-decoration: none;
+}
+.active{
+  color: rgb(14,48,174) !important;
+}

@@ -4,6 +4,10 @@
     padding: 20px 60px;
     align-items: center;
 }
+.navbar.auth{
+    background-color: rgba(233, 233, 233, 1);
+    padding: 20px 360px;
+}
 .navbar__logo-box{
     display: flex;
     gap: 15px;
@@ -30,4 +34,16 @@
 .navbar__list-item{
     font-size: 20px;
     cursor: pointer;
+}
+.item_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+.title_link{
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
 }

@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom"
-import { Routes } from "../../../app/router/router.config"
+import { MainLayout } from "../../../shared/MainLayout"
 
 export const Profile = () => {
   return (
-    <div>
+    <MainLayout>
       <h1>Профиль</h1>
-      <Link to={Routes.CHATS}>Чаты</Link>
-    </div>
+    </MainLayout>
   )
 }

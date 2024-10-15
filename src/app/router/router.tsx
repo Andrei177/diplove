@@ -11,6 +11,8 @@ import { Interes } from "../../pages/Interes";
 import { PrivateRoute } from "../../pages/PrivateRoute";
 import { Profile } from "../../pages/Profile";
 import { Chats } from "../../pages/Chats";
+import { SearchGender } from "../../pages/SearchGender";
+import { Forms } from "../../pages/Forms";
 
 const router = createBrowserRouter([
     {
@@ -44,8 +46,16 @@ const router = createBrowserRouter([
                 element: <Chats/>
             },
             {
+                path: Routes.FORMS,
+                element: <Forms/>
+            },
+            {
                 path: Routes.GENDER,
                 element: <Gender/>
+            },
+            {
+                path: Routes.SEARCH_GENDER,
+                element: <SearchGender/>
             },
             {
                 path: Routes.NAME,
