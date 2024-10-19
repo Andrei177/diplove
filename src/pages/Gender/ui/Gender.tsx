@@ -1,10 +1,10 @@
 import { Routes } from "../../../app/router/router.config"
 import { QuestionLayout } from "../../../shared/QuestionLayout"
-import { Genders, useQuestionsStore } from "../../../shared/questionsStore/store"
+import { Gender, useQuestionsStore } from "../../../shared/questionsStore/store"
 import Button from "../../../shared/ui/Button/Button"
 import s from "./Gender.module.css"
 
-export const Gender = () => {
+export const GenderComponent = () => {
 
   const {gender, setGender} = useQuestionsStore();
 
@@ -14,16 +14,16 @@ export const Gender = () => {
         <h1 className={s.title}>Привет!<br/>Давай знакомиться!</h1>
         <h2 className={s.subtitle}>Выберите свой пол, чтобы мы могли<br/>правильно настроить ваш профиль.</h2>
         <Button 
-          variant={gender === Genders.MALE ? "black" : "transparent"} 
+          variant={gender === Gender.MALE ? "black" : "transparent"} 
           className={s.btn} 
-          onClick={() => setGender(Genders.MALE)}
+          onClick={() => setGender(Gender.MALE)}
         >
           Мужчина
         </Button>
         <Button 
-          variant={gender === Genders.FEMALE ? "black" : "transparent"} 
+          variant={gender === Gender.FEMALE ? "black" : "transparent"} 
           className={s.btn} 
-          onClick={() => setGender(Genders.FEMALE)}
+          onClick={() => setGender(Gender.FEMALE)}
         >
           Девушка
         </Button>

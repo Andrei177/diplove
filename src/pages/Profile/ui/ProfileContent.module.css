@@ -1,0 +1,29 @@
+.wrapper{
+    padding: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.main_info{
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+.name{
+    padding-bottom: 15px;  
+    /* height: 50px;   */
+}
+.gender{
+    padding-bottom: 15px;  
+    /* height: 50px;   */
+}
+h3{
+    width: 300px;
+    font-size: 20px;
+    font-weight: 400;
+}
+h2{
+    padding-top: 10px;
+    height: 50px;
+    padding-left: 20px;
+}

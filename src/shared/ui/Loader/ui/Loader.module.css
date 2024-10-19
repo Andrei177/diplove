@@ -19,3 +19,8 @@
         transform: rotate(360deg);
     }
 }
+.absolute{
+    position: absolute;
+    top: 0;
+    left: 0;
+}

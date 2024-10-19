@@ -1,1 +1,1 @@
-export { Gender } from "./ui/Gender"
+export { GenderComponent as Gender } from "./ui/Gender"

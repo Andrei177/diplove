@@ -2,14 +2,14 @@ import { create } from "zustand";
 import { createAnketFn } from "./api/api";
 import { AxiosResponse } from "axios";
 
-export enum Interests {
+export enum Interest {
   RELATIONSHIP = "RELATIONSHIP",
   FRIENDSHIP = "FRIENDSHIP",
   FLIRT = "FLIRT",
   UNRESOLVED = "UNRESOLVED",
 }
 
-export enum Genders {
+export enum Gender {
   MALE = "MALE",
   FEMALE = "FEMALE",
 }
@@ -29,11 +29,11 @@ interface IQuestionsStore {
 }
 
 export const useQuestionsStore = create<IQuestionsStore>((set, get) => ({
-  gender: Genders.MALE,
-  searchingGender: Genders.FEMALE,
+  gender: Gender.MALE,
+  searchingGender: Gender.FEMALE,
   firstName: "",
   birthday: "",
-  interes: Interests.RELATIONSHIP,
+  interes: Interest.RELATIONSHIP,
   setGender: (newGender) => set({ gender: newGender }),
   setSearchingGender: (newSearchingGender) => set({ searchingGender: newSearchingGender }),
   setFirstName: (newName) => set({ firstName: newName }),

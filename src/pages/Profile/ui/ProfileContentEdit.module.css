@@ -1,0 +1,33 @@
+.wrapper{
+    padding: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.main_info{
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+}
+.name{
+    padding-bottom: 15px;    
+}
+.gender{
+    padding-bottom: 15px;    
+}
+h3{
+    width: 300px;
+    font-size: 20px;
+    font-weight: 400;
+}
+.inp{
+    background-color: transparent;
+    border-radius: 20px;
+    font-size: 25px;
+    border: 1px solid black;
+    width: 300px;
+}
+.slct{
+    background-color: transparent;
+    font-size: 25px;
+}

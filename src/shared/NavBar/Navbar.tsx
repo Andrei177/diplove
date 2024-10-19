@@ -8,12 +8,14 @@ import cx from "classnames"
 import ankets from "./assets/ankets.svg"
 import chats from "./assets/chats.svg"
 import profile from "./assets/profile.svg"
+import { useProfileStore } from "../../pages/Profile/store/store"
 
 const Navbar = () => {
 
   const navigate = useNavigate();
   const {pathname} = useLocation();
   const isAuth = useAuthStore(state => state.isAuth);
+  const { first_name } = useProfileStore();
 
   return (
     <div className={isAuth ? cx(s.navbar, s.auth) : s.navbar}>
@@ -50,7 +52,11 @@ const Navbar = () => {
           <div className={s.item_wrapper}>
             <img src={profile} alt="chats"/>
               <NavLink to={Routes.PROFILE} className={s.title_link}>
-                Имя юзера
+                {
+                  first_name.length > 15 
+                  ? first_name.substring(0, 15) + "..."
+                  : first_name
+                }
               </NavLink>
           </div>
         </li>

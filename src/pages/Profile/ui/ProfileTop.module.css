@@ -1,0 +1,44 @@
+.wrapper{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 50px;
+    border: 1px solid rgba(159, 159, 159, 1);
+    border-radius: 30px;
+    align-items: center;
+    position: relative;
+}
+.info{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.image{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    border: 1px solid rgba(159, 159, 159, 1);
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+.image img{
+    width: 100%; 
+    height: auto; 
+    min-width: 100%; 
+    min-height: 100%; 
+    object-fit: cover; 
+}
+.name{
+    padding-top: 40px;
+}
+.edit{
+    cursor: pointer;
+}
+.loader{
+    position: absolute;
+    top: 0;
+    left: 55%;
+    width: 60px;
+    height: 60px;
+}

@@ -35,7 +35,7 @@ $privateApi.interceptors.response.use(
       console.log("Перехваченная ошибка оказалась 401, сейчас будет запрос на обновление токена");
       try {
         const response = await axios.get(
-          `${API_URL}/users/token/refresh/`,
+          `${API_URL}/user/token/refresh/`,
           { withCredentials: true }
         );
 

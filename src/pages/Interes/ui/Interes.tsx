@@ -1,15 +1,15 @@
 import { Routes } from "../../../app/router/router.config"
 import { QuestionLayout } from "../../../shared/QuestionLayout"
-import { Interests, useQuestionsStore } from "../../../shared/questionsStore/store"
+import { Interest, useQuestionsStore } from "../../../shared/questionsStore/store"
 import Button from "../../../shared/ui/Button/Button"
 import s from "./Interes.module.css"
 import { useNavigate } from "react-router-dom"
 
 const interests = [
-  {text: "Серьёзные отношения", key: Interests.RELATIONSHIP},
-  {text: "Общение и дружба", key: Interests.FRIENDSHIP},
-  {text: "Флирт и свидания", key: Interests.FLIRT},
-  {text: "Решу потом", key: Interests.UNRESOLVED},
+  {text: "Серьёзные отношения", key: Interest.RELATIONSHIP},
+  {text: "Общение и дружба", key: Interest.FRIENDSHIP},
+  {text: "Флирт и свидания", key: Interest.FLIRT},
+  {text: "Решу потом", key: Interest.UNRESOLVED},
 ]
 
 export const Interes = () => {
@@ -21,6 +21,8 @@ export const Interes = () => {
     createAnket()
     .then(res => {
       console.log(res)
+      console.log(interes, "Интерес");
+      
       navigate(Routes.PROFILE);
     })
     .catch(err => console.log(err, "Ошибка при создании анкеты"))
