@@ -7,4 +7,13 @@
 .content{
     border-radius: 30px;
     background-color: rgba(233, 233, 233, 1);
+    animation: show-content 0.5s ease;
+}
+@keyframes show-content{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }

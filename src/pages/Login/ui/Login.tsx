@@ -9,6 +9,8 @@ import { useLoginStore } from "../../../shared/loginStore/loginStore"
 import { login as loginFn } from "../../../app/api/AuthService/AuthService"
 import { useState } from "react"
 import { nanoid } from "nanoid"
+import { getProfile } from "../../Profile/api/api"
+import { useProfileStore } from "../../Profile/store/store"
 
 export const Login = () => {
 
@@ -19,6 +21,7 @@ export const Login = () => {
   const [usernameMessages, setUsernameMessages] = useState<string[]>([])
   const [passwordMessages, setPasswordMessages] = useState<string[]>([])
   const [detailMessage, setDetailMessage] = useState<string>("")
+  const { setAll } = useProfileStore();
 
   const handleLogin = () => {
     setIsLoading(true);
@@ -26,6 +29,11 @@ export const Login = () => {
       .then(() => {
         setIsAuth(true);
         navigate(Routes.PROFILE)
+        getProfile()
+        .then(res => {
+          setAll(res)
+        })
+        .catch(err => console.log(err, "Ошибка при получении профиля юзера"))
       })
       .catch((err) => {
         setIsAuth(false)

@@ -5,10 +5,13 @@ import { Routes } from "../../../app/router/router.config";
 import { useAuthStore } from "../../../app/store/store";
 import Navbar from "../../../shared/NavBar/Navbar";
 import { Loader } from "../../../shared/ui/Loader";
+import { getProfile } from "../../Profile/api/api";
+import { useProfileStore } from "../../Profile/store/store";
 
 export const PrivateRoute = () => {
 
   const {isAuth, setIsAuth, hasRefreshed, setHasRefreshed} = useAuthStore();
+  const { setAll } = useProfileStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
@@ -23,6 +26,11 @@ export const PrivateRoute = () => {
       .then(() => {
         setIsAuth(true)
         if(pathname === Routes.ROOT) navigate(Routes.PROFILE)
+        getProfile()
+        .then(res => {
+          setAll(res)
+        })
+        .catch(err => console.log(err, "Ошибка при получении профиля юзера"))
       })
       .catch((err) => {
         console.log(err, "ошибка при загрузке прайват роутов");
