@@ -2,8 +2,8 @@ import { useEffect, useState } from "react"
 import { MainLayout } from "../../../shared/MainLayout"
 import { getImages } from "../api/api"
 import { ProfileTop } from "./ProfileTop"
-import { ProfileContent } from "./ProfileContent"
-import { ProfileContentEdit } from "./ProfileContentEdit"
+import { ProfileContent } from "./ProfileContent/ProfileContent"
+import { ProfileContentEdit } from "./ProfileContent/ProfileContentEdit"
 
 export const Profile = () => {
 

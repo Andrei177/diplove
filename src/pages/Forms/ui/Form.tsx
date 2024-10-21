@@ -38,6 +38,7 @@ export const Form: FC<IPropsForm> = ({ profile, incrementIndex }) => {
             </div>
             <div className={s.info}>
                 <h2 className={s.name}>{profile.first_name}, {profile.age}</h2>
+                <h2>{profile.description}</h2>
             </div>
         </div>
     )

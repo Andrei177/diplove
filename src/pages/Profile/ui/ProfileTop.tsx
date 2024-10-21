@@ -3,8 +3,9 @@ import s from "./ProfileTop.module.css"
 import editPen from "../assets/edit.svg"
 import done from "../assets/done.svg"
 import { FC, useState } from "react";
-import { addImage, updateProfile } from "../api/api";
-import { Loader } from "../../../shared/ui/Loader";
+import { addImage, updateProfile } from "../api/api"
+import { Loader } from "../../../shared/ui/Loader"
+import UploadImage from "./UploadImage/UploadImage"
 
 interface IPropsProfileTop {
     isEdit: boolean;
@@ -48,8 +49,8 @@ export const ProfileTop: FC<IPropsProfileTop> = ({imageUrl, isEdit, setIsEdit, s
             <div className={s.info}>
                 <div className={s.image}>
                     {isEdit 
-                        ? <input type="file" accept="image/*" onChange={(e) =>e.target.files && setImage(e.target.files[0])}/> 
-                        : <img src={imageUrl} alt="" />}
+                        ? <UploadImage onChange={(e) => {e.target.files && setImage(e.target.files[0]); console.log(e.target.files);}}/>
+                        : <img className={s.img} src={imageUrl} alt="" />}
                 </div>
                 <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
             </div>
