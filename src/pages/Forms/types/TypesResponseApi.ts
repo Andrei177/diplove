@@ -5,7 +5,7 @@ interface IImage {
 }
 
 export interface IProfileResponse{
-    id: number | null,
+    id: number,
     first_name: string,
     last_name: string,
     gender: string, 

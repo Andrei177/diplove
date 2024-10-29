@@ -2,6 +2,7 @@ import { Routes } from "../../../app/router/router.config"
 import { QuestionLayout } from "../../../shared/QuestionLayout"
 import { Interest, useQuestionsStore } from "../../../shared/questionsStore/store"
 import Button from "../../../shared/ui/Button/Button"
+import { useProfileStore } from "../../Profile/store/store"
 import s from "./Interes.module.css"
 import { useNavigate } from "react-router-dom"
 
@@ -14,14 +15,14 @@ const interests = [
 
 export const Interes = () => {
   const { interes, setInteres, createAnket} = useQuestionsStore();
+  const { setAll } = useProfileStore();
   const navigate = useNavigate();
 
   const handleClick = (interesItemKey: string) => {
     setInteres(interesItemKey);
     createAnket()
     .then(res => {
-      console.log(res)
-      console.log(interes, "Интерес");
+      setAll(res.data);
       
       navigate(Routes.PROFILE);
     })

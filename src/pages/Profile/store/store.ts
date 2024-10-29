@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface IProfileData{
+interface IProfileData {
     id: number | null,
     first_name: string,
     last_name: string,
@@ -18,7 +18,7 @@ interface IProfileData{
     is_active: boolean | null,
 }
 
-interface IProfileStore{
+interface IProfileStore {
     id: number | null,
     first_name: string,
     last_name: string,

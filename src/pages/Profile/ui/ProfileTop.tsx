@@ -37,6 +37,8 @@ export const ProfileTop: FC<IPropsProfileTop> = ({imageUrl, isEdit, setIsEdit, s
                 .then((res) => {
                     setImage(null)
                     setImageUrl(res.image)
+                    console.log(res, "ответ при добавлении фото профиля");
+                    
                 })
                 .catch(err => console.log(err, "Ошибка при добавлении фото"))
             }
@@ -49,7 +51,9 @@ export const ProfileTop: FC<IPropsProfileTop> = ({imageUrl, isEdit, setIsEdit, s
             <div className={s.info}>
                 <div className={s.image}>
                     {isEdit 
-                        ? <UploadImage onChange={(e) => {e.target.files && setImage(e.target.files[0]); console.log(e.target.files);}}/>
+                        ? image 
+                            ? <img className={s.img} src={URL.createObjectURL(image)} alt="" /> 
+                            : <UploadImage onChange={(e) => {e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото");}}/>
                         : <img className={s.img} src={imageUrl} alt="" />}
                 </div>
                 <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
