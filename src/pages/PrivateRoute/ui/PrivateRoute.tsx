@@ -18,6 +18,8 @@ export const PrivateRoute = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    console.log("AAAAAAAAAAAAAAAAAAAA");
+    
     if(!hasRefreshed){
       setHasRefreshed(true);
       setIsLoading(true);
@@ -38,7 +40,7 @@ export const PrivateRoute = () => {
       })
       .finally(() => setIsLoading(false))
     }
-  }, [])
+  }, [hasRefreshed])
 
 
   if (isLoading && !isAuth) {
@@ -51,7 +53,7 @@ export const PrivateRoute = () => {
       </div>
     );
   } else if (!isLoading && !isAuth) {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('token');
     return (
       <Navigate
         to={Routes.START_PAGE}

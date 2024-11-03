@@ -1,0 +1,30 @@
+.message_wrapper{
+    display: flex;
+    justify-content: start;
+}
+.message_wrapper.me{
+    justify-content: end;
+}
+.message{
+    position: relative;
+    display: flex;
+    max-width: 350px;
+    border-radius: 20px;
+    background-color: rgba(210, 210, 210, 1);
+    padding: 17px;
+    margin: 5px 0px;
+}
+.message.me{
+    background: rgb(14,48,174);
+    background: linear-gradient(55deg, rgba(14,48,174,1) 0%, rgba(39,85,254,1) 100%);
+    color: white;
+}
+.date{
+    position: absolute;
+    bottom: 1px;
+    right: 2px;
+    color: rgba(123, 123, 123, 1);
+}
+.date.me{
+    color: rgba(206, 206, 206, 1);
+}

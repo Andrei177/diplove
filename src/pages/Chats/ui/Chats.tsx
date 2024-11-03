@@ -1,32 +1,103 @@
-import { useEffect } from "react"
+import { useEffect, useRef, useState } from "react"
 import { MainLayout } from "../../../shared/MainLayout"
 import { Textarea } from "../../../shared/ui/Textarea/Textarea"
 import s from "./Chats.module.css"
-import { getChats } from "../api/api"
-import { useChatsStore } from "../store/store"
-import { formatDate } from "../utils/formatDate"
+import { getChats, getMessages } from "../api/api"
+import { useChatsListStore, useChatStore } from "../store/store"
+import { ChatInfo } from "./ChatInfo"
+import { useAuthStore } from "../../../app/store/store"
+import send from "../assets/send.svg"
+import { Messages } from "./Messages/Messages"
 
 export const Chats = () => {
 
-  const { chats, setChats } = useChatsStore();
+  // ПОДКЛЮЧЕНИЕ ПО ВЕБСОКЕТАМ НЕ РАБОТАЕТ
+
+  const { chats, setChats } = useChatsListStore();
+  const { chat_id, setMessages, setChatId, addMessage} = useChatStore();
+  const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
+  const [text, setText] = useState("");
+
+  const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     getChats()
-    .then(res => setChats(res))
-    .catch(err => console.log(err, "Ошибка при получении чатов"))
+      .then(res => setChats(res))
+      .catch(err => {
+        console.log(err, "Ошибка при получении чатов")
+        if (err.status === 401) {
+          setHasRefreshed(false)
+        }
+      })
   }, [])
+
+  useEffect(() => {
+
+    // Функция для подключения к WebSocket
+    const connectWebSocket = (chatId: number | null) => {
+      if (chatId) {
+        // Закрываем предыдущее соединение, если оно существует
+        if (ws.current) {
+          ws.current.close();
+        }
+
+        // Создаем новое соединение
+        ws.current = new WebSocket(`ws://localhost:8000/ws/chat/${chatId}/`);
+
+        // Обрабатываем входящие сообщения
+        ws.current.onmessage = (event: MessageEvent) => {
+          const message = event.data;
+          addMessage(message);
+        };
+
+        // Обрабатываем ошибки
+        ws.current.onerror = (error) => {
+          console.error("WebSocket Error:", error);
+        };
+
+        // Обрабатываем закрытие соединения
+        ws.current.onclose = () => {
+          console.log("WebSocket connection closed");
+        };
+      }
+    };
+
+    // Подключаемся к WebSocket при монтировании компонента
+    connectWebSocket(chat_id);
+
+    // Закрываем соединение при размонтировании компонента
+    return () => {
+      ws.current?.close();
+    };
+
+  }, [chat_id])
+
+  const switchChat = (chatId: number | null) => {
+    if (chatId){
+      getMessages(chatId)
+      .then(res => setMessages(res))
+      .catch(err => console.log(err, "Ошибка при получении сообщений чата"))
+      setChatId(chatId);
+    } 
+  }
+
+  const sendMessage = () => {
+    console.log("Отправка сообщения");
+    ws.current?.send(text);
+    setText("");
+  }
 
   return (
     <MainLayout>
       <div className={s.chats_component}>
         <div className={s.sidebar}>
-          <hr/>
+          <hr />
           <div className={s.sidebar_chats}>
             Сообщения
             {
               chats.length !== 0
-              ? <>{chats.map(chatInfo => <h3>{chatInfo.chat_id} . в сети {formatDate(chatInfo.last_seen)}</h3>)}</>
-              : <h3>Пока нет чатов</h3>
+                ? <>{chats.map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo} onClick={() => switchChat(chatInfo.chat_id)} />)}</>
+                : <h3>Пока нет чатов</h3>
             }
           </div>
         </div>
@@ -35,12 +106,18 @@ export const Chats = () => {
             Инфа о пользователе с кем чат
           </div>
           <hr />
-          <div className={s.messages}>
-            Пока нет сообщений
-          </div>
+          <Messages />
           <hr />
           <div className={s.chat_textarea}>
-            <Textarea className={s.textarea} placeholder="Написать сообщение..."/>
+            <Textarea 
+              className={s.textarea} 
+              placeholder="Написать сообщение..." 
+              value={text}
+              onChange={e => setText(e.target.value)}
+            />
+            <div className={s.send} onClick={sendMessage}>
+              <img src={send} />
+            </div>
           </div>
         </div>
       </div>

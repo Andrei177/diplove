@@ -26,16 +26,14 @@
     height: 50px;
     padding: 10px;
 }
-.messages{
-    padding: 10px;
-    display: flex;
-    flex: 1 1 auto;
-}
 .chat_textarea{
     padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 .textarea{
-    width: 100%;
+    width: 90%;
     border: none;
     background-color: transparent;
     border-radius: 0%;
@@ -43,4 +41,7 @@
     font-size: 19px;
     font-weight: 400;
     padding: 0px;
+}
+.send{
+    cursor: pointer;
 }

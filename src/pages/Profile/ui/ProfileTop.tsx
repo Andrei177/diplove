@@ -6,6 +6,7 @@ import { FC, useState } from "react";
 import { addImage, updateProfile } from "../api/api"
 import { Loader } from "../../../shared/ui/Loader"
 import UploadImage from "./UploadImage/UploadImage"
+import ava from "../../../assets/ava.svg"
 
 interface IPropsProfileTop {
     isEdit: boolean;
@@ -52,9 +53,9 @@ export const ProfileTop: FC<IPropsProfileTop> = ({imageUrl, isEdit, setIsEdit, s
                 <div className={s.image}>
                     {isEdit 
                         ? image 
-                            ? <img className={s.img} src={URL.createObjectURL(image)} alt="" /> 
+                            ? <img className={s.img} src={URL.createObjectURL(image)}/> 
                             : <UploadImage onChange={(e) => {e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото");}}/>
-                        : <img className={s.img} src={imageUrl} alt="" />}
+                        : <img className={s.img} src={imageUrl ? imageUrl : ava} />}
                 </div>
                 <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
             </div>

@@ -45,7 +45,10 @@ $privateApi.interceptors.response.use(
 
       } catch (err) {
         console.log("НЕ АВТОРИЗОВАН, потому что рефреш токен не валиден");
+        localStorage.removeItem("token");
+        return Promise.reject(err);
       }
     }
+    return Promise.reject(error);
   }
 );

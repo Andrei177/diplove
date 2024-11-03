@@ -5,12 +5,14 @@ import { ProfileTop } from "./ProfileTop"
 import { ProfileContent } from "./ProfileContent/ProfileContent"
 import { ProfileContentEdit } from "./ProfileContent/ProfileContentEdit"
 import { useProfileStore } from "../store/store"
+import { useAuthStore } from "../../../app/store/store"
 
 export const Profile = () => {
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>("")
   const {id, setAll} = useProfileStore();
+  const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
 
   useEffect(() => {
     if(!id){
@@ -18,7 +20,9 @@ export const Profile = () => {
         .then(res => {
           setAll(res)
         })
-        .catch(err => console.log(err, "Ошибка при получении профиля юзера"))
+        .catch(err => {
+          console.log(err, "Ошибка при получении профиля юзера")
+        })
     }
     if (imageUrl.length === 0) {
       getImages()
@@ -31,6 +35,9 @@ export const Profile = () => {
         .catch(err => {
           console.log(err, "Ошибка при получении фото")
           setImageUrl("");
+          if(err.status === 401){
+            setHasRefreshed(false)
+          }
         })
     }
   }, [])

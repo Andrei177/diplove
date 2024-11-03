@@ -1,8 +1,6 @@
 import { $privateApi } from "../privateApi";
 import { $publicApi } from "../publicApi";
 
-// пока не проверял во взаимодействии с бэкэндом
-
 export const checkRefreshValidity = async () => {
     const response = await $privateApi.get("/user/token/refresh/");
 
