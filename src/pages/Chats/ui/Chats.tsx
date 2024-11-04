@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { MainLayout } from "../../../shared/MainLayout"
 import { Textarea } from "../../../shared/ui/Textarea/Textarea"
 import s from "./Chats.module.css"
-import { getChats, getMessages } from "../api/api"
-import { useChatsListStore, useChatStore } from "../store/store"
+import { getChats } from "../api/api"
+import { useChatsListStore } from "../store/store"
 import { ChatInfo } from "./ChatInfo"
 import { useAuthStore } from "../../../app/store/store"
 import send from "../assets/send.svg"
@@ -14,11 +14,9 @@ export const Chats = () => {
   // ПОДКЛЮЧЕНИЕ ПО ВЕБСОКЕТАМ НЕ РАБОТАЕТ
 
   const { chats, setChats } = useChatsListStore();
-  const { chat_id, setMessages, setChatId, addMessage} = useChatStore();
+  
   const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
   const [text, setText] = useState("");
-
-  const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
     getChats()
@@ -31,62 +29,6 @@ export const Chats = () => {
       })
   }, [])
 
-  useEffect(() => {
-
-    // Функция для подключения к WebSocket
-    const connectWebSocket = (chatId: number | null) => {
-      if (chatId) {
-        // Закрываем предыдущее соединение, если оно существует
-        if (ws.current) {
-          ws.current.close();
-        }
-
-        // Создаем новое соединение
-        ws.current = new WebSocket(`ws://localhost:8000/ws/chat/${chatId}/`);
-
-        // Обрабатываем входящие сообщения
-        ws.current.onmessage = (event: MessageEvent) => {
-          const message = event.data;
-          addMessage(message);
-        };
-
-        // Обрабатываем ошибки
-        ws.current.onerror = (error) => {
-          console.error("WebSocket Error:", error);
-        };
-
-        // Обрабатываем закрытие соединения
-        ws.current.onclose = () => {
-          console.log("WebSocket connection closed");
-        };
-      }
-    };
-
-    // Подключаемся к WebSocket при монтировании компонента
-    connectWebSocket(chat_id);
-
-    // Закрываем соединение при размонтировании компонента
-    return () => {
-      ws.current?.close();
-    };
-
-  }, [chat_id])
-
-  const switchChat = (chatId: number | null) => {
-    if (chatId){
-      getMessages(chatId)
-      .then(res => setMessages(res))
-      .catch(err => console.log(err, "Ошибка при получении сообщений чата"))
-      setChatId(chatId);
-    } 
-  }
-
-  const sendMessage = () => {
-    console.log("Отправка сообщения");
-    ws.current?.send(text);
-    setText("");
-  }
-
   return (
     <MainLayout>
       <div className={s.chats_component}>
@@ -96,7 +38,7 @@ export const Chats = () => {
             Сообщения
             {
               chats.length !== 0
-                ? <>{chats.map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo} onClick={() => switchChat(chatInfo.chat_id)} />)}</>
+                ? <>{chats.map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo}/>)}</>
                 : <h3>Пока нет чатов</h3>
             }
           </div>
@@ -115,7 +57,7 @@ export const Chats = () => {
               value={text}
               onChange={e => setText(e.target.value)}
             />
-            <div className={s.send} onClick={sendMessage}>
+            <div className={s.send}>
               <img src={send} />
             </div>
           </div>
@@ -124,3 +66,61 @@ export const Chats = () => {
     </MainLayout>
   )
 }
+
+// const { chat_id, setMessages, setChatId, addMessage} = useChatStore();
+  //const ws = useRef<WebSocket | null>(null);
+  // useEffect(() => {
+
+  //   // Функция для подключения к WebSocket
+  //   const connectWebSocket = (chatId: number | null) => {
+  //     if (chatId) {
+  //       // Закрываем предыдущее соединение, если оно существует
+  //       if (ws.current) {
+  //         ws.current.close();
+  //       }
+
+  //       // Создаем новое соединение
+  //       ws.current = new WebSocket(`ws://localhost:8000/ws/chat/${chatId}/`);
+
+  //       // Обрабатываем входящие сообщения
+  //       ws.current.onmessage = (event: MessageEvent) => {
+  //         const message = event.data;
+  //         addMessage(message);
+  //       };
+
+  //       // Обрабатываем ошибки
+  //       ws.current.onerror = (error) => {
+  //         console.error("WebSocket Error:", error);
+  //       };
+
+  //       // Обрабатываем закрытие соединения
+  //       ws.current.onclose = () => {
+  //         console.log("WebSocket connection closed");
+  //       };
+  //     }
+  //   };
+
+  //   // Подключаемся к WebSocket при монтировании компонента
+  //   connectWebSocket(chat_id);
+
+  //   // Закрываем соединение при размонтировании компонента
+  //   return () => {
+  //     ws.current?.close();
+  //   };
+
+  // }, [chat_id])
+
+  // const switchChat = (chatId: number | null) => {
+  //   if (chatId){
+  //     getMessages(chatId)
+  //     .then(res => setMessages(res))
+  //     .catch(err => console.log(err, "Ошибка при получении сообщений чата"))
+  //     setChatId(chatId);
+  //   } 
+  // }
+
+  // const sendMessage = () => {
+  //   console.log("Отправка сообщения");
+  //   ws.current?.send(text);
+  //   setText("");
+  // }

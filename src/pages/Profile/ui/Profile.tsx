@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { MainLayout } from "../../../shared/MainLayout"
-import { getImages, getProfile } from "../api/api"
+import { getImages, getMyProfile } from "../api/api"
 import { ProfileTop } from "./ProfileTop"
 import { ProfileContent } from "./ProfileContent/ProfileContent"
 import { ProfileContentEdit } from "./ProfileContent/ProfileContentEdit"
@@ -16,7 +16,7 @@ export const Profile = () => {
 
   useEffect(() => {
     if(!id){
-      getProfile()
+      getMyProfile()
         .then(res => {
           setAll(res)
         })

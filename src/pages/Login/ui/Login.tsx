@@ -9,7 +9,7 @@ import { useLoginStore } from "../../../shared/loginStore/loginStore"
 import { login as loginFn } from "../../../app/api/AuthService/AuthService"
 import { useState } from "react"
 import { nanoid } from "nanoid"
-import { getProfile } from "../../Profile/api/api"
+import { getMyProfile } from "../../Profile/api/api"
 import { useProfileStore } from "../../Profile/store/store"
 
 export const Login = () => {
@@ -29,7 +29,7 @@ export const Login = () => {
       .then(() => {
         setIsAuth(true);
         navigate(Routes.PROFILE)
-        getProfile()
+        getMyProfile()
         .then(res => {
           setAll(res)
         })

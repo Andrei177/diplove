@@ -12,6 +12,9 @@
     gap: 20px;
     align-items: center;
 }
+.name{
+    padding-bottom: 10px;
+}
 .image{
     height: 120px;
     width: 120px;
@@ -28,9 +31,6 @@
     min-width: 100%; 
     min-height: 100%; 
     object-fit: cover; 
-}
-.name{
-    padding-top: 40px;
 }
 .edit{
     cursor: pointer;

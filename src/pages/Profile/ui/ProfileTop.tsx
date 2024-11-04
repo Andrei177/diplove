@@ -7,6 +7,9 @@ import { addImage, updateProfile } from "../api/api"
 import { Loader } from "../../../shared/ui/Loader"
 import UploadImage from "./UploadImage/UploadImage"
 import ava from "../../../assets/ava.svg"
+import heart from "../assets/heart.svg"
+import Item from "../../../shared/ui/Item/Item";
+import { getInterest } from "../helpers/getInterest";
 
 interface IPropsProfileTop {
     isEdit: boolean;
@@ -15,33 +18,33 @@ interface IPropsProfileTop {
     setImageUrl: (url: string) => void;
 }
 
-export const ProfileTop: FC<IPropsProfileTop> = ({imageUrl, isEdit, setIsEdit, setImageUrl}) => {
+export const ProfileTop: FC<IPropsProfileTop> = ({ imageUrl, isEdit, setIsEdit, setImageUrl }) => {
 
     const profileInfo = useProfileStore();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [image, setImage] = useState<File | null>(null);
 
     const handleClick = () => {
-        if(isEdit){
+        if (isEdit) {
             setIsLoading(true);
 
-            updateProfile({...profileInfo})
-            .then(res => profileInfo.setAll(res))
-            .catch(err => console.log(err, "Ошибка при обновлении профиля"))
-            .finally(() => {
-                setIsEdit(!isEdit)
-                setIsLoading(false);
-            })
-
-            if(image){
-                addImage(image, true)
-                .then((res) => {
-                    setImage(null)
-                    setImageUrl(res.image)
-                    console.log(res, "ответ при добавлении фото профиля");
-                    
+            updateProfile({ ...profileInfo })
+                .then(res => profileInfo.setAll(res))
+                .catch(err => console.log(err, "Ошибка при обновлении профиля"))
+                .finally(() => {
+                    setIsEdit(!isEdit)
+                    setIsLoading(false);
                 })
-                .catch(err => console.log(err, "Ошибка при добавлении фото"))
+
+            if (image) {
+                addImage(image, true)
+                    .then((res) => {
+                        setImage(null)
+                        setImageUrl(res.image)
+                        console.log(res, "ответ при добавлении фото профиля");
+
+                    })
+                    .catch(err => console.log(err, "Ошибка при добавлении фото"))
             }
         }
         else setIsEdit(!isEdit)
@@ -51,22 +54,25 @@ export const ProfileTop: FC<IPropsProfileTop> = ({imageUrl, isEdit, setIsEdit, s
         <div className={s.wrapper}>
             <div className={s.info}>
                 <div className={s.image}>
-                    {isEdit 
-                        ? image 
-                            ? <img className={s.img} src={URL.createObjectURL(image)}/> 
-                            : <UploadImage onChange={(e) => {e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото");}}/>
+                    {isEdit
+                        ? image
+                            ? <img className={s.img} src={URL.createObjectURL(image)} />
+                            : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
                         : <img className={s.img} src={imageUrl ? imageUrl : ava} />}
                 </div>
-                <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
+                <div className={s.main_info}>
+                    <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
+                    <Item text={getInterest(profileInfo.dating_purpose)} img={heart}/>
+                </div>
             </div>
-            <div 
-                className={s.edit} 
+            <div
+                className={s.edit}
                 onClick={handleClick}
             >
                 {!isEdit ? <img src={editPen} alt="ред." /> : <img src={done} alt="сохранить" />}
             </div>
             {
-                isLoading && <Loader className={s.loader} positionAbsolute={true}/>
+                isLoading && <Loader className={s.loader} positionAbsolute={true} />
             }
         </div>
     )

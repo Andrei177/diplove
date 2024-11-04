@@ -5,7 +5,7 @@ import { Routes } from "../../../app/router/router.config";
 import { useAuthStore } from "../../../app/store/store";
 import Navbar from "../../../shared/NavBar/Navbar";
 import { Loader } from "../../../shared/ui/Loader";
-import { getProfile } from "../../Profile/api/api";
+import { getMyProfile } from "../../Profile/api/api";
 import { useProfileStore } from "../../Profile/store/store";
 
 export const PrivateRoute = () => {
@@ -28,7 +28,7 @@ export const PrivateRoute = () => {
       .then(() => {
         setIsAuth(true)
         if(pathname === Routes.ROOT) navigate(Routes.PROFILE)
-        getProfile()
+        getMyProfile()
         .then(res => {
           setAll(res)
         })

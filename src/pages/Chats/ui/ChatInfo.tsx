@@ -1,11 +1,11 @@
 import { FC } from "react"
-import { IChatInfo } from "../store/store"
+import { IChatInfo } from "../types/IChats";
 import s from "./ChatInfo.module.css"
 import ava from "../../../assets/ava.svg"
 
 interface IPropsChatInfo {
     chatInfo: IChatInfo;
-    onClick: () => void;
+    onClick?: () => void;
 }
 
 export const ChatInfo: FC<IPropsChatInfo> = ({ chatInfo, onClick}) => {

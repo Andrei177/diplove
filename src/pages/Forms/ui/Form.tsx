@@ -3,7 +3,7 @@ import dislike from "../assets/dislike.svg"
 import like from "../assets/like.svg"
 import { FC, useEffect } from "react";
 import { IProfileResponse } from "../types/TypesResponseApi";
-import { createChat } from "../api/createChatApi";
+import { createLike } from "../api/createLikeApi";
 
 interface IPropsForm {
     profile: IProfileResponse;
@@ -13,21 +13,21 @@ interface IPropsForm {
 
 export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => {
 
+    //В ЭТОМ КОМПОНЕНТЕ ПЕРЕДЕЛАТЬ, ЧТОБЫ БЫЛО НЕ ОДНО ФОТО А ВСЕ ФОТО ПОЛЬЗОВАТЕЛЯ В АНКЕТЕ МОЖНО БЫЛО ЛИСТАТЬ
     const imageUrl: string = profile.images.length
         ? "http://localhost:8000" + profile.images.filter(img => img.is_main_image)?.sort((a, b) => b.id - a.id)[0]?.image
         : "";
 
     useEffect(() => {
         console.log(profile, "чья то анкета");
-
     }, [])
 
     const handleLike = () => {
         incrementIndex();
         
-        createChat(profile.id)
-        .then(res => console.log(res.detail, "ответ при создании чата на лайк"))
-        .catch(err => console.log(err, "Ошибка при создании чата на лайк"))
+        createLike(profile.id)
+        .then(res => console.log(res.detail, "ответ при создании лайка"))
+        .catch(err => console.log(err, "Ошибка при создании лайка"))
     }
 
     return (

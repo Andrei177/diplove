@@ -1,4 +1,4 @@
-interface IImage {
+export interface IImage {
     id: number;
     image: string;
     is_main_image: boolean;

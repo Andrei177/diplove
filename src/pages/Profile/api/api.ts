@@ -1,27 +1,11 @@
 import { $privateApi } from "../../../app/api/privateApi"
+import { IImage, IProfileResponse } from "../../Forms/types/TypesResponseApi";
+import { IArgsUpdate } from "../types/IArgsUpdate";
 
-export const getProfile = async () => {
-    const response = await $privateApi.get("/profile/");
+export const getMyProfile = async () => {
+    const response = await $privateApi.get<IProfileResponse>("/profile/full-info/me/");
 
     return response.data
-}
-
-interface IArgsUpdate{
-    id?: number | null,
-    first_name?: string,
-    last_name?: string,
-    gender?: string, 
-    birthday?: string, 
-    dating_purpose?: string, 
-    searching_gender?: string, 
-    description?: string, 
-    smokes_cigarettes?: boolean | null, 
-    drinks_alcoholics?: boolean | null, 
-    zodiac_signs?: string, 
-    education?: string, 
-    job?: string, 
-    age?: number | null, 
-    is_active?: boolean | null,
 }
 
 export const updateProfile = async (profileData: IArgsUpdate) => {
@@ -32,25 +16,19 @@ export const updateProfile = async (profileData: IArgsUpdate) => {
     return response.data;
 }
 
-interface IResponseImage {
-    id: number,
-    image: string;
-    is_main_image: boolean;
-}
-
 export const addImage = async (image: Blob, is_main_image: boolean = false) => {
     const formData = new FormData();
 
     formData.append("image", image);
     formData.append("is_main_image", String(is_main_image));
 
-    const response = await $privateApi.post<IResponseImage>("/profile/image/add/", formData);
+    const response = await $privateApi.post<IImage>("/profile/image/add/", formData);
 
     return response.data;
 }
 
 export const getImages = async () => {
-    const response = await $privateApi.get<IResponseImage[]>("/profile/images/");
+    const response = await $privateApi.get<IImage[]>("/profile/images/");
 
     return response.data;
 }

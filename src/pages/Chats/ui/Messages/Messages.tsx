@@ -6,10 +6,10 @@ import { useChatStore } from "../../store/store"
 export const Messages = () => {
 
   // const messages: IMessage[] = [
-  //   {id: 1, sender: 2, text: "Аууу", datetime: "15:21", chat: 1},
-  //   {id: 2, sender: 2, text: "Привет", datetime: "16:23", chat: 1},
-  //   {id: 3, sender: 2, text: "Как дела?", datetime: "17:17", chat: 1},
-  //   {id: 4, sender: 1, text: "Хорошо", datetime: "17:17", chat: 1},
+  //   {id: 1, sender_id: 2, text: "Аууу", datetime: "15:21", chat_id: 1},
+  //   {id: 2, sender_id: 2, text: "Привет", datetime: "16:23", chat_id: 1},
+  //   {id: 3, sender_id: 2, text: "Как дела?", datetime: "17:17", chat_id: 1},
+  //   {id: 4, sender_id: 1, text: "Хорошо", datetime: "17:17", chat_id: 1},
   // ]
   const { messages } = useChatStore();
 
