@@ -1,6 +1,5 @@
 import { useProfileStore } from "../store/store"
 import s from "./ProfileTop.module.css"
-import editPen from "../assets/edit.svg"
 import done from "../assets/done.svg"
 import { FC, useState } from "react";
 import { addImage, updateProfile } from "../api/api"
@@ -8,8 +7,12 @@ import { Loader } from "../../../shared/ui/Loader"
 import UploadImage from "./UploadImage/UploadImage"
 import ava from "../../../assets/ava.svg"
 import heart from "../assets/heart.svg"
-import Item from "../../../shared/ui/Item/Item";
-import { getInterest } from "../helpers/getInterest";
+import settings from "../assets/settings.svg"
+import Item from "../../../shared/ui/Item/Item"
+import { getInterest } from "../helpers/getInterest"
+import Modal from "../../../shared/ui/Modal/Modal";
+import { EditPen } from "../../../shared/ui/EditPen/EditPen";
+import { Settings } from "./Settings/Settings";
 
 interface IPropsProfileTop {
     isEdit: boolean;
@@ -23,6 +26,8 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ imageUrl, isEdit, setIsEdit, 
     const profileInfo = useProfileStore();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [image, setImage] = useState<File | null>(null);
+
+    const [showSettings, setShowSettings] = useState<boolean>(false);
 
     const handleClick = () => {
         if (isEdit) {
@@ -51,29 +56,48 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ imageUrl, isEdit, setIsEdit, 
     }
 
     return (
-        <div className={s.wrapper}>
-            <div className={s.info}>
-                <div className={s.image}>
-                    {isEdit
-                        ? image
-                            ? <img className={s.img} src={URL.createObjectURL(image)} />
-                            : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
-                        : <img className={s.img} src={imageUrl ? imageUrl : ava} />}
+        <>
+            <div className={s.wrapper}>
+                <div className={s.info}>
+                    <div className={s.image}>
+                        {isEdit
+                            ? image
+                                ? <img className={s.img} src={URL.createObjectURL(image)} />
+                                : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
+                            : <img className={s.img} src={imageUrl ? imageUrl : ava} />}
+                    </div>
+                    <div className={s.main_info}>
+                        <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
+                        <Item text={getInterest(profileInfo.dating_purpose)} img={heart} />
+                    </div>
                 </div>
-                <div className={s.main_info}>
-                    <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
-                    <Item text={getInterest(profileInfo.dating_purpose)} img={heart}/>
+                <div
+                    className={s.right}
+                >
+                    <div
+                        className={isEdit ? s.settings : s.none}
+                        onClick={() => setShowSettings(true)}
+                    >
+                        <img src={settings} alt="настройки" />
+                    </div>
+                    <div
+                        className={s.edit}
+                        onClick={handleClick}
+                    >
+                        {isEdit
+                            ? <img src={done} alt="сохранить" />
+                            : <EditPen />}
+                    </div>
                 </div>
+                {
+                    isLoading && <Loader className={s.loader} positionAbsolute={true} />
+                }
             </div>
-            <div
-                className={s.edit}
-                onClick={handleClick}
-            >
-                {!isEdit ? <img src={editPen} alt="ред." /> : <img src={done} alt="сохранить" />}
-            </div>
-            {
-                isLoading && <Loader className={s.loader} positionAbsolute={true} />
-            }
-        </div>
+            <Modal
+                showModal={showSettings}
+                setShowModal={setShowSettings}>
+                <Settings setShowSettings={setShowSettings}/>
+            </Modal>
+        </>
     )
 }

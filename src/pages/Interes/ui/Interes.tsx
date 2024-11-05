@@ -1,7 +1,7 @@
 import { Routes } from "../../../app/router/router.config"
 import { QuestionLayout } from "../../../shared/QuestionLayout"
 import { Interest, useQuestionsStore } from "../../../shared/questionsStore/store"
-import Button from "../../../shared/ui/Button/Button"
+import Button, { VARIANT } from "../../../shared/ui/Button/Button"
 import { useProfileStore } from "../../Profile/store/store"
 import s from "./Interes.module.css"
 import { useNavigate } from "react-router-dom"
@@ -38,7 +38,7 @@ export const Interes = () => {
           interests.map(interesItem => 
           <Button 
             className={s.btn} 
-            variant={interesItem.key ===  interes ? "black" : "transparent"}
+            variant={interesItem.key ===  interes ? VARIANT.black : VARIANT.transparent}
             onClick={() => handleClick(interesItem.key)}
             key={interesItem.key}
           >

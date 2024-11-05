@@ -2,13 +2,20 @@ import { ButtonHTMLAttributes, FC } from "react"
 import s from "./Button.module.css"
 import cx from "classnames"
 
+export enum VARIANT{
+  blue="blue",
+  black="black",
+  transparent="transparent",
+  red="red"
+}
+
 interface IPropsButton extends ButtonHTMLAttributes<HTMLInputElement>{
   className?: string,
   onClick?: () => void,
-  variant?: string 
+  variant?: VARIANT 
 }
 
-const Button: FC<IPropsButton> = ({variant = "blue", ...props}) => {
+const Button: FC<IPropsButton> = ({variant = VARIANT.blue, ...props}) => {
   return (
     <button 
       className={cx(s.btn, props.className, s[variant])} 

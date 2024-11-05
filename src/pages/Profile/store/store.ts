@@ -15,7 +15,7 @@ interface IProfileData {
     education: string, 
     job: string, 
     age: number | null, 
-    is_active: boolean | null,
+    is_active: boolean | undefined,
 }
 
 interface IProfileStore {
@@ -33,7 +33,7 @@ interface IProfileStore {
     education: string, 
     job: string, 
     age: number | null, 
-    is_active: boolean | null,
+    is_active: boolean | undefined,
     // actions
     setId: (newId: number) => void,
     setFirstName: (newFirstName: string) => void,
@@ -68,7 +68,7 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     education: "", 
     job: "", 
     age: null, 
-    is_active: null, 
+    is_active: undefined, 
 
     setId: (newId) => set({id: newId}),
     setFirstName: (newFirstName) => set({first_name: newFirstName}),

@@ -1,0 +1,129 @@
+.settings{
+    width: 560px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.back{
+    cursor: pointer;
+}
+.main_settings{
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding-top: 40px;
+    margin-bottom: 40px;
+}
+.main_item{
+    display: flex;
+    justify-content: space-between;
+}
+.top{
+    position: relative;
+}
+.back{
+    position: absolute;
+}
+.title{
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+}
+.subtitle{
+    font-size: 21px;
+    font-weight: 400;
+}
+.dop_info{
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(113, 113, 113, 1);
+}
+
+
+.toggle_wrapper {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+.checkbox {
+    display: none; /* Скрываем стандартный чекбокс */
+}
+.toggle_back {
+    width: 55px; /* Ширина переключателя */
+    height: 30px; /* Высота переключателя */
+    background-color: #ccc; /* Цвет фона для выключенного состояния */
+    border-radius: 25px; /* Закругление углов */
+    position: relative; /* Для позиционирования шарика */
+    transition: background-color 0.3s ease; /* Плавный переход цвета */
+}
+.toggle_ball {
+    width: 24px; /* Ширина шарика */
+    height: 24px; /* Высота шарика */
+    background-color: white; /* Цвет шарика */
+    border-radius: 50%; /* Закругление углов для шарика */
+    position: absolute; /* Абсолютное позиционирование для перемещения шарика */
+    top: 50%; /* Центрирование по вертикали */
+    left: 3px; /* Начальная позиция шарика */
+    transform: translateY(-50%); /* Центрирование по вертикали */
+    transition: left 0.3s ease; /* Плавный переход для перемещения шарика */
+}
+/* Состояние включено */
+.checkbox:checked + .toggle_back {
+    background: rgb(14,48,174);
+    background: linear-gradient(55deg, rgba(14,48,174,1) 0%, rgba(39,85,254,1) 100%); /* Цвет фона для включенного состояния */
+}
+.checkbox:checked + .toggle_back .toggle_ball {
+    left: calc(100% - 27px); /* Перемещение шарика в правую сторону */
+}
+
+
+.switch{
+    display: flex;
+    gap: 7px;
+}
+.color_item{
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px 0px black;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.color_item:hover{
+    transition: 0.3s;
+    box-shadow: 0px 0px 6px 0px black;
+}
+.white{
+    background-color: rgba(255, 255, 255, 1);
+}
+.green{
+    background-color: rgba(17, 206, 0, 1);
+}
+.red{
+    background-color: rgba(220, 53, 89, 1);
+}
+.blue{
+    background-color: rgba(37, 72, 210, 1);
+}
+.support_icon{
+    transform: rotate(180deg);
+    cursor: pointer;
+}
+.btn{
+    font-size: 19px;
+    font-weight: 400;
+    padding: 10px;
+    width: 100%;
+    margin-top: 3px;
+}
+.exit:hover{
+    transition: 0.3s;
+    background-color: black;
+    border-color: white;
+    color: white;
+}
+.del:hover{
+    transition: 0.3s;
+    box-shadow: 0px 0px 6px 0px rgb(255, 111, 111);
+}

@@ -32,3 +32,15 @@ export const getImages = async () => {
 
     return response.data;
 }
+
+export const logout = async () => {
+    const res = await $privateApi.get("/user/logout/");
+
+    return res.data;
+}
+
+export const deleteProfile = async () => {
+    const res = await $privateApi.delete("/user/delete/");
+
+    return res.data;
+}

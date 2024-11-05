@@ -18,3 +18,9 @@
     border: 1px solid black;
     transition: 0.2s;
 }
+.red{
+    transition: 0.2s;
+    background: transparent;
+    color: rgba(220, 53, 75, 1);
+    border: none;
+}

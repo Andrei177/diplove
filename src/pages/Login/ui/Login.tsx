@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { AuthLayout } from "../../../shared/AuthLayout"
-import Button from "../../../shared/ui/Button/Button"
+import Button, { VARIANT } from "../../../shared/ui/Button/Button"
 import Input from "../../../shared/ui/Input/Input"
 import s from "./Login.module.css"
 import { Routes } from "../../../app/router/router.config"
@@ -69,7 +69,7 @@ export const Login = () => {
           onChange={e => setPassword(e.target.value)} />
         <p>Забыли пароль?</p>
         <Button className={s.btn} onClick={handleLogin}>Войти</Button>
-        <Button className={s.btn} variant="black" onClick={() => navigate(Routes.REGISTRATION)}>Создать профиль</Button>
+        <Button className={s.btn} variant={VARIANT.black} onClick={() => navigate(Routes.REGISTRATION)}>Создать профиль</Button>
         {usernameMessages.map(mess => <h5 key={nanoid()} style={{color: "red", width: "340px"}}>{mess}</h5>)}
         {passwordMessages.map(mess => <h5 key={nanoid()} style={{color: "red", width: "340px"}}>{mess}</h5>)}
         {detailMessage.length !== 0 && <h5 key={nanoid()} style={{color: "red", width: "340px"}}>{detailMessage}</h5>}

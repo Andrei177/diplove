@@ -35,6 +35,16 @@
 .edit{
     cursor: pointer;
 }
+.none{
+    display: none;
+}
+.settings{
+    cursor: pointer;
+}
+.right{
+    display: flex;
+    gap: 10px;
+}
 .loader{
     position: absolute;
     top: 0;
