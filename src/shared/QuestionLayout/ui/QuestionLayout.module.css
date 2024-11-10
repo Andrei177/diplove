@@ -21,6 +21,18 @@
     flex: 1 1 auto;
     animation: show-question 0.5s ease;
 }
+@media (max-width: 580px){
+    .layout{
+        display: block;
+    }
+    .wrapper{
+        background-color: white;
+        border-radius: 0;
+        padding: 20px;
+        width: auto;
+        height: auto;
+    }
+}
 @keyframes show-question{
     from{
         opacity: 0;

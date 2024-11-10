@@ -17,3 +17,12 @@
         opacity: 1;
     }
 }
+@media(max-width: 625px){
+    .layout{
+        padding: 0px;
+    }
+    .content{
+        border-radius: none;
+        background-color: white;
+    }
+}

@@ -1,21 +1,16 @@
-import { useNavigate } from "react-router-dom"
-import Button, { VARIANT } from "../../../shared/ui/Button/Button"
-import s from "./StartPage.module.css"
-import { Routes } from "../../../app/router/router.config";
+import { useMediaQuery } from "react-responsive";
+import { StartPageMobile } from "./Mobile/StartPageMobile";
+import { StartPageDekstop } from "./Dekstop/StartPageDekstop";
 
 export const StartPage = () => {
 
-  const navigate = useNavigate();
+  const isMobile = useMediaQuery({ maxWidth: "670px" });
 
   return (
-    <div className={s['start-page']}>
-      <h1 className={s.title}>Morfix</h1>
-      <Button variant={VARIANT.black} className={s.btn} onClick={() => navigate(Routes.REGISTRATION)}>Создать профиль</Button>
-      <p className={s.description}>
-        Osertad pov plamiment. Säbel<br/>
-        vovis. Hypov nesk, pyrade.<br/>
-        Pseudosere dalig. Operastat åbas.
-      </p>
-    </div>
+    <>
+      {
+        isMobile ? <StartPageMobile /> : <StartPageDekstop />
+      }
+    </>
   )
 }

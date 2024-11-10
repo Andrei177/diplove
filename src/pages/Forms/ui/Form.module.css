@@ -5,11 +5,21 @@
 }
 .avatar_img {
   position: relative;
-  background-color: gray;
+  background-color: rgba(0, 0, 0, 0.2);
   height: 560px;
   width: 365px;
   border-radius: 30px;
   overflow: hidden;
+}
+/* Дополнительные стили для Swiper */
+.slide {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.swiper {
+  width: 100%;
+  height: 100%; /* или фиксированная высота */
 }
 .image {
   width: 100%;
@@ -25,9 +35,11 @@
   justify-content: space-between;
   width: 100%;
   padding: 10px;
+  z-index: 3;
 }
 .info {
   width: 365px;
+  padding-left: 15px;
 }
 .like,
 .dislike {
@@ -58,4 +70,20 @@
   padding-top: 20px;
   font-size: 28px;
   font-weight: 700;
+}
+.desc{
+  font-size: 20px;
+  font-weight: 600;
+  padding-top: 20px;
+}
+.subtitle{
+  padding-top: 20px;
+  color: rgba(159, 159, 159, 1);
+  font-size: 20px;
+  font-weight: 500;
+}
+.main_info{
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
 }

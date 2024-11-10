@@ -1,54 +1,98 @@
-.wrapper{
-    display: flex;
-    justify-content: space-between;
-    padding: 20px 50px;
-    border: 1px solid rgba(159, 159, 159, 1);
-    border-radius: 30px;
-    align-items: center;
-    position: relative;
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 50px;
+  border: 1px solid rgba(159, 159, 159, 1);
+  border-radius: 30px;
+  align-items: center;
+  position: relative;
+  width: 753px;
 }
-.info{
-    display: flex;
-    gap: 20px;
-    align-items: center;
+.info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
-.name{
-    padding-bottom: 10px;
+.name {
+  padding-bottom: 10px;
 }
-.image{
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    border: 1px solid rgba(159, 159, 159, 1);
-    overflow: hidden; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
+.image {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  border: 1px solid rgba(159, 159, 159, 1);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.img{
-    width: 100%; 
-    height: auto; 
-    min-width: 100%; 
-    min-height: 100%; 
-    object-fit: cover; 
+.img {
+  width: 100%;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
 }
-.edit{
-    cursor: pointer;
+.edit {
+  cursor: pointer;
 }
-.none{
-    display: none;
+.none {
+  display: none;
 }
-.settings{
-    cursor: pointer;
+.settings {
+  cursor: pointer;
 }
-.right{
-    display: flex;
-    gap: 10px;
+.right {
+  display: flex;
+  gap: 10px;
 }
-.loader{
-    position: absolute;
-    top: 0;
-    left: 55%;
-    width: 60px;
-    height: 60px;
+.loader {
+  position: absolute;
+  top: 0;
+  left: 55%;
+  width: 60px;
+  height: 60px;
+}
+.top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.top_title {
+  font-size: 24px;
+  font-weight: 600;
+  padding-bottom: 15px;
+}
+@media (max-width: 760px) {
+  .wrapper {
+    width: 600px;
+  }
+}
+@media (max-width: 625px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: start;
+    border: none;
+    padding: 20px 7px;
+    width: 470px;
+  }
+}
+@media (max-width: 490px) {
+  .wrapper {
+    padding: 20px 5px;
+    width: 370px;
+  }
+  .image {
+    height: 80px;
+    width: 80px;
+  }
+}
+@media (max-width: 390px) {
+  .wrapper {
+    width: 340px;
+  }
+  .image {
+    height: 70px;
+    width: 70px;
+  }
 }

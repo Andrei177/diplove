@@ -1,39 +1,8 @@
 import { create } from "zustand";
+import { IHobbies, IImage, IProfileResponse } from "../../Forms/types/TypesResponseApi";
 
-interface IProfileData {
-    id: number | null,
-    first_name: string,
-    last_name: string,
-    gender: string, 
-    birthday: string, 
-    dating_purpose: string, 
-    searching_gender: string, 
-    description: string, 
-    smokes_cigarettes: boolean | null, 
-    drinks_alcoholics: boolean | null, 
-    zodiac_signs: string, 
-    education: string, 
-    job: string, 
-    age: number | null, 
-    is_active: boolean | undefined,
-}
+interface IProfileStore extends IProfileResponse{
 
-interface IProfileStore {
-    id: number | null,
-    first_name: string,
-    last_name: string,
-    gender: string, 
-    birthday: string, 
-    dating_purpose: string, 
-    searching_gender: string, 
-    description: string, 
-    smokes_cigarettes: boolean | null, 
-    drinks_alcoholics: boolean | null, 
-    zodiac_signs: string, 
-    education: string, 
-    job: string, 
-    age: number | null, 
-    is_active: boolean | undefined,
     // actions
     setId: (newId: number) => void,
     setFirstName: (newFirstName: string) => void,
@@ -50,7 +19,9 @@ interface IProfileStore {
     setJob: (newJob: string) => void, 
     setAge: (newAge: number) => void, 
     setIsActive: (bool: boolean) => void,
-    setAll: (profileData: IProfileData) => void
+    setAll: (profileData: IProfileResponse) => void,
+    setImages: (newImages: IImage[]) => void, 
+    setHobbies: (newHobbies: IHobbies[]) => void
 }
 
 export const useProfileStore = create<IProfileStore>((set) => ({
@@ -69,6 +40,8 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     job: "", 
     age: null, 
     is_active: undefined, 
+    images: [],
+    hobbies: [],
 
     setId: (newId) => set({id: newId}),
     setFirstName: (newFirstName) => set({first_name: newFirstName}),
@@ -85,6 +58,8 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     setJob: (newJob) => set({job: newJob}), 
     setAge: (newAge) => set({age: newAge}), 
     setIsActive: (bool) => set({is_active: bool}),
+    setImages: (newImages) => set({images: newImages}), 
+    setHobbies: (newHobbies) => set({hobbies: newHobbies}),
 
     setAll: (profileData) => set({...profileData})
 }))

@@ -1,14 +1,16 @@
 import { FC } from "react";
 import s from "./Item.module.css"
+import cx from "classnames";
 
 interface IPropsItem {
     img?: string;
     text: string | undefined;
+    className?: string;
 }
 
-export const Item: FC<IPropsItem> = ({ img, text }) => {
+export const Item: FC<IPropsItem> = ({ img, text, className }) => {
     return (
-        <div className={s.item}>
+        <div className={cx(s.item, className && className)}>
             {
                 img &&
                 <div className={s.img}>

@@ -10,7 +10,7 @@ import { useAuthStore } from "../../../app/store/store"
 export const Profile = () => {
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("")
+  const [imageUrl, setImageUrl] = useState<string>("");
   const {id, setAll} = useProfileStore();
   const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
 
@@ -27,8 +27,6 @@ export const Profile = () => {
     if (imageUrl.length === 0) {
       getImages()
         .then(res => {
-          console.log(res);
-
           setImageUrl(res.filter(img => img.is_main_image).sort((a, b) => b.id - a.id)[0].image)
 
         }) // тут сортирую по убыванию id чтобы взять потом последнюю фотку

@@ -19,6 +19,14 @@
     font-size: 140px;
     margin-bottom: 30px;
 }
+@media (max-width: 670px) {
+    .title{
+        font-size: 90px;
+    }
+    .btn{
+        width: 310px;
+    }
+}
 .description{
     text-align: center;
     font-size: 40px;

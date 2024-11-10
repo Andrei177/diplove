@@ -4,8 +4,13 @@ export interface IImage {
     is_main_image: boolean;
 }
 
+export interface IHobbies{
+    id: number;
+    name: string;
+}
+
 export interface IProfileResponse{
-    id: number,
+    id: number | null,
     first_name: string,
     last_name: string,
     gender: string, 
@@ -19,7 +24,7 @@ export interface IProfileResponse{
     education: string, 
     job: string, 
     age: number | null, 
-    is_active: boolean | null,
+    is_active: boolean | undefined,
     images: IImage[];
-    hobbies: [];
+    hobbies: IHobbies[];
 }

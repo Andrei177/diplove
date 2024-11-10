@@ -7,38 +7,42 @@ import Navbar from "../../../shared/NavBar/Navbar";
 import { Loader } from "../../../shared/ui/Loader";
 import { getMyProfile } from "../../Profile/api/api";
 import { useProfileStore } from "../../Profile/store/store";
+import { useMediaQuery } from "react-responsive";
 
 export const PrivateRoute = () => {
 
-  const {isAuth, setIsAuth, hasRefreshed, setHasRefreshed} = useAuthStore();
-  const { setAll } = useProfileStore();
+  const { isAuth, setIsAuth, hasRefreshed, setHasRefreshed } = useAuthStore();
+  const { setAll, id } = useProfileStore();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const isMobile = useMediaQuery({ maxWidth: "625px" });
+
   useEffect(() => {
-    console.log("AAAAAAAAAAAAAAAAAAAA");
-    
-    if(!hasRefreshed){
+
+    if (!hasRefreshed) {
       setHasRefreshed(true);
       setIsLoading(true);
 
       checkRefreshValidity()
-      .then(() => {
-        setIsAuth(true)
-        if(pathname === Routes.ROOT) navigate(Routes.PROFILE)
-        getMyProfile()
-        .then(res => {
-          setAll(res)
+        .then(() => {
+          setIsAuth(true)
+          if (pathname === Routes.ROOT) navigate(Routes.PROFILE)
+          getMyProfile()
+            .then(res => {
+              console.log(res);
+
+              setAll(res)
+            })
+            .catch(err => console.log(err, "Ошибка при получении профиля юзера"))
         })
-        .catch(err => console.log(err, "Ошибка при получении профиля юзера"))
-      })
-      .catch((err) => {
-        console.log(err, "ошибка при загрузке прайват роутов");
-        setIsAuth(false)
-      })
-      .finally(() => setIsLoading(false))
+        .catch((err) => {
+          console.log(err, "ошибка при загрузке прайват роутов");
+          setIsAuth(false)
+        })
+        .finally(() => setIsLoading(false))
     }
   }, [hasRefreshed])
 
@@ -46,10 +50,11 @@ export const PrivateRoute = () => {
   if (isLoading && !isAuth) {
     return (
       <div className='app'>
-        <Navbar />
+        {!isMobile && <Navbar />}
         <main>
           <Loader />
         </main>
+        {isMobile && <Navbar />}
       </div>
     );
   } else if (!isLoading && !isAuth) {
@@ -64,10 +69,12 @@ export const PrivateRoute = () => {
 
   return isAuth ? (
     <div className='app'>
-      <Navbar />
+      {(!isMobile && id) && <Navbar />}
       <main>
         <Outlet />
       </main>
+      {(isMobile && id) && <Navbar />}
+
     </div>
   ) : (
     <Navigate

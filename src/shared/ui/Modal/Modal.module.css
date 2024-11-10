@@ -40,3 +40,12 @@
     padding: 20px;
     border-radius: 20px;
 }
+.modal.mobile{
+    align-items: end;
+}
+.content.mobile{
+    border-radius: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 100%;
+}
