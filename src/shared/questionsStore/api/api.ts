@@ -6,7 +6,8 @@ export const createAnketFn = async (first_name: string, gender: string, searchin
         gender,
         birthday,
         dating_purpose,
-        searching_gender
+        searching_gender,
+        location: { latitude: 53.196860, longitude: 50.158323}
     });
     return response;
 }

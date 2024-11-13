@@ -40,6 +40,8 @@
 .info {
   width: 365px;
   padding-left: 15px;
+  overflow-y: scroll;
+  height: 560px;
 }
 .like,
 .dislike {
@@ -87,3 +89,27 @@
   gap: 7px;
   flex-wrap: wrap;
 }
+@media (max-width: 800px) {
+  .avatar_img, .info{
+    width: 333px;
+  }
+  .wrapper {
+    width: 715px;
+  }
+}
+@media (max-width: 720px) {
+  .wrapper {
+    width: 470px;
+  }
+}
+/* @media (max-width: 490px) {
+  .wrapper {
+    padding: 20px 5px;
+    width: 370px;
+  }
+}
+@media (max-width: 390px) {
+  .wrapper {
+    width: 340px;
+  }
+} */

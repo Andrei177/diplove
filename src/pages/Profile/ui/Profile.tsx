@@ -6,6 +6,8 @@ import { ProfileContent } from "./ProfileContent/ProfileContent"
 import { ProfileContentEdit } from "./ProfileContent/ProfileContentEdit"
 import { useProfileStore } from "../store/store"
 import { useAuthStore } from "../../../app/store/store"
+import { useNavigate } from "react-router-dom"
+import { Routes } from "../../../app/router/router.config"
 
 export const Profile = () => {
 
@@ -13,6 +15,7 @@ export const Profile = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
   const {id, setAll} = useProfileStore();
   const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(!id){
@@ -22,6 +25,9 @@ export const Profile = () => {
         })
         .catch(err => {
           console.log(err, "Ошибка при получении профиля юзера")
+          if(err.status === 404){
+            navigate(Routes.GENDER);
+          }
         })
     }
     if (imageUrl.length === 0) {

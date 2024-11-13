@@ -25,8 +25,6 @@ export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => 
 
     useEffect(() => {
         console.log(profile, "чья то анкета");
-        console.log(navigator.geolocation, "геолокация");
-
     }, [])
 
     const handleLike = () => {
@@ -60,8 +58,8 @@ export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => 
                             ))}
                         </Swiper>
                         {/* Кнопки навигации */}
-                        <div className="swiper-button-prev"/>
-                        <div className="swiper-button-next"/>
+                        <div className="swiper-button-prev" />
+                        <div className="swiper-button-next" />
 
                         <div className={s.assessment}>
                             <div
@@ -99,7 +97,6 @@ export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => 
                     }
                 </div>
             </div>
-
         }</>
     )
 }

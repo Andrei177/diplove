@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IHobbies, IImage, IProfileResponse } from "../../Forms/types/TypesResponseApi";
+import { IHobbies, IImage, ILocation, IProfileResponse } from "../../Forms/types/TypesResponseApi";
 
 interface IProfileStore extends IProfileResponse{
 
@@ -20,6 +20,8 @@ interface IProfileStore extends IProfileResponse{
     setAge: (newAge: number) => void, 
     setIsActive: (bool: boolean) => void,
     setAll: (profileData: IProfileResponse) => void,
+    setAddress: (newAddress: string) => void,
+    setLocation: (newLocation: ILocation) => void; 
     setImages: (newImages: IImage[]) => void, 
     setHobbies: (newHobbies: IHobbies[]) => void
 }
@@ -40,6 +42,11 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     job: "", 
     age: null, 
     is_active: undefined, 
+    address: "",
+    location: {
+        latitude: 53.196860,
+        longitude: 50.158323
+    },
     images: [],
     hobbies: [],
 
@@ -58,6 +65,8 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     setJob: (newJob) => set({job: newJob}), 
     setAge: (newAge) => set({age: newAge}), 
     setIsActive: (bool) => set({is_active: bool}),
+    setAddress: (newAddress) => set({address: newAddress}),
+    setLocation: (newLocation) => set({location: newLocation}),
     setImages: (newImages) => set({images: newImages}), 
     setHobbies: (newHobbies) => set({hobbies: newHobbies}),
 

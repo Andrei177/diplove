@@ -1,0 +1,189 @@
+.avatar_img {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 617px;
+  width: 400px;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.45),
+    0 -10px 30px -10px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+/* Дополнительные стили для Swiper */
+.slide {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.swiper {
+  width: 100%;
+  height: 100%; /* или фиксированная высота */
+}
+.image {
+  width: 100%;
+  height: auto;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
+.assessment {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  z-index: 4;
+}
+.like,
+.dislike {
+  width: 110px;
+  height: 60px;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 1s;
+}
+.like {
+  background-color: rgba(9, 121, 206, 1);
+}
+.like:hover {
+  transition: 1s;
+  background-color: rgb(4, 128, 222);
+}
+.dislike {
+  background-color: rgba(236, 38, 39, 1);
+}
+.dislike:hover {
+  transition: 1s;
+  background-color: rgb(249, 46, 46);
+}
+.top {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  padding-left: 30px;
+  z-index: 3;
+}
+.name {
+  color: white;
+  font-size: 24px;
+  font-weight: 600;
+}
+.name.black {
+  color: black;
+}
+.item {
+  background-color: rgba(233, 233, 233, 1);
+}
+.short_info {
+  position: absolute;
+  bottom: 72px;
+  color: white;
+  padding: 20px;
+  z-index: 3;
+}
+.all_info {
+  position: absolute;
+  z-index: 3;
+  background-color: white;
+  width: 100%;
+  height: 46%;
+  bottom: 0px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: none;
+  padding: 15px;
+  padding-bottom: 70px;
+}
+.show {
+  display: block;
+  animation: show 0.2s ease;
+}
+.hide {
+  animation: hide 0.1s ease;
+}
+@keyframes show {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 46%;
+  }
+}
+@keyframes hide {
+  from {
+    display: block;
+    height: 46%;
+  }
+  to {
+    display: none;
+    height: 0%;
+  }
+}
+.all_info_inner {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  overflow-y: scroll;
+  height: 85%;
+}
+.subtitle {
+  font-size: 18px;
+  font-weight: 400;
+}
+.desc {
+  color: white;
+  font-size: 19px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.desc.black {
+  color: black;
+}
+.items {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+@media (max-height: 1000px) {
+  .avatar_img {
+    height: 750px;
+  }
+}
+@media (max-height: 900px) {
+  .avatar_img {
+    height: 680px;
+  }
+}
+@media (max-height: 835px) {
+  .avatar_img {
+    height: 600px;
+  }
+}
+@media (max-height: 775px) {
+  .avatar_img {
+    height: 550px;
+  }
+}
+@media (max-height: 711px) {
+  .avatar_img {
+    height: 500px;
+  }
+}
+
+@media (max-width: 415px) {
+  .avatar_img {
+    width: 370px;
+  }
+}
+@media (max-width: 380px) {
+  .avatar_img {
+    width: 335px;
+  }
+}

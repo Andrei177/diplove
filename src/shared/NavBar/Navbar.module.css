@@ -56,7 +56,7 @@
         justify-content: flex-end;
     }
     .navbar.mobile{
-        padding: 20px;
+        padding: 10px 25px;
         justify-content: space-around;
     }
     .navbar__list.mobile{
@@ -68,6 +68,6 @@
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 20px;
+        padding: 10px 25px;
     }
 }

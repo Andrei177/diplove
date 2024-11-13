@@ -19,10 +19,10 @@ export const updateProfile = async (profileData: IArgsUpdate) => {
 export const addImage = async (image: Blob, is_main_image: boolean = false) => {
     const formData = new FormData();
 
-    formData.append("image", image);
-    formData.append("is_main_image", String(is_main_image));
+    formData.append("image_1", image);
+    formData.append("is_main_image_1", String(is_main_image));
 
-    const response = await $privateApi.post<IImage>("/profile/image/add/", formData);
+    const response = await $privateApi.post<IImage>("/profile/images/add/", formData);
 
     return response.data;
 }

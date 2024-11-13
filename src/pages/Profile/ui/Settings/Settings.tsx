@@ -8,6 +8,8 @@ import { useAuthStore } from "../../../../app/store/store"
 import { useNavigate } from "react-router-dom"
 import { Routes } from "../../../../app/router/router.config"
 import { useProfileStore } from "../../store/store"
+import { emptyStore } from "../../helpers/emptyStore"
+import { useChatsListStore } from "../../../Chats/store/store"
 
 interface IPropsSettings {
     setShowSettings: (bool: boolean) => void
@@ -16,15 +18,22 @@ interface IPropsSettings {
 export const Settings: FC<IPropsSettings> = ({ setShowSettings }) => {
 
     const setIsAuth = useAuthStore(state => state.setIsAuth);
-    const { is_active, setIsActive } = useProfileStore();
+    const { is_active, setIsActive, setAll} = useProfileStore();
+    const setChats = useChatsListStore(state => state.setChats);
     const navigate = useNavigate();
+
+    const exitAndDelFunc = () => {
+        localStorage.removeItem("token")
+        setIsAuth(false)
+        setAll(emptyStore)
+        setChats([])
+        navigate(Routes.START_PAGE)
+    }
 
     const exit = () => {
         logout()
             .then(() => {
-                localStorage.removeItem("token")
-                setIsAuth(false)
-                navigate(Routes.START_PAGE)
+                exitAndDelFunc()
             })
             .catch(err => {
                 console.log(err, "Не удалось выйти из аккаунта")
@@ -33,9 +42,7 @@ export const Settings: FC<IPropsSettings> = ({ setShowSettings }) => {
     const del = () => {
         deleteProfile()
             .then(() => {
-                localStorage.removeItem("token")
-                setIsAuth(false)
-                navigate(Routes.START_PAGE)
+                exitAndDelFunc()
             })
             .catch(err => {
                 console.log(err, "Не удалось удалить аккаунт")

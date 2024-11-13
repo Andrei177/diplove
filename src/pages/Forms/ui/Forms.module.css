@@ -1,0 +1,13 @@
+.top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0px;
+}
+.top h3{
+    font-size: 26px;
+    font-weight: 600;
+}
+.top_img{
+    cursor: pointer;
+}

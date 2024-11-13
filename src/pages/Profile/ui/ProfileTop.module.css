@@ -13,9 +13,6 @@
   gap: 10px;
   align-items: center;
 }
-.name {
-  padding-bottom: 10px;
-}
 .image {
   height: 120px;
   width: 120px;
@@ -63,6 +60,16 @@
   font-weight: 600;
   padding-bottom: 15px;
 }
+.main_info{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.geo{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 @media (max-width: 760px) {
   .wrapper {
     width: 600px;
@@ -85,6 +92,9 @@
   .image {
     height: 80px;
     width: 80px;
+  }
+  .main_info, .geo{
+    width: 250px;
   }
 }
 @media (max-width: 390px) {

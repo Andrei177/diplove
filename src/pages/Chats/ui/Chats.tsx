@@ -23,10 +23,36 @@ export const Chats = () => {
       .then(res => setChats(res))
       .catch(err => {
         console.log(err, "Ошибка при получении чатов")
+        setChats([]);
         if (err.status === 401) {
           setHasRefreshed(false)
         }
       })
+
+      const socket = new WebSocket('ws://127.0.0.1:8000/ws/chats/');
+
+    socket.onopen = () => {
+      console.log('Connected to the WebSocket server');
+    };
+
+    socket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      console.log('Received message:', message);
+    };
+
+    socket.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    socket.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+
+    // Очистка при размонтировании компонента
+    return () => {
+      socket.close();
+    };
+
   }, [])
 
   return (
