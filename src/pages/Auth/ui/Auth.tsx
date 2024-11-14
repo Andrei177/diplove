@@ -13,7 +13,7 @@ import { nanoid } from "nanoid"
 export const Auth = () => {
 
   const navigate = useNavigate();
-  const {login, password, setLogin, setPassword, isLoading, setIsLoading} = useLoginStore();
+  const {login, password, setLogin, setPassword, isLoading, setIsLoading, setId} = useLoginStore();
   const {setIsAuth} = useAuthStore();
 
   const [usernameMessages, setUsernameMessages] = useState<string[]>([])
@@ -22,8 +22,9 @@ export const Auth = () => {
   const handleRegister = () => {
     setIsLoading(true);
     register(login, password)
-    .then(() => {
-      setIsAuth(true);
+    .then((res) => {
+      setId(res.user.id)
+      setIsAuth(true)
       navigate(Routes.GENDER)
     })
     .catch((err) => {

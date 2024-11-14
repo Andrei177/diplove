@@ -21,9 +21,10 @@
 }
 .date{
     position: absolute;
-    bottom: 1px;
-    right: 2px;
+    bottom: 3px;
+    right: 10px;
     color: rgba(123, 123, 123, 1);
+    font-size: 14px;
 }
 .date.me{
     color: rgba(206, 206, 206, 1);

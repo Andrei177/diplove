@@ -45,3 +45,5 @@ export const GenderComponent = () => {
     </QuestionLayout>
   )
 }
+
+export default GenderComponent

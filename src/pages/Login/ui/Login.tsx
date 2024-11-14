@@ -15,7 +15,7 @@ import { useProfileStore } from "../../Profile/store/store"
 export const Login = () => {
 
   const navigate = useNavigate();
-  const { login, password, setLogin, setPassword, isLoading, setIsLoading } = useLoginStore();
+  const { login, password, setLogin, setPassword, isLoading, setIsLoading, setId } = useLoginStore();
   const { setIsAuth } = useAuthStore();
   
   const [usernameMessages, setUsernameMessages] = useState<string[]>([])
@@ -26,8 +26,9 @@ export const Login = () => {
   const handleLogin = () => {
     setIsLoading(true);
     loginFn(login, password)
-      .then(() => {
-        setIsAuth(true);
+      .then((res) => {
+        setId(res.user.id)
+        setIsAuth(true)
         navigate(Routes.PROFILE)
         getMyProfile()
         .then(res => {

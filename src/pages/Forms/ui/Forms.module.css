@@ -2,7 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0px;
+    padding: 20px 10px;
+    width: 100%;
 }
 .top h3{
     font-size: 26px;

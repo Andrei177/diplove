@@ -1,0 +1,49 @@
+.sidebar{
+    padding: 15px;
+    padding-top: 90px;
+    width: 47%;
+}
+.sidebar_chats{
+    width: 100%;
+    padding: 20px;
+    overflow-y: scroll;
+    height: 100%;
+}
+.alone{
+    width: 80%;
+}
+@media (max-width: 685px){
+    .sidebar{
+        width: 25%;
+    }
+    .sidebar_chats{
+        padding: 5px;
+    }
+    .alone{
+        width: 80%;
+    }
+}
+@media (max-width: 625px){
+    .sidebar{
+        padding-top: 10px;
+    }
+    .alone{
+        width: 90%;
+    }
+}
+@media (max-width: 505px){
+    .chats_component{
+        width: 500px;
+    }
+    .sidebar{
+        padding: 5px;
+    }
+    .alone{
+        width: 95%;
+    }
+}
+@media (max-width: 405px){
+    .alone{
+        width: 100%;
+    }
+}

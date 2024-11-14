@@ -4,6 +4,7 @@
     border-radius: 10px;
     transition: 0.3s;
     cursor: pointer;
+    width: 100%;
 }
 .chat_info:hover{
     background-color: rgba(210, 210, 210, 1);
@@ -14,7 +15,10 @@
     justify-content: space-between;
 }
 .msg_text{
-    font-size: 16px;
+    font-size: 14px;
+}
+.msg_date{
+    font-size: 14px;
 }
 .image{
     height: 50px;
@@ -40,4 +44,12 @@
 .name{
     font-size: 18px;
     font-weight: 500;
+}
+.none{
+    display: none;
+}
+@media (max-width: 685px){
+    .chat_info{
+        justify-content: center;
+    }
 }

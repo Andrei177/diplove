@@ -65,3 +65,5 @@ export const Forms = () => {
     </MainLayout>
   )
 }
+
+export default Forms;

@@ -20,9 +20,13 @@
 @media(max-width: 625px){
     .layout{
         padding: 0px;
+        height: 100%;
+        width: 100%;
     }
     .content{
         border-radius: none;
+        height: 100%;
         background-color: white;
+        width: 100%;
     }
 }

@@ -4,15 +4,17 @@ import App from "../../App";
 import { Auth } from "../../pages/Auth";
 import { Login } from "../../pages/Login";
 import { Routes } from "./router.config";
-import { Gender } from "../../pages/Gender";
 import { Name } from "../../pages/Name";
 import { Birthday } from "../../pages/Birthday";
 import { Interes } from "../../pages/Interes";
 import { PrivateRoute } from "../../pages/PrivateRoute";
-import { Profile } from "../../pages/Profile";
-import { Chats } from "../../pages/Chats";
 import { SearchGender } from "../../pages/SearchGender";
-import { Forms } from "../../pages/Forms";
+import { lazy } from "react";
+
+const Profile = lazy(() => import('../../pages/Profile/ui/Profile'))
+const Chats = lazy(() => import('../../pages/Chats/ui/Chats'))
+const Forms = lazy(() => import('../../pages/Forms/ui/Forms'))
+const Gender = lazy(() => import('../../pages/Gender/ui/Gender'))
 
 const router = createBrowserRouter([
     {

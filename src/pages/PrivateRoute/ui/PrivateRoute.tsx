@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { checkRefreshValidity } from "../../../app/api/AuthService/AuthService";
 import { Routes } from "../../../app/router/router.config";
@@ -71,7 +71,9 @@ export const PrivateRoute = () => {
     <div className='app'>
       {(!isMobile && id) && <Navbar />}
       <main>
-        <Outlet />
+        <Suspense fallback={<Loader/>}>
+          <Outlet />
+        </Suspense>
       </main>
       {(isMobile && id) && <Navbar />}
 

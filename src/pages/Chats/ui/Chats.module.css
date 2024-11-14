@@ -5,43 +5,26 @@
     font-weight: 400;
     font-size: 19px;
 }
-.chat{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+@media (max-width: 755px){
+    .chats_component{
+        width: 680px;
+    }
 }
-.sidebar{
-    padding: 15px;
-    padding-top: 90px;
+@media (max-width: 685px){
+    .chats_component{
+        width: 620px;
+        justify-content: center;
+    }
 }
-.sidebar_chats{
-    width: 322px;
-    padding: 20px;
+@media (max-width: 625px){
+    .chats_component{
+        width: 500px;
+        height: 88%;
+        margin: 0 auto;
+    }
 }
-.chat{
-    border-left: 1px solid rgba(159, 159, 159, 1);
-}
-.chat_user{
-    height: 50px;
-    padding: 10px;
-}
-.chat_textarea{
-    padding: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.textarea{
-    width: 90%;
-    border: none;
-    background-color: transparent;
-    border-radius: 0%;
-    outline: none;
-    font-size: 19px;
-    font-weight: 400;
-    padding: 0px;
-}
-.send{
-    cursor: pointer;
+@media (max-width: 505px){
+    .chats_component{
+        width: 100%;
+    }
 }

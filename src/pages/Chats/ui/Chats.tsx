@@ -1,22 +1,28 @@
 import { useEffect, useState } from "react"
 import { MainLayout } from "../../../shared/MainLayout"
-import { Textarea } from "../../../shared/ui/Textarea/Textarea"
 import s from "./Chats.module.css"
 import { getChats } from "../api/api"
-import { useChatsListStore } from "../store/store"
-import { ChatInfo } from "./ChatInfo"
+import { useChatsListStore, useChatStore } from "../store/store"
 import { useAuthStore } from "../../../app/store/store"
-import send from "../assets/send.svg"
-import { Messages } from "./Messages/Messages"
+import { useMediaQuery } from "react-responsive"
+import { Sidebar } from "./Sidebar/Sidebar"
+import { Chat } from "./Chat/Chat"
 
 export const Chats = () => {
 
   // ПОДКЛЮЧЕНИЕ ПО ВЕБСОКЕТАМ НЕ РАБОТАЕТ
 
-  const { chats, setChats } = useChatsListStore();
-  
+  const { setChats } = useChatsListStore();
+
   const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
   const [text, setText] = useState("");
+
+  const isMobile = useMediaQuery({ maxWidth: "625px" });
+
+  const [showSidebar, setShowSidebar] = useState<boolean>(true);
+  const { chat_id, addMessage } = useChatStore();
+
+  const [chatSocket, setChatSocket] = useState<WebSocket | null>(null);
 
   useEffect(() => {
     getChats()
@@ -29,15 +35,15 @@ export const Chats = () => {
         }
       })
 
-      const socket = new WebSocket('ws://127.0.0.1:8000/ws/chats/');
+    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/chats/?token=${localStorage.getItem("token")}`);
 
     socket.onopen = () => {
       console.log('Connected to the WebSocket server');
     };
 
     socket.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      console.log('Received message:', message);
+      //const message = JSON.parse(event.data);
+      console.log('Received message:', event);
     };
 
     socket.onerror = (error) => {
@@ -55,43 +61,77 @@ export const Chats = () => {
 
   }, [])
 
+  useEffect(() => {
+    if (chat_id) {
+      // Если сокет уже существует, закрываем его
+      if (chatSocket) {
+        chatSocket.close();
+      }
+
+      // Создаем новое подключение WebSocket для нового chat_id
+      const socketChat = new WebSocket(
+        `ws://127.0.0.1:8000/ws/chat/${chat_id}/?token=${localStorage.getItem(
+          "token"
+        )}`
+      );
+
+      socketChat.onopen = () => {
+        console.log("Подключился к чату");
+      };
+
+      socketChat.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        addMessage(message.message)
+      };
+
+      socketChat.onerror = (error) => {
+        console.error("Ошибка в чате:", error);
+      };
+
+      socketChat.onclose = () => {
+        console.log("Соединение закрыто");
+      };
+
+      // Устанавливаем новый WebSocket
+      setChatSocket(socketChat);
+
+      // Очистка при размонтировании компонента
+      return () => {
+        socketChat.close();
+      };
+    }
+  }, [chat_id]);
+
+  
+  const sendMessage = () => {
+    chatSocket?.send(JSON.stringify({
+        action: "send",
+        data: {
+            text: text,
+            media: null
+        }
+    }))
+}
+
   return (
     <MainLayout>
       <div className={s.chats_component}>
-        <div className={s.sidebar}>
-          <hr />
-          <div className={s.sidebar_chats}>
-            Сообщения
-            {
-              chats.length !== 0
-                ? <>{chats.map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo}/>)}</>
-                : <h3>Пока нет чатов</h3>
-            }
-          </div>
-        </div>
-        <div className={s.chat}>
-          <div className={s.chat_user}>
-            Инфа о пользователе с кем чат
-          </div>
-          <hr />
-          <Messages />
-          <hr />
-          <div className={s.chat_textarea}>
-            <Textarea 
-              className={s.textarea} 
-              placeholder="Написать сообщение..." 
-              value={text}
-              onChange={e => setText(e.target.value)}
-            />
-            <div className={s.send}>
-              <img src={send} />
-            </div>
-          </div>
-        </div>
+        {
+          isMobile
+            ? showSidebar
+              ? <Sidebar alone={true} setShowSidebar={setShowSidebar} chatSocket={chatSocket} />
+              : <Chat alone={true} text={text} setText={setText} setShowSidebar={setShowSidebar} sendMessage={sendMessage}/>
+            : <>
+              <Sidebar />
+              <Chat text={text} setText={setText} sendMessage={sendMessage}/>
+            </>
+        }
       </div>
     </MainLayout>
   )
 }
+
+export default Chats;
 
 // const { chat_id, setMessages, setChatId, addMessage} = useChatStore();
   //const ws = useRef<WebSocket | null>(null);

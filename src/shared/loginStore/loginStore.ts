@@ -1,8 +1,10 @@
 import { create } from "zustand";
 
 interface ILoginStore{
+    id: number | null,
     login: string,
     password: string,
+    setId: (newId: number) => void,
     setLogin: (newLogin: string) => void,
     setPassword: (newPassword: string) => void,
     isLoading: boolean,
@@ -10,10 +12,12 @@ interface ILoginStore{
 }
 
 export const useLoginStore = create<ILoginStore>(set => ({
+    id: null,
     login: "",
     password: "",
-    setLogin: (newLogin: string) => set({login: newLogin}),
-    setPassword: (newPassword: string) => set({password: newPassword}),
+    setId: (newId) => set({id: newId}),
+    setLogin: (newLogin) => set({login: newLogin}),
+    setPassword: (newPassword) => set({password: newPassword}),
     isLoading: false,
-    setIsLoading: (bool: boolean) => set({isLoading: bool}),
+    setIsLoading: (bool) => set({isLoading: bool}),
 }))

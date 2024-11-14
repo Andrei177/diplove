@@ -8,3 +8,8 @@
     flex-direction: column;
     justify-content: end;
 }
+@media(max-width: 625px){
+    .messages{
+        height: 400px
+    }
+}

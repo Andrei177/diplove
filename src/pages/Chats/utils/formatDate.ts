@@ -7,7 +7,7 @@ export const formatDate = (dateString: string): string => {
     
     // Если разница меньше 60 минут
     if (diffInMinutes < 60) {
-        return `${diffInMinutes} ${diffInMinutes === 1 ? 'минуту' : 'минуты'} назад`;
+        return `${diffInMinutes} мин. назад`;
     } 
     
     const diffInHours = Math.floor(diffInMinutes / 60);
