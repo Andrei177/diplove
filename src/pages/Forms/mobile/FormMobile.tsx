@@ -15,23 +15,32 @@ import cx from "classnames";
 
 interface IPropsForm {
     profile: IProfileResponse;
-    incrementIndex: () => void;
-    isVisible: boolean;
+    incrementIndex?: () => void;
+    isVisible?: boolean;
+    inLikesPage?: boolean;
 }
 
-export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => {
+export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible = true, inLikesPage = false }) => {
 
     useEffect(() => {
         console.log(profile, "чья то анкета");
     }, [])
 
     const handleLike = () => {
-        incrementIndex();
+        if(incrementIndex) incrementIndex();
 
         if (profile.id) createLike(profile.id)
             .then(res => console.log(res.detail, "ответ при создании лайка"))
             .catch(err => console.log(err, "Ошибка при создании лайка"))
     }
+
+    const [showAnket, setShowAnket] = useState(true);
+    const handleDislike = () => {
+        if(incrementIndex) incrementIndex();
+
+        setShowAnket(false);
+    }
+
     const [touchStart, setTouchStart] = useState<number | null>(null)
     const [touchEnd, setTouchEnd] = useState<number | null>(null)
     const [showInfo, setShowInfo] = useState<boolean>(false)
@@ -50,9 +59,9 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
 
     return (
         <>{isVisible &&
-            <div className={s.wrapper}>
+            <div className={inLikesPage ? (showAnket ? s.wrapper : s.none) : s.wrapper}>
                 <div className={s.avatar}>
-                    <div className={s.avatar_img} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onDoubleClick={() => setShowInfo(!showInfo)}>
+                    <div className={inLikesPage ? cx(s.avatar_img, s.small) : s.avatar_img} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onDoubleClick={() => setShowInfo(!showInfo)}>
                         {!showInfo && <div className={s.top}>
                             <h2 className={s.name}>{profile.first_name}, {profile.age}</h2>
                             <Item className={s.item} text={getInterest(profile.dating_purpose)} img={heart} />
@@ -90,7 +99,7 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                         <div className={s.assessment}>
                             <div
                                 className={s.dislike}
-                                onClick={incrementIndex}
+                                onClick={handleDislike}
                             >
                                 <img src={dislike} alt="dis" />
                             </div>

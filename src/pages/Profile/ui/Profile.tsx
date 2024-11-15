@@ -12,7 +12,6 @@ import { useAuthStore } from "../../../app/store/store"
 export const Profile = () => {
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
   const { id, setAll } = useProfileStore();
   const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
   const navigate = useNavigate();
@@ -22,8 +21,6 @@ export const Profile = () => {
       getMyProfile()
         .then(res => {
           setAll(res)
-          setImageUrl(res.images.filter(img => img.is_main_image).sort((a, b) => b.id - a.id)[0].image)
-          // тут сортирую по убыванию id чтобы взять потом последнюю фотку
         })
         .catch(err => {
           console.log(err, "Ошибка при получении профиля юзера")
@@ -35,6 +32,7 @@ export const Profile = () => {
           }
         })
     }
+
     // if (imageUrl.length === 0) {
     //   getImages()
     //     .then(res => {
@@ -53,7 +51,7 @@ export const Profile = () => {
 
   return (
     <MainLayout>
-      <ProfileTop isEdit={isEdit} setIsEdit={setIsEdit} imageUrl={imageUrl} setImageUrl={setImageUrl} />
+      <ProfileTop isEdit={isEdit} setIsEdit={setIsEdit} />
       {
         isEdit
           ? <ProfileContentEdit />

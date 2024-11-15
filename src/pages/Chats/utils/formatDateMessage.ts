@@ -1,5 +1,21 @@
 export const formatDateMessage = (dateString: string): string => {
     const date = new Date(dateString);
+    const now = new Date();
+
+    // Вычисляем разницу в миллисекундах
+    const differenceInMs = now.getTime() - date.getTime();
+    const oneDayInMs = 24 * 60 * 60 * 1000; // Количество миллисекунд в одном дне
+
+    // Если разница больше суток
+    if (differenceInMs > oneDayInMs) {
+        const options: Intl.DateTimeFormatOptions = {
+            day: '2-digit',
+            month: 'short', // Сокращенное название месяца
+        };
+
+        // Форматируем дату с учетом локали 'ru-RU' и заданных опций
+        return new Intl.DateTimeFormat('ru-RU', options).format(date);
+    }
 
     // Используем Intl.DateTimeFormat для форматирования времени с учетом часового пояса
     const options: Intl.DateTimeFormatOptions = {

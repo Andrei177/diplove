@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom"
 import { Routes } from "../../../../app/router/router.config"
 import { useProfileStore } from "../../store/store"
 import { emptyStore } from "../../helpers/emptyStore"
-import { useChatsListStore } from "../../../Chats/store/store"
+import { useChatsListStore, useChatStore } from "../../../Chats/store/store"
 
 interface IPropsSettings {
     setShowSettings: (bool: boolean) => void
@@ -19,12 +19,14 @@ export const Settings: FC<IPropsSettings> = ({ setShowSettings }) => {
 
     const setIsAuth = useAuthStore(state => state.setIsAuth);
     const { is_active, setIsActive, setAll} = useProfileStore();
+    const setEmty = useChatStore(state => state.setEmpty);
     const setChats = useChatsListStore(state => state.setChats);
     const navigate = useNavigate();
 
     const exitAndDelFunc = () => {
         localStorage.removeItem("token")
         setIsAuth(false)
+        setEmty();
         setAll(emptyStore)
         setChats([])
         navigate(Routes.START_PAGE)

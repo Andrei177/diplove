@@ -9,6 +9,7 @@ export enum Routes{
     PROFILE = "/profile",
     CHATS = "/chats",
     FORMS = "/forms",
+    LIKES = "/likes",
     GENDER = "/gender",
     SEARCH_GENDER = "/search-gender",
     NAME = "/name",

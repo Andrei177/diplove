@@ -29,6 +29,13 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
         }
     }, [chat_id])
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if(e.key === "Enter"){
+            e.preventDefault();
+            sendMessage();
+        }
+    }
+
     return (
         <div className={alone ? cx(s.chat, s.alone) : s.chat}>
             <div className={s.chat_user}>
@@ -47,7 +54,7 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
             {!alone && <hr />}
             <Messages />
             {!alone && <hr />}
-            <div className={alone ? cx(s.chat_textarea, s.mobile_txt) : s.chat_textarea}>
+            <div className={alone ? cx(s.chat_textarea, s.mobile_txt) : s.chat_textarea} onKeyDown={e => handleKeyDown(e)}>
                 <Textarea
                     className={s.textarea}
                     placeholder="Написать сообщение..."

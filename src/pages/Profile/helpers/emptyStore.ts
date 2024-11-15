@@ -1,5 +1,8 @@
-export const emptyStore = {
+import { IProfileResponse } from "../../Forms/types/TypesResponseApi";
+
+export const emptyStore: IProfileResponse = {
     id: null,
+    user_id: null,
     first_name: "",
     last_name: "",
     gender: "", 

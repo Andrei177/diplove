@@ -16,6 +16,7 @@ export interface ILocation{
 
 export interface IProfileResponse{
     id: number | null,
+    user_id: number | null,
     first_name: string,
     last_name: string,
     gender: string, 

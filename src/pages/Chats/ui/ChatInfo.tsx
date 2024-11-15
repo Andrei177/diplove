@@ -3,7 +3,7 @@ import { IChatInfo } from "../types/IChats";
 import s from "./ChatInfo.module.css"
 import ava from "../../../assets/ava.svg"
 import { useMediaQuery } from "react-responsive";
-import { formatDate } from "../utils/formatDate";
+import { formatDateMessage } from "../utils/formatDateMessage";
 
 interface IPropsChatInfo {
     chatInfo: IChatInfo;
@@ -22,17 +22,29 @@ export const ChatInfo: FC<IPropsChatInfo> = ({ chatInfo, onClick }) => {
             </div>
             {(isMobile || (!isPlanshet && !isMobile)) &&
                 <div className={s.main_chat_info}>
-                    <h3 className={s.name}>{chatInfo.other_profile_first_name}</h3>
+                    <div className={s.name_date}>
+                        <h3 className={s.name}>{chatInfo.other_profile_first_name}</h3>
+                        <div className={s.msg_date}>
+                            {chatInfo.last_message_datetime ? formatDateMessage(chatInfo.last_message_datetime) : ""}
+                        </div>
+                    </div>
                     <div className={s.msg_info}>
                         <div className={s.msg_text}>
-                            {chatInfo.last_message_text
-                                ?
-                                    chatInfo.last_message_first_name + " " + (chatInfo.last_message_text.length > 15 ? chatInfo.last_message_text.substring(0, 15) + "..." : chatInfo.last_message_text)
-                                : "Нет сообщений"}
+                            {
+                                chatInfo.last_message_text
+                                    ? <>
+                                        <h4 className={s.last_msg_name}>{chatInfo.last_message_first_name}: </h4>
+                                        {(chatInfo.last_message_text.length > 15 ? chatInfo.last_message_text.substring(0, 15) + "..." : chatInfo.last_message_text)}
+                                    </>
+                                    : "Нет сообщений"
+                            }
                         </div>
-                        <div className={s.msg_date}>
-                            {chatInfo.last_message_datetime ? formatDate(chatInfo.last_message_datetime) : ""}
-                        </div>
+                        {
+                            chatInfo.unseen_messages_length !== 0 &&
+                            <div className={s.msg_unseen_length}>
+                                {chatInfo.unseen_messages_length}
+                            </div>
+                        }
                     </div>
                 </div>
             }

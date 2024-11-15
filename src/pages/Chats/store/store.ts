@@ -1,10 +1,35 @@
 import { create } from "zustand";
 import { IMessage } from "../types/IMessage";
-import { IChatsListStore } from "../types/IChats";
+import { IChatInfo, IChatsListStore } from "../types/IChats";
 
-export const useChatsListStore = create<IChatsListStore>(set => ({
+export const useChatsListStore = create<IChatsListStore>((set, get) => ({
     chats: [],
     setChats: (newChats) => set({chats: newChats}),
+    updateChats: (chat_id, last_message_datetime, last_message_text, last_message_first_name, unseen_messages_length) => {
+        const newChats = get().chats.map(chat => {
+            let candidate: IChatInfo = chat;
+            if(candidate.chat_id === chat_id){
+                candidate.last_message_datetime = last_message_datetime;
+                candidate.last_message_text = last_message_text;
+                candidate.unseen_messages_length = unseen_messages_length;
+                candidate.last_message_first_name = last_message_first_name;
+                return candidate
+            }
+            return chat;
+        })
+        set({chats: [...newChats]})
+    },
+    updateUnseenChat: (chat_id, unseen_messages_length) => {
+        const newChats = get().chats.map(chat => {
+            let candidate: IChatInfo = chat;
+            if(candidate.chat_id === chat_id){
+                candidate.unseen_messages_length = unseen_messages_length;
+                return candidate
+            }
+            return chat;
+        })
+        set({chats: [...newChats]})
+    }
 }))
 
 interface IChatStore {
@@ -17,6 +42,7 @@ interface IChatStore {
     setChatId: (newId: number | null) => void;
     setMessages: (newMsgs: IMessage[]) => void;
     addMessage: (newMsg: IMessage) => void;
+    setEmpty: () => void;
 }
 
 export const useChatStore = create<IChatStore>((set, get) => ({
@@ -28,5 +54,6 @@ export const useChatStore = create<IChatStore>((set, get) => ({
     setOtherProfileFirstName: (newFirstName) => set({other_profile_first_name: newFirstName}),
     setOtherProfileImage: (newProfileImage) => set({other_profile_image: newProfileImage}),
     setMessages: (newMsgs) => set({messages: newMsgs}),
-    addMessage: (newMsg) => set({messages: [...get().messages, newMsg]})
+    addMessage: (newMsg) => set({messages: [...get().messages, newMsg]}),
+    setEmpty: () => set({chat_id: null, other_profile_first_name: "", other_profile_image: "", messages: []})
 }))

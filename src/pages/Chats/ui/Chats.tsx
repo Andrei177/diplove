@@ -12,7 +12,7 @@ export const Chats = () => {
 
   // ПОДКЛЮЧЕНИЕ ПО ВЕБСОКЕТАМ НЕ РАБОТАЕТ
 
-  const { setChats } = useChatsListStore();
+  const { setChats, updateChats, updateUnseenChat } = useChatsListStore();
 
   const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
   const [text, setText] = useState("");
@@ -42,8 +42,14 @@ export const Chats = () => {
     };
 
     socket.onmessage = (event) => {
-      //const message = JSON.parse(event.data);
+      const msg = JSON.parse(event.data);
       console.log('Received message:', event);
+      if(msg.last_message_first_name && msg.last_message_datetime){
+        updateChats(msg.chat_id, msg.last_message_datetime, msg.last_message_text, msg.last_message_first_name, msg.unseen_messages_length)
+      }
+      else if(msg.unseen_messages_length == 0){
+        updateUnseenChat(msg.chat_id, msg.unseen_messages_length)
+      }
     };
 
     socket.onerror = (error) => {
@@ -104,6 +110,7 @@ export const Chats = () => {
 
   
   const sendMessage = () => {
+    if(!text) return
     chatSocket?.send(JSON.stringify({
         action: "send",
         data: {
@@ -111,6 +118,7 @@ export const Chats = () => {
             media: null
         }
     }))
+    setText("");
 }
 
   return (
@@ -119,7 +127,7 @@ export const Chats = () => {
         {
           isMobile
             ? showSidebar
-              ? <Sidebar alone={true} setShowSidebar={setShowSidebar} chatSocket={chatSocket} />
+              ? <Sidebar alone={true} setShowSidebar={setShowSidebar}/>
               : <Chat alone={true} text={text} setText={setText} setShowSidebar={setShowSidebar} sendMessage={sendMessage}/>
             : <>
               <Sidebar />

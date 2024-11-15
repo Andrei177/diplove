@@ -9,6 +9,25 @@
   overflow: hidden;
   margin: 0 auto;
 }
+.small {
+  height: 400px;
+  width: 300px;
+}
+@media (max-width: 770px) {
+  .small {
+    height: 400px;
+    width: 270px;
+  }
+}
+@media (max-width: 610px) {
+  .small {
+    height: 617px;
+    width: 400px;
+  }
+}
+.none {
+  display: none;
+}
 /* Дополнительные стили для Swiper */
 .slide {
   display: flex !important;
@@ -156,28 +175,42 @@
   .avatar_img {
     height: 750px;
   }
+  .small {
+    height: 500px;
+  }
 }
 @media (max-height: 900px) {
   .avatar_img {
     height: 680px;
+  }
+  .small {
+    height: 500px;
   }
 }
 @media (max-height: 835px) {
   .avatar_img {
     height: 600px;
   }
+  .small {
+    height: 500px;
+  }
 }
 @media (max-height: 775px) {
   .avatar_img {
     height: 550px;
+  }
+  .small {
+    height: 500px;
   }
 }
 @media (max-height: 711px) {
   .avatar_img {
     height: 500px;
   }
+  .small{
+    height: 500px;
+  }
 }
-
 @media (max-width: 415px) {
   .avatar_img {
     width: 370px;

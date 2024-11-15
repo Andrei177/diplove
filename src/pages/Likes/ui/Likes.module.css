@@ -1,0 +1,45 @@
+.likes{
+    padding: 20px;
+    width: 753px;
+    display: flex;
+    flex-direction: column;
+}
+.top{
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: 25px;
+    font-weight: 500;
+}
+.nothing{
+    text-align: center;
+}
+.ankets{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 40px;
+}
+@media(max-width: 770px){
+    .likes{
+        width: 670px;
+    }
+    .ankets{
+        row-gap: 20px;
+    }
+}
+@media(max-width: 690px){
+    .likes{
+        padding: 5px;
+        width: 600px;
+    }
+}
+@media(max-width: 610px){
+    .likes{
+        padding: 5px;
+        padding-bottom: 77px;
+        width: 100%;
+    }
+    .ankets{
+        grid-template-columns: 1fr;
+        row-gap: 30px;
+    }
+}

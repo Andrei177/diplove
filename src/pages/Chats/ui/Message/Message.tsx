@@ -4,7 +4,6 @@ import cx from "classnames"
 import { IMessage } from "../../types/IMessage";
 import { useProfileStore } from "../../../Profile/store/store";
 import { formatDateMessage } from "../../utils/formatDateMessage";
-import { useLoginStore } from "../../../../shared/loginStore/loginStore";
 
 interface IPropsMessage {
   message: IMessage
@@ -12,7 +11,7 @@ interface IPropsMessage {
 
 export const Message: FC<IPropsMessage> = ({ message }) => {
 
-  const id = useLoginStore(state => state.id);
+  const id = useProfileStore(state => state.user_id);
   // console.log(id, 'мой id');
   
   return (

@@ -1,0 +1,23 @@
+.navbar__list-item{
+    font-size: 20px;
+    cursor: pointer;
+    height: 100%;
+    list-style-type: none;
+}
+.item_wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+.title_link{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}

@@ -15,15 +15,14 @@ import Modal from "../../../shared/ui/Modal/Modal"
 import { EditPen } from "../../../shared/ui/EditPen/EditPen"
 import { Settings } from "./Settings/Settings"
 import { useMediaQuery } from "react-responsive"
+import { getImageUrl } from "../../../shared/helpers/getImageUrl"
 
 interface IPropsProfileTop {
     isEdit: boolean;
     setIsEdit: (bool: boolean) => void;
-    imageUrl: string;
-    setImageUrl: (url: string) => void;
 }
 
-export const ProfileTop: FC<IPropsProfileTop> = ({ imageUrl, isEdit, setIsEdit, setImageUrl }) => {
+export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
 
     const profileInfo = useProfileStore();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,6 +31,13 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ imageUrl, isEdit, setIsEdit, 
     const [showSettings, setShowSettings] = useState<boolean>(false);
 
     const isMobile = useMediaQuery({ maxWidth: "625px" });
+
+    const setAvatar = () => {
+        if(profileInfo.images.length){
+            return getImageUrl(profileInfo.images.filter(img => img.is_main_image).sort((a, b) => b.id - a.id)[0]?.image)
+        }
+        return ava 
+    }
 
     const handleClick = () => {
         if (isEdit) {
@@ -49,7 +55,7 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ imageUrl, isEdit, setIsEdit, 
                 addImage(image, true)
                     .then((res) => {
                         setImage(null)
-                        setImageUrl(res.image)
+                        profileInfo.setImages([...profileInfo.images, res[0]]) //добавляю в стор новую фотку
                         console.log(res, "ответ при добавлении фото профиля");
                     })
                     .catch(err => console.log(err, "Ошибка при добавлении фото"))
@@ -90,7 +96,7 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ imageUrl, isEdit, setIsEdit, 
                             ? image
                                 ? <img className={s.img} src={URL.createObjectURL(image)} />
                                 : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
-                            : <img className={s.img} src={imageUrl ? imageUrl : ava} />}
+                            : <img className={s.img} src={setAvatar()} />}
                     </div>
                     <div className={s.main_info}>
                         <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>

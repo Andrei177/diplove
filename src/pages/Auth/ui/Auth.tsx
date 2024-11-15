@@ -9,12 +9,14 @@ import { register } from "../../../app/api/AuthService/AuthService"
 import { useAuthStore } from "../../../app/store/store"
 import { useState } from "react"
 import { nanoid } from "nanoid"
+import { useProfileStore } from "../../Profile/store/store"
 
 export const Auth = () => {
 
   const navigate = useNavigate();
-  const {login, password, setLogin, setPassword, isLoading, setIsLoading, setId} = useLoginStore();
+  const {login, password, setLogin, setPassword, isLoading, setIsLoading} = useLoginStore();
   const {setIsAuth} = useAuthStore();
+  const setUserId = useProfileStore(state => state.setUserId);
 
   const [usernameMessages, setUsernameMessages] = useState<string[]>([])
   const [passwordMessages, setPasswordMessages] = useState<string[]>([])
@@ -23,7 +25,7 @@ export const Auth = () => {
     setIsLoading(true);
     register(login, password)
     .then((res) => {
-      setId(res.user.id)
+      setUserId(res.user.id)
       setIsAuth(true)
       navigate(Routes.GENDER)
     })

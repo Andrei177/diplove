@@ -19,8 +19,8 @@
 @media (max-width: 625px){
     .chats_component{
         width: 500px;
-        height: 88%;
         margin: 0 auto;
+        height: calc(100% - 75px);
     }
 }
 @media (max-width: 505px){

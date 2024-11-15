@@ -20,6 +20,25 @@
 .msg_date{
     font-size: 14px;
 }
+.msg_unseen_length{
+    font-size: 14px;
+    background-color: rgba(37, 72, 210, 1);
+    padding: 3px 10px;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+}
+.name_date{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.last_msg_name{
+    display: inline;
+    color: rgba(105, 105, 105, 1);
+    font-size: 14px;
+    font-weight: 400;
+}
 .image{
     height: 50px;
     width: 50px;
@@ -40,6 +59,9 @@
 .main_chat_info{
     padding-left: 15px;
     width: calc(100% - 50px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .name{
     font-size: 18px;

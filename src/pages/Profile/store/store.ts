@@ -5,6 +5,7 @@ interface IProfileStore extends IProfileResponse{
 
     // actions
     setId: (newId: number) => void,
+    setUserId: (newUserId: number) => void,
     setFirstName: (newFirstName: string) => void,
     setLastName: (newLastName: string) => void,
     setGender: (newGender: string) => void, 
@@ -28,6 +29,7 @@ interface IProfileStore extends IProfileResponse{
 
 export const useProfileStore = create<IProfileStore>((set) => ({
     id: null,
+    user_id: null,
     first_name: "",
     last_name: "",
     gender: "", 
@@ -51,6 +53,7 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     hobbies: [],
 
     setId: (newId) => set({id: newId}),
+    setUserId: (newUserId) => set({user_id: newUserId}),
     setFirstName: (newFirstName) => set({first_name: newFirstName}),
     setLastName: (newLastName) => set({last_name: newLastName}),
     setGender: (newGender) => set({gender: newGender}), 

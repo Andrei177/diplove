@@ -22,7 +22,7 @@ export const addImage = async (image: Blob, is_main_image: boolean = false) => {
     formData.append("image_1", image);
     formData.append("is_main_image_1", String(is_main_image));
 
-    const response = await $privateApi.post<IImage>("/profile/images/add/", formData);
+    const response = await $privateApi.post<IImage[]>("/profile/images/add/", formData);
 
     return response.data;
 }
