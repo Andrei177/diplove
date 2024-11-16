@@ -43,6 +43,11 @@
   overflow-y: scroll;
   height: 560px;
 }
+.about_profile{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
 .like,
 .dislike {
   width: 110px;

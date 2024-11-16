@@ -10,10 +10,12 @@ import cx from "classnames"
 import { useState } from "react"
 import Modal from "../../../../shared/ui/Modal/Modal"
 import { EditPen } from "../../../../shared/ui/EditPen/EditPen"
+import Hobbies from "../Hobbies/Hobbies"
+import Item from "../../../../shared/ui/Item/Item"
 
 export const ProfileContentEdit = () => {
 
-    const { first_name, gender, birthday, job, dating_purpose, education, description, setFirstName, setBirthday, setGender, setDatingPurpose, setDescription, setEducation, setJob } = useProfileStore();
+    const { first_name, gender, birthday, job, dating_purpose, education, description, setFirstName, setBirthday, setGender, setDatingPurpose, setDescription, setEducation, setJob, hobbies } = useProfileStore();
     const [showHobby, setShowHobby] = useState<boolean>(false);
 
     return (
@@ -107,16 +109,26 @@ export const ProfileContentEdit = () => {
                         />
                     </div>
                 </div>
-                <div className={s.about}>
-                    <h4 className={s.subtitle}>Обо мне</h4>
-                    <EditPen onClick={() => setShowHobby(true)}/>
-                </div>
                 <div className={s.interests}>
-                    <h4 className={s.subtitle}>Интересы</h4>
-                    <EditPen onClick={() => setShowHobby(true)}/>
+                    <div className={s.interests_title}>
+                        <h4 className={s.subtitle}>Интересы</h4>
+                        <EditPen onClick={() => setShowHobby(true)} />
+                    </div>
+                    <div className={s.hobbies}>
+                        {
+                            hobbies.map(hobby =>
+                                <Item
+                                    key={hobby.id}
+                                    className={cx(s.hobby_item, s.selected)}
+                                    text={hobby.name}
+                                />)
+                        }
+                    </div>
                 </div>
             </div>
-            <Modal showModal={showHobby} setShowModal={setShowHobby}>хобби</Modal>
+            <Modal className={s.modal_border} showModal={showHobby} setShowModal={setShowHobby}>
+                <Hobbies setShowHobby={setShowHobby}/>
+            </Modal>
         </>
     )
 }

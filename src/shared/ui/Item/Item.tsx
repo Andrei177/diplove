@@ -6,11 +6,12 @@ interface IPropsItem {
     img?: string;
     text: string | undefined;
     className?: string;
+    onClick?: () => void;
 }
 
-export const Item: FC<IPropsItem> = ({ img, text, className }) => {
+export const Item: FC<IPropsItem> = ({ img, text, className, onClick}) => {
     return (
-        <div className={cx(s.item, className && className)}>
+        <div className={cx(s.item, className && className)} onClick={onClick}>
             {
                 img &&
                 <div className={s.img}>

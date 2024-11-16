@@ -10,11 +10,11 @@ import { Interes } from "../../pages/Interes";
 import { PrivateRoute } from "../../pages/PrivateRoute";
 import { SearchGender } from "../../pages/SearchGender";
 import { lazy } from "react";
-import { Forms } from "../../pages/Forms";
+//import { Forms } from "../../pages/Forms";
 
 const Profile = lazy(() => import('../../pages/Profile/ui/Profile'))
 const Chats = lazy(() => import('../../pages/Chats/ui/Chats'))
-// const Forms = lazy(() => import('../../pages/Forms/ui/Forms'))
+const Forms = lazy(() => import('../../pages/Forms/ui/Forms'))
 const Likes = lazy(() => import('../../pages/Likes/ui/Likes'))
 const Gender = lazy(() => import('../../pages/Gender/ui/Gender'))
 
