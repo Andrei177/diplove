@@ -10,12 +10,15 @@
     padding: 10px;
     display: flex;
 }
+.image_wrapper{
+    position: relative;
+}
 .image{
     height: 40px;
     width: 40px;
     border-radius: 50%;
     border: 1px solid rgba(159, 159, 159, 1);
-    overflow: hidden; 
+    overflow: hidden;
     display: flex; 
     align-items: center; 
     justify-content: center;
@@ -38,8 +41,25 @@
     gap: 10px;
     align-items: center;
 }
-.chat_user_name{
-
+.online{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgba(37, 72, 210, 1);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 3px solid rgba(233, 233, 233, 1);
+}
+.off{
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(105, 105, 105, 1);
+}
+.on{
+    font-weight: 400;
+    font-size: 14px;
+    color: rgba(37, 72, 210, 1);
 }
 .textarea{
     width: 90%;

@@ -25,7 +25,9 @@ export const Sidebar: FC<IPropsSidebar> = memo(({ alone, setShowSidebar }) => {
         setChatId(chatInfo.chat_id)
         setOtherProfileFirstName(chatInfo.other_profile_first_name)
         setOtherProfileImage(chatInfo.other_profile_image)
-        setMessages([])
+        if(isMobile){
+            setMessages([])
+        }
     }
 
     return (
@@ -39,7 +41,7 @@ export const Sidebar: FC<IPropsSidebar> = memo(({ alone, setShowSidebar }) => {
                 {(!isPlanshet || isMobile) && "Сообщения"}
                 {
                     chats.length !== 0
-                        ? <>{chats.sort(compareLastMsgDatetime).map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo} onClick={() => handleClickOnChatInfo(chatInfo)} />)}</>
+                        ? <>{chats.sort(compareLastMsgDatetime).map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo} onClick={() => handleClickOnChatInfo(chatInfo)}/>)}</>
                         : <h3>Пока нет чатов</h3>
                 }
             </div>

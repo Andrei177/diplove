@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from "react"
+import { Suspense, useEffect, useRef, useState } from "react"
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { checkRefreshValidity } from "../../../app/api/AuthService/AuthService";
 import { Routes } from "../../../app/router/router.config";
@@ -8,6 +8,7 @@ import { Loader } from "../../../shared/ui/Loader";
 import { getMyProfile } from "../../Profile/api/api";
 import { useProfileStore } from "../../Profile/store/store";
 import { useMediaQuery } from "react-responsive";
+import { updateMyActivity } from "../api/api";
 
 export const PrivateRoute = () => {
 
@@ -46,6 +47,23 @@ export const PrivateRoute = () => {
     }
   }, [hasRefreshed])
 
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    
+    timerRef.current = setInterval(() => {
+      updateMyActivity()
+        .then(res => console.log(res, "Ответ при обновлении своей активности"))
+        .catch(err => console.log(err, "Ошибка при обновлении своей активности"));
+    }, 10000);
+
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+      }
+    };
+  }, []);
+
 
   if (isLoading && !isAuth) {
     return (
@@ -71,7 +89,7 @@ export const PrivateRoute = () => {
     <div className='app'>
       {(!isMobile && id) && <Navbar />}
       <main>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <Outlet />
         </Suspense>
       </main>

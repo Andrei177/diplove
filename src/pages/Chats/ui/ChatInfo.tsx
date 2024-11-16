@@ -1,9 +1,10 @@
-import { FC } from "react"
+import { FC, useEffect, useState } from "react"
 import { IChatInfo } from "../types/IChats";
 import s from "./ChatInfo.module.css"
 import ava from "../../../assets/ava.svg"
 import { useMediaQuery } from "react-responsive";
 import { formatDateMessage } from "../utils/formatDateMessage";
+import { useUsersActivity } from "../store/store";
 
 interface IPropsChatInfo {
     chatInfo: IChatInfo;
@@ -15,10 +16,26 @@ export const ChatInfo: FC<IPropsChatInfo> = ({ chatInfo, onClick }) => {
     const isPlanshet = useMediaQuery({ maxWidth: "685px" });
     const isMobile = useMediaQuery({ maxWidth: "625px" });
 
+    const { usersActivity } = useUsersActivity();
+
+    const [online, setOnline] = useState(false);
+
+    useEffect(() => {
+        const candidate = usersActivity.find(activity => activity.chat_id == chatInfo.chat_id)
+        if (candidate) {
+            setOnline(candidate.other_user_is_online);
+        }
+    }, [usersActivity])
+
     return (
         <div className={s.chat_info} onClick={onClick}>
-            <div className={s.image}>
-                <img className={s.img} src={chatInfo.other_profile_image ? "http://localhost:8000" + chatInfo.other_profile_image : ava} />
+            <div className={s.image_wrapper}>
+                <div className={s.image}>
+                    <img className={s.img} src={chatInfo.other_profile_image ? "http://localhost:8000" + chatInfo.other_profile_image : ava} />
+                    {
+                        online && <div className={s.online} />
+                    }
+                </div>
             </div>
             {(isMobile || (!isPlanshet && !isMobile)) &&
                 <div className={s.main_chat_info}>

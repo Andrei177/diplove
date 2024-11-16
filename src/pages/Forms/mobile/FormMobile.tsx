@@ -67,12 +67,13 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                             <Item className={s.item} text={getInterest(profile.dating_purpose)} img={heart} />
                         </div>}
                         <Swiper
+                            key={profile.user_id}
                             spaceBetween={10}
                             slidesPerView={1}
                             pagination={{ clickable: true }}
                             navigation={{
-                                nextEl: `.swiper-button-next`, // Селектор для кнопки "next"
-                                prevEl: `.swiper-button-prev`, // Селектор для кнопки "prev"
+                                nextEl: '.swiper-button-next',
+                                prevEl: '.swiper-button-prev',
                             }}
                             modules={[Navigation]} // Включаем Navigation в модули
                             className={s.swiper}
@@ -82,10 +83,9 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                                     <img className={s.image} src={"http://localhost:8000" + img.image} alt="Profile" />
                                 </SwiperSlide>
                             ))}
+                        <div className="swiper-button-prev"></div>
+                        <div className="swiper-button-next"></div>
                         </Swiper>
-                        {/* Кнопки навигации */}
-                        <div className="swiper-button-prev" />
-                        <div className="swiper-button-next" />
                         {
                             !showInfo && <div className={s.short_info}>
                                 {profile.description !== null && <>

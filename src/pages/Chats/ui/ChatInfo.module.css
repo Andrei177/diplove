@@ -39,12 +39,15 @@
     font-size: 14px;
     font-weight: 400;
 }
+.image_wrapper{
+    position: relative;
+}
 .image{
     height: 50px;
     width: 50px;
     border-radius: 50%;
     border: 1px solid rgba(159, 159, 159, 1);
-    overflow: hidden; 
+    overflow: hidden;
     display: flex; 
     align-items: center; 
     justify-content: center;
@@ -69,6 +72,16 @@
 }
 .none{
     display: none;
+}
+.online{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgba(37, 72, 210, 1);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    border: 3px solid rgba(233, 233, 233, 1);
 }
 @media (max-width: 685px){
     .chat_info{

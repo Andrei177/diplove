@@ -56,10 +56,9 @@ export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => 
                                     <img className={s.image} src={"http://localhost:8000" + img.image} alt="Profile" />
                                 </SwiperSlide>
                             ))}
+                            <div className="swiper-button-prev" />
+                            <div className="swiper-button-next" />
                         </Swiper>
-                        {/* Кнопки навигации */}
-                        <div className="swiper-button-prev" />
-                        <div className="swiper-button-next" />
 
                         <div className={s.assessment}>
                             <div

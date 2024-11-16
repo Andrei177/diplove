@@ -1,4 +1,5 @@
 export const formatDate = (dateString: string): string => {
+    if(!dateString) return "";
     const date = new Date(dateString);
     const now = new Date();
     
@@ -14,7 +15,7 @@ export const formatDate = (dateString: string): string => {
     
     // Если разница меньше 24 часов
     if (diffInHours < 24) {
-        return `${diffInHours} ${diffInHours === 1 ? 'час' : 'часа'} назад`;
+        return `${diffInHours} ч назад`;
     } 
     
     // Если разница больше или равна 24 часов
