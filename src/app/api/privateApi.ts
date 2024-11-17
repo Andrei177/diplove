@@ -2,8 +2,8 @@ import axios, { AxiosError } from "axios";
 
 //http://localhost:8000/api
 //http://localhost:8000
-export const API_URL = "http://localhost:8000/api";
-export const BACKEND_URL = "http://localhost:8000";
+export const API_URL = "http://188.120.231.10:8000/api";
+export const BACKEND_URL = "http://188.120.231.10:8000";
 
 export const $privateApi = axios.create({
   baseURL: API_URL,
