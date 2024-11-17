@@ -21,7 +21,7 @@ const NavItem: FC<IPropsNavItem> = ({ to, img, children, onClick }) => {
                         </NavLink>
                         : <div className={s.title_link}>
                             <img src={img} alt="ankets" />
-                            <div>{children}</div>
+                            <div className={s.title_text}>{children}</div>
                         </div>
                 }
             </div>

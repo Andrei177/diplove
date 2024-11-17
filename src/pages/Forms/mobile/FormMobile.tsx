@@ -6,6 +6,7 @@ import { Navigation } from "swiper/modules";
 import s from "./FormMobile.module.css"
 import { getInterest } from "../../Profile/helpers/getInterest";
 import Item from "../../../shared/ui/Item/Item";
+import 'swiper/css/bundle';
 import like from "../assets/like.svg";
 import dislike from "../assets/dislike.svg";
 import heart from "../../Profile/assets/heart.svg";

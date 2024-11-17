@@ -27,7 +27,7 @@ export const NavbarDekstop = () => {
       <div className={isAuth ? s.nav_frame : s.nav_frame_public}>
         <div className={s['navbar__logo-box']} onClick={() => isAuth ? navigate(Routes.PROFILE) : navigate(Routes.START_PAGE)}>
           <img src={butterfly} alt="butterfly" />
-          <h1 className={s.title}>Morfix</h1>
+          <h1 className={s.title}>DipLove</h1>
         </div>
         {
           !isAuth && pathname === Routes.START_PAGE && <div className={s.navbar__list}>
