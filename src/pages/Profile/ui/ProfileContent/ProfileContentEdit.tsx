@@ -23,21 +23,21 @@ export const ProfileContentEdit = () => {
             <div className={s.wrapper}>
                 <div className={s.galery}>
                     <div className={s.one}>
-                        <UploadImage className={s.wrap} onChange={() => console.log("добавил фото в галерею")} />
+                        <UploadImage className={s.wrap} />
                     </div>
                     <div className={s.two}>
-                        <UploadImage className={s.wrap} onChange={() => console.log("добавил фото в галерею")} />
+                        <UploadImage className={s.wrap}/>
                     </div>
                     <div className={s.three}>
                         <div className={s.inner_elements}>
-                            <UploadImage className={s.wrap} onChange={() => console.log("добавил фото в галерею")} />
-                            <UploadImage className={s.wrap} onChange={() => console.log("добавил фото в галерею")} />
+                            <UploadImage className={s.wrap} />
+                            <UploadImage className={s.wrap} />
                         </div>
                     </div>
                     <div className={s.four}>
                         <div className={s.inner_elements}>
-                            <UploadImage className={s.wrap} onChange={() => console.log("добавил фото в галерею")} />
-                            <UploadImage className={s.wrap} onChange={() => console.log("добавил фото в галерею")} />
+                            <UploadImage className={s.wrap} />
+                            <UploadImage className={s.wrap} />
                         </div>
                     </div>
                 </div>

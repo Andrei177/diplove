@@ -14,7 +14,6 @@ interface IPropsMessage {
 export const Message: FC<IPropsMessage> = ({ message, nextDayMsg }) => {
 
   const id = useProfileStore(state => state.user_id);
-  // console.log(id, 'мой id');
 
   return (
     <>

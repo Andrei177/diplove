@@ -31,11 +31,8 @@ $privateApi.interceptors.response.use(
   },
   async (error: AxiosError) => {
     const originalRequest = error.request;
-    console.log(error, "Возникла ошибка при перехвате ответа от сервера");
-    
 
     if (error.response && error.response.status == 401) {
-      console.log("Перехваченная ошибка оказалась 401, сейчас будет запрос на обновление токена");
       try {
         const response = await axios.get(
           `${API_URL}/user/token/refresh/`,
@@ -47,7 +44,6 @@ $privateApi.interceptors.response.use(
         return $privateApi.request(originalRequest);
 
       } catch (err) {
-        console.log("НЕ АВТОРИЗОВАН, потому что рефреш токен не валиден");
         localStorage.removeItem("token");
         return Promise.reject(err);
       }

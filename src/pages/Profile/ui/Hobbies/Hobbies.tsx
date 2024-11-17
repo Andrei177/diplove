@@ -27,7 +27,6 @@ const Hobbies: FC<IPropsHobbies> = ({ setShowHobby }) => {
                 }
                 setHobbiesList(processedArr)
             })
-            .catch(err => console.log(err, "Ошибка при получении всех хобби"))
     }, [])
 
     const handleAddHobbies = (hobby: IHobbies) => {

@@ -10,7 +10,6 @@ import { Interes } from "../../pages/Interes";
 import { PrivateRoute } from "../../pages/PrivateRoute";
 import { SearchGender } from "../../pages/SearchGender";
 import { lazy } from "react";
-//import { Forms } from "../../pages/Forms";
 
 const Profile = lazy(() => import('../../pages/Profile/ui/Profile'))
 const Chats = lazy(() => import('../../pages/Chats/ui/Chats'))

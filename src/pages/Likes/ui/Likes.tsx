@@ -12,10 +12,7 @@ export const Likes = () => {
         getLikes()
         .then(res => {
             setAnkets(res)
-            console.log(res);
-            
         })
-        .catch(err => console.log(err, "Ошибка при получении лайков"))
     }, [])
 
     return (

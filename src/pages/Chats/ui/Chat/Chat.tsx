@@ -39,7 +39,6 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
         if (chat_id) {
             getMessages(chat_id)
                 .then(res => setMessages(res))
-                .catch(err => console.log(err, "Ошибка при получении сообщений чата"))
         }
     }, [chat_id])
 

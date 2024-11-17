@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { IProfileResponse } from "../types/TypesResponseApi";
 import { createLike } from "../api/createLikeApi";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,16 +23,10 @@ interface IPropsForm {
 
 export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible = true, inLikesPage = false }) => {
 
-    useEffect(() => {
-        console.log(profile, "чья то анкета");
-    }, [])
-
     const handleLike = () => {
         if(incrementIndex) incrementIndex();
 
         if (profile.id) createLike(profile.id)
-            .then(res => console.log(res.detail, "ответ при создании лайка"))
-            .catch(err => console.log(err, "Ошибка при создании лайка"))
     }
 
     const [showAnket, setShowAnket] = useState(true);

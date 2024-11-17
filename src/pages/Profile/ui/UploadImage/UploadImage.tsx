@@ -4,7 +4,7 @@ import { ChangeEvent, FC } from "react"
 import cx from "classnames"
 
 interface IPropsUploadImage {
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     className?: string
 }
 

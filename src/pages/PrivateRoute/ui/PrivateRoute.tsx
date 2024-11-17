@@ -33,14 +33,10 @@ export const PrivateRoute = () => {
           if (pathname === Routes.ROOT) navigate(Routes.PROFILE)
           getMyProfile()
             .then(res => {
-              console.log(res);
-
               setAll(res)
             })
-            .catch(err => console.log(err, "Ошибка при получении профиля юзера"))
         })
-        .catch((err) => {
-          console.log(err, "ошибка при загрузке прайват роутов");
+        .catch(() => {
           setIsAuth(false)
         })
         .finally(() => setIsLoading(false))
@@ -53,7 +49,6 @@ export const PrivateRoute = () => {
     
     timerRef.current = setInterval(() => {
       updateMyActivity()
-        .then(res => console.log(res, "Ответ при обновлении своей активности"))
         .catch(err => console.log(err, "Ошибка при обновлении своей активности"));
     }, 10000);
 

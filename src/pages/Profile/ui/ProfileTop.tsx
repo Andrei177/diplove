@@ -45,7 +45,6 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
 
             updateProfile({ ...profileInfo })
                 .then(res => profileInfo.setAll(res))
-                .catch(err => console.log(err, "Ошибка при обновлении профиля"))
                 .finally(() => {
                     setIsEdit(!isEdit)
                     setIsLoading(false);
@@ -56,7 +55,6 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
                     .then((res) => {
                         setImage(null)
                         profileInfo.setImages([...profileInfo.images, res[0]]) //добавляю в стор новую фотку
-                        console.log(res, "ответ при добавлении фото профиля");
                     })
                     .catch(err => console.log(err, "Ошибка при добавлении фото"))
             }
@@ -95,7 +93,7 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
                         {isEdit
                             ? image
                                 ? <img className={s.img} src={URL.createObjectURL(image)} />
-                                : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
+                                : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0])}} />
                             : <img className={s.img} src={setAvatar()} />}
                     </div>
                     <div className={s.main_info}>

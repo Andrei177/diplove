@@ -26,7 +26,6 @@ export const Interes = () => {
       
       navigate(Routes.PROFILE);
     })
-    .catch(err => console.log(err, "Ошибка при создании анкеты"))
   }
 
   return (

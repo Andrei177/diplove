@@ -30,7 +30,6 @@ export const Auth = () => {
       navigate(Routes.GENDER)
     })
     .catch((err) => {
-      console.log(err, "ошибка при регистрации");
       if(err.response.data.username){
         setUsernameMessages([...err.response.data.username])
       }

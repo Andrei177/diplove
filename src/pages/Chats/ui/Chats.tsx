@@ -26,7 +26,6 @@ export const Chats = () => {
     getChats()
       .then(res => setChats(res))
       .catch(err => {
-        console.log(err, "Ошибка при получении чатов")
         setChats([]);
         if (err.status === 401) {
           setHasRefreshed(false)
@@ -41,7 +40,6 @@ export const Chats = () => {
 
     socket.onmessage = (event) => {
       const msg = JSON.parse(event.data);
-      console.log('Received message:', event);
       if (msg.last_message_first_name && msg.last_message_datetime) {
         updateChats(msg.chat_id, msg.last_message_datetime, msg.last_message_text, msg.last_message_first_name, msg.unseen_messages_length)
       }
@@ -52,10 +50,6 @@ export const Chats = () => {
 
     socket.onerror = (error) => {
       console.error('WebSocket error:', error);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket connection closed');
     };
 
     // Очистка при размонтировании компонента
@@ -92,9 +86,6 @@ export const Chats = () => {
         console.error("Ошибка в чате:", error);
       };
 
-      socketChat.onclose = () => {
-        console.log("Соединение закрыто");
-      };
 
       // Устанавливаем новый WebSocket
       setChatSocket(socketChat);
@@ -117,9 +108,7 @@ export const Chats = () => {
       getChatsUsersActivity()
         .then(res => {
           setUsersActivity(res);
-          console.log(res, "Ответ при обновлении активности юзеров чатов")
         })
-        .catch(err => console.log(err, "Ошибка при обновлении активности юзеров чатов"));
     }, 10000);
 
     return () => {

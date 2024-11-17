@@ -23,7 +23,6 @@ export const Profile = () => {
           setAll(res)
         })
         .catch(err => {
-          console.log(err, "Ошибка при получении профиля юзера")
           if (err.status === 404) {
             navigate(Routes.GENDER);
           }

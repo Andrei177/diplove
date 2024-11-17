@@ -34,11 +34,9 @@ export const Login = () => {
         .then(res => {
           setAll(res)
         })
-        .catch(err => console.log(err, "Ошибка при получении профиля юзера"))
       })
       .catch((err) => {
         setIsAuth(false)
-        console.log(err, "ошибка при входе");
         if(err.response.data.username){
           setUsernameMessages([...err.response.data.username])
         }
