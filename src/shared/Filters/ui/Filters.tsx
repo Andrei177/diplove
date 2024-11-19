@@ -4,6 +4,7 @@ import { useFiltersStore } from "../store/store";
 import Button from "../../ui/Button/Button";
 import Slider from "rc-slider";
 import 'rc-slider/assets/index.css';
+import './Ranges.css';
 import { useState } from "react";
 
 export const Filters = () => {
@@ -41,7 +42,7 @@ export const Filters = () => {
               max={100}
               value={[localMinAge, localMaxAge]}
               onChange={(value) => {
-                if(typeof value !== "number"){
+                if (Array.isArray(value)) {
                   setLocalMinAge(value[0]);
                   setLocalMaxAge(value[1]);
                 }
@@ -55,7 +56,7 @@ export const Filters = () => {
             <div className={s.value}>{localDistance} км</div>
           </div>
           <div className={s.item_range}>
-            <input className={s.range} type="range" value={distance} onChange={e => setLocalDistance(+e.target.value)} />
+            <input className="range" type="range" value={localDistance} onChange={e => setLocalDistance(+e.target.value)} />
           </div>
         </div>
       </div>

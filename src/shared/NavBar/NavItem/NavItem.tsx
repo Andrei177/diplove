@@ -11,7 +11,7 @@ interface IPropsNavItem {
 
 const NavItem: FC<IPropsNavItem> = ({ to, img, children, onClick }) => {
     return (
-        <li className={s['navbar__list-item']} onClick={onClick}>
+        <div className={s['navbar__list-item']} onClick={onClick}>
             <div className={s.item_wrapper}>
                 {
                     to
@@ -25,7 +25,7 @@ const NavItem: FC<IPropsNavItem> = ({ to, img, children, onClick }) => {
                         </div>
                 }
             </div>
-        </li>
+        </div>
     )
 }
 

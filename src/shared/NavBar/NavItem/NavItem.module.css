@@ -1,8 +1,8 @@
 .navbar__list-item{
     font-size: 20px;
     cursor: pointer;
-    height: 100%;
     list-style-type: none;
+    height: 54px;
 }
 .item_wrapper{
     display: flex;
@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     gap: 7px;
+    height: 100%;
 }
 .title_link{
     height: 100%;

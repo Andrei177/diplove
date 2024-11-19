@@ -9,7 +9,7 @@ export const StartPageMobile = () => {
 
   return (
     <div className={s['start-page']}>
-      <h1 className={s.title}>Morfix</h1>
+      <h1 className={s.title}>DipLove</h1>
       <Button variant={VARIANT.blue} className={s.btn} onClick={() => navigate(Routes.REGISTRATION)}>Создать профиль</Button>
       <Button variant={VARIANT.transparent} className={s.btn} onClick={() => navigate(Routes.LOGIN)}>Войти</Button>
     </div>

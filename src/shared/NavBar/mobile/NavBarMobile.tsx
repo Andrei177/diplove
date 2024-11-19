@@ -1,26 +1,24 @@
 import s from "../Navbar.module.css"
-import { useLocation } from "react-router-dom"
 import { Routes } from "../../../app/router/router.config"
 import { useAuthStore } from "../../../app/store/store"
 import cx from "classnames"
 import likes from "../assets/likes.svg"
 import chats from "../assets/chats.svg"
 import profile from "../assets/profile.svg"
-import menu from "../assets/menu.svg"
 import ankets from "../assets/ankets.svg"
 import { useProfileStore } from "../../../pages/Profile/store/store"
 import NavItem from "../NavItem/NavItem"
 
 export const NavbarMobile = () => {
 
-  const { pathname } = useLocation();
+  //тут const { pathname } = useLocation();
   const isAuth = useAuthStore(state => state.isAuth);
   const { first_name } = useProfileStore();
 
   return (
     <div className={isAuth ? cx(s.navbar, s.auth, s.mobile) : s.navbar}>
       {
-        !isAuth && pathname === Routes.START_PAGE && <div className={s.burger_menu}><img src={menu} /></div>
+        //тут !isAuth && pathname === Routes.START_PAGE && <div className={s.burger_menu}><img src={menu} /></div>
         //   !isAuth && pathname === Routes.START_PAGE && <div className={s.navbar__list}>
         //     <h2 className={s['navbar__list-item']}>Поддержка</h2>
         //     <h2 className={s['navbar__list-item']}>О нас</h2>

@@ -9,7 +9,7 @@ export const StartPageDekstop = () => {
 
   return (
     <div className={s['start-page']}>
-      <h1 className={s.title}>Morfix</h1>
+      <h1 className={s.title}>DipLove</h1>
       <Button variant={VARIANT.black} className={s.btn} onClick={() => navigate(Routes.REGISTRATION)}>Создать профиль</Button>
       <p className={s.description}>
         Osertad pov plamiment. Säbel<br/>
