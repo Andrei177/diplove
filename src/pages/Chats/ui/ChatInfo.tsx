@@ -3,8 +3,9 @@ import { IChatInfo } from "../types/IChats";
 import s from "./ChatInfo.module.css"
 import ava from "../../../assets/ava.svg"
 import { useMediaQuery } from "react-responsive";
-import { formatDateMessage } from "../utils/formatDateMessage";
 import { useUsersActivity } from "../store/store";
+import { BACKEND_URL } from "../../../app/api/privateApi";
+import { formatChatInfoDate } from "../utils/formatDateChatInfo";
 
 interface IPropsChatInfo {
     chatInfo: IChatInfo;
@@ -31,7 +32,7 @@ export const ChatInfo: FC<IPropsChatInfo> = ({ chatInfo, onClick }) => {
         <div className={s.chat_info} onClick={onClick}>
             <div className={s.image_wrapper}>
                 <div className={s.image}>
-                    <img className={s.img} src={chatInfo.other_profile_image ? "http://localhost:8000" + chatInfo.other_profile_image : ava} />
+                    <img className={s.img} src={chatInfo.other_profile_image ? BACKEND_URL + chatInfo.other_profile_image : ava} />
                     {
                         online && <div className={s.online} />
                     }
@@ -42,7 +43,7 @@ export const ChatInfo: FC<IPropsChatInfo> = ({ chatInfo, onClick }) => {
                     <div className={s.name_date}>
                         <h3 className={s.name}>{chatInfo.other_profile_first_name}</h3>
                         <div className={s.msg_date}>
-                            {chatInfo.last_message_datetime ? formatDateMessage(chatInfo.last_message_datetime) : ""}
+                            {chatInfo.last_message_datetime ? formatChatInfoDate(chatInfo.last_message_datetime) : ""}
                         </div>
                     </div>
                     <div className={s.msg_info}>

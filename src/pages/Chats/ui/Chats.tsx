@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { MainLayout } from "../../../shared/MainLayout"
 import s from "./Chats.module.css"
-import { getChats, getChatsUsersActivity } from "../api/api"
-import { useChatsListStore, useChatStore, useUsersActivity } from "../store/store"
+import { getChats } from "../api/api"
+import { useChatsListStore, useChatStore } from "../store/store"
 import { useAuthStore } from "../../../app/store/store"
 import { useMediaQuery } from "react-responsive"
 import { Sidebar } from "./Sidebar/Sidebar"
@@ -10,7 +10,8 @@ import { Chat } from "./Chat/Chat"
 
 export const Chats = () => {
 
-  const { setChats, updateChats, updateUnseenChat } = useChatsListStore();
+  const { setChats } = useChatsListStore();
+
 
   const setHasRefreshed = useAuthStore(state => state.setHasRefreshed);
   const [text, setText] = useState("");
@@ -32,37 +33,6 @@ export const Chats = () => {
           setHasRefreshed(false)
         }
       })
-
-    const socket = new WebSocket(`ws://127.0.0.1:8000/ws/chats/?token=${localStorage.getItem("token")}`);
-
-    socket.onopen = () => {
-      console.log('Connected to the WebSocket server');
-    };
-
-    socket.onmessage = (event) => {
-      const msg = JSON.parse(event.data);
-      console.log('Received message:', event);
-      if (msg.last_message_first_name && msg.last_message_datetime) {
-        updateChats(msg.chat_id, msg.last_message_datetime, msg.last_message_text, msg.last_message_first_name, msg.unseen_messages_length)
-      }
-      else if (msg.unseen_messages_length == 0) {
-        updateUnseenChat(msg.chat_id, msg.unseen_messages_length)
-      }
-    };
-
-    socket.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
-
-    socket.onclose = () => {
-      console.log('WebSocket connection closed');
-    };
-
-    // Очистка при размонтировании компонента
-    return () => {
-      socket.close();
-    };
-
   }, [])
 
   useEffect(() => {
@@ -74,9 +44,7 @@ export const Chats = () => {
 
       // Создаем новое подключение WebSocket для нового chat_id
       const socketChat = new WebSocket(
-        `ws://127.0.0.1:8000/ws/chat/${chat_id}/?token=${localStorage.getItem(
-          "token"
-        )}`
+        `ws://127.0.0.1:8000/ws/chat/${chat_id}/?token=${localStorage.getItem("token")}`
       );
 
       socketChat.onopen = () => {
@@ -107,27 +75,27 @@ export const Chats = () => {
   }, [chat_id]);
 
 
-  const timer = useRef<number | null>(null);
+  // const timer = useRef<number | null>(null);
 
-  const setUsersActivity = useUsersActivity(state => state.setUsersActivity)
+  // const setUsersActivity = useUsersActivity(state => state.setUsersActivity)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    timer.current = setInterval(() => {
-      getChatsUsersActivity()
-        .then(res => {
-          setUsersActivity(res);
-          console.log(res, "Ответ при обновлении активности юзеров чатов")
-        })
-        .catch(err => console.log(err, "Ошибка при обновлении активности юзеров чатов"));
-    }, 10000);
+  //   timer.current = setInterval(() => {
+  //     getChatsUsersActivity()
+  //       .then(res => {
+  //         setUsersActivity(res);
+  //         console.log(res, "Ответ при обновлении активности юзеров чатов")
+  //       })
+  //       .catch(err => console.log(err, "Ошибка при обновлении активности юзеров чатов"));
+  //   }, 10000);
 
-    return () => {
-      if (timer.current) {
-        clearInterval(timer.current);
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (timer.current) {
+  //       clearInterval(timer.current);
+  //     }
+  //   };
+  // }, []);
 
 
   const sendMessage = () => {

@@ -2,11 +2,16 @@
     padding: 20px 0px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: start;
+    height: 100%;
+}
+.background{
+    background-image: url("../../../assets//fon.jpg");
+    background-size: cover;
 }
 .content{
     border-radius: 30px;
-    background-color: rgba(233, 233, 233, 1);
+    background-color: white;
     animation: show-content 0.5s ease;
 }
 @keyframes show-content{

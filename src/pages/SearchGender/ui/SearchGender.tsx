@@ -9,7 +9,7 @@ export const SearchGender = () => {
   const {searchingGender, setSearchingGender} = useQuestionsStore();
 
   return (
-    <QuestionLayout prevRoute={Routes.GENDER} nextRoute={Routes.NAME}>
+    <QuestionLayout prevRoute={Routes.GENDER} nextRoute={searchingGender.length > 0 ? Routes.NAME : ""}>
       <div className={s.content}>
         <h1 className={s.title}>Кого же ты ищешь?</h1>
         <h2 className={s.subtitle}>Выберите пол кого ты хочешь искать</h2>

@@ -26,6 +26,30 @@ export const addImage = async (image: Blob, is_main_image: boolean = false) => {
 
     return response.data;
 }
+export const addImages = async (images: Blob[], withAvatarImage: boolean = false ) => {
+    const formData = new FormData();
+
+    if(withAvatarImage){
+        images.forEach((img, i) => {
+            formData.append(`image_${i + 1}`, img)
+            if(i == (images.length - 1)){
+                formData.append(`is_main_image_${i + 1}`, "true");
+            } else {
+                formData.append(`is_main_image_${i + 1}`, "false");
+            }
+        })
+    }
+    else{
+        images.forEach((img, i) => {
+            formData.append(`image_${i + 1}`, img)
+            formData.append(`is_main_image_${i + 1}`, "false");
+        })
+    }
+
+    const response = await $privateApi.post<IImage[]>("/profile/images/add/", formData);
+
+    return response.data;
+}
 
 export const getImages = async () => {
     const response = await $privateApi.get<IImage[]>("/profile/images/");

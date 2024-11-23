@@ -13,7 +13,6 @@ export const Likes = () => {
         .then(res => {
             setAnkets(res)
             console.log(res);
-            
         })
         .catch(err => console.log(err, "Ошибка при получении лайков"))
     }, [])
@@ -27,7 +26,7 @@ export const Likes = () => {
                 <div className={s.ankets}>
                     {
                         ankets.length > 0
-                        ? ankets.map(anket => <FormMobile key={anket.profile.id} profile={anket.profile} inLikesPage={true}/>)
+                        ? ankets.map(anket => <FormMobile key={anket.profile.id} profile={anket.profile} inLikesPage={true} likeId={anket.like.id} ankets={ankets} setAnkets={setAnkets}/>)
                         : <h3 className={s.nothing}>Всё взаимно</h3>
                     }
                 </div>

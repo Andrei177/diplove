@@ -8,22 +8,28 @@ import { useProfileStore } from "../../Profile/store/store"
 
 export const GenderComponent = () => {
 
-  const { gender, setGender } = useQuestionsStore();
-
-  const setLocation = useProfileStore(state => state.setLocation);
+  const { gender, setGender, setLocation } = useQuestionsStore();
+  const setProfileLocation = useProfileStore(state => state.setLocation);
 
   useEffect(() => {
     const geo = navigator.geolocation;
     geo.getCurrentPosition((position) => {
       console.log(position, "локация вновь зареганного пользователя");
-      setLocation(position.coords);
+      setLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
+      setProfileLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      });
     },
       err => console.log(err, "ошибка при получении позиции")
     )
   }, [])
 
   return (
-    <QuestionLayout prevRoute={Routes.START_PAGE} nextRoute={Routes.SEARCH_GENDER}>
+    <QuestionLayout prevRoute={Routes.START_PAGE} nextRoute={gender.length > 0 ? Routes.SEARCH_GENDER : ""}>
       <div className={s.content}>
         <h1 className={s.title}>Привет!<br />Давай знакомиться!</h1>
         <h2 className={s.subtitle}>Выберите свой пол, чтобы мы могли<br />правильно настроить ваш профиль.</h2>

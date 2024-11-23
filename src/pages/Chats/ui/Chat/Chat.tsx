@@ -8,7 +8,8 @@ import back from "../../../../assets/back.svg"
 import { useChatStore, useUsersActivity } from "../../store/store"
 import ava from "../../../../assets/ava.svg"
 import { getMessages } from "../../api/api"
-import { formatDate } from "../../utils/formatDate"
+import { formatDateActivity } from "../../utils/formatDateActivity"
+import { BACKEND_URL } from "../../../../app/api/privateApi"
 
 interface IPropsChat {
     text: string;
@@ -59,7 +60,7 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
                 <div className={s.chat_user_info}>
                     <div className={s.image_wrapper}>
                         <div className={s.image}>
-                            <img className={s.img} src={other_profile_image ? "http://localhost:8000" + other_profile_image : ava} />
+                            <img className={s.img} src={other_profile_image ? BACKEND_URL + other_profile_image : ava} />
                         </div>
                         {online && <div className={s.online} />}
                     </div>
@@ -69,7 +70,7 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
                             {
                                 online
                                     ? <h4 className={s.on}>В сети</h4>
-                                    : <h4 className={s.off}>был {formatDate(lastActivity)}</h4>
+                                    : <h4 className={s.off}>был(a) {formatDateActivity(lastActivity)}</h4>
                             }
 
                         </div>

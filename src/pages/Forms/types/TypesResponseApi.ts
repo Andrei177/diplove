@@ -32,7 +32,7 @@ export interface IProfileResponse{
     age: number | null, 
     is_active: boolean | undefined,
     address: string,
-    location: ILocation, // тут в ответе приходит немного другой тип "location": "SRID=4326;POINT (50.136764 53.113152)",
-    images: IImage[];
-    hobbies: IHobbies[];
+    images: IImage[],
+    hobbies: IHobbies[],
+    location: ILocation,
 }

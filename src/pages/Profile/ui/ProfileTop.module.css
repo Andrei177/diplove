@@ -43,12 +43,13 @@
   display: flex;
   gap: 10px;
 }
-.loader {
+.loader{
   position: absolute;
-  top: 0;
-  left: 55%;
-  width: 60px;
-  height: 60px;
+  height: 40px;
+  width: 40px;
+  top: 5px;
+  left: 10px;
+  border: 5px dashed black;
 }
 .top {
   width: 100%;
@@ -69,6 +70,29 @@
   display: flex;
   align-items: center;
   gap: 5px;
+}
+.interes{
+  width: 257px;
+}
+.update_geo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+.title_geo{
+  font-size: 20px;
+  text-align: center;
+}
+.subtitle_geo{
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(81, 81, 81, 1);
+  text-align: center;
+}
+.btn{
+  font-size: 20px;
+  font-weight: 500;
 }
 @media (max-width: 760px) {
   .wrapper {

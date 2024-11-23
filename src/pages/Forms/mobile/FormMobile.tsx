@@ -13,22 +13,32 @@ import heart from "../../Profile/assets/heart.svg";
 import white_quote from "../assets/white_quote.svg";
 import quote from "../../Profile/assets/quote.svg";
 import cx from "classnames";
+import { BACKEND_URL } from "../../../app/api/privateApi";
+import { useSwipeable } from "react-swipeable";
+import { deleteLike, ILikesResponse } from "../../Likes/api/api";
 
 interface IPropsForm {
     profile: IProfileResponse;
     incrementIndex?: () => void;
     isVisible?: boolean;
     inLikesPage?: boolean;
+    likeId?: number;
+    ankets: ILikesResponse[];
+    setAnkets: (newAnkets: ILikesResponse[]) => void;
 }
 
-export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible = true, inLikesPage = false }) => {
+export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible = true, inLikesPage = false, likeId, ankets, setAnkets }) => {
 
     useEffect(() => {
         console.log(profile, "чья то анкета");
     }, [])
 
     const handleLike = () => {
-        if(incrementIndex) incrementIndex();
+        if(inLikesPage){
+            setAnkets([...ankets.filter(anket => anket.like.id !== likeId)])
+            return;
+        }
+        if (incrementIndex) incrementIndex();
 
         if (profile.id) createLike(profile.id)
             .then(res => console.log(res.detail, "ответ при создании лайка"))
@@ -37,32 +47,33 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
 
     const [showAnket, setShowAnket] = useState(true);
     const handleDislike = () => {
-        if(incrementIndex) incrementIndex();
+        if(inLikesPage){
+            if(likeId){
+                deleteLike(likeId)
+                .then(res => console.log(res, "Ответ при удалении лайка"))
+                .catch(err => console.log(err, "Ошибка при удалении лайка"))
+                .finally(() => setAnkets([...ankets.filter(anket => anket.like.id !== likeId)]))
+            }
+            return;
+        }
+        if (incrementIndex) incrementIndex();
 
         setShowAnket(false);
     }
 
-    const [touchStart, setTouchStart] = useState<number | null>(null)
-    const [touchEnd, setTouchEnd] = useState<number | null>(null)
     const [showInfo, setShowInfo] = useState<boolean>(false)
-    const minSwipeDistance = 70
-    const onTouchStart = (e: any) => {
-        setTouchEnd(null)
-        setTouchStart(e.targetTouches[0].clientY)
-    }
-    const onTouchMove = (e: any) => setTouchEnd(e.targetTouches[0].clientY)
-    const onTouchEnd = () => {
-        if (!touchStart || !touchEnd) return
-        const distance = touchStart - touchEnd
-        if (distance > minSwipeDistance) setShowInfo(true)
-        else if (distance < -minSwipeDistance) setShowInfo(false)
-    }
+    const handlers = useSwipeable({
+        onSwipedUp: () => setShowInfo(true),
+        onSwipedDown: () => setShowInfo(false),
+        preventScrollOnSwipe: true,
+        trackMouse: true
+    });
 
     return (
         <>{isVisible &&
             <div className={inLikesPage ? (showAnket ? s.wrapper : s.none) : s.wrapper}>
-                <div className={s.avatar}>
-                    <div className={inLikesPage ? cx(s.avatar_img, s.small) : s.avatar_img} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onDoubleClick={() => setShowInfo(!showInfo)}>
+                <div className={s.avatar} {...handlers} onDoubleClick={() => setShowInfo(!showInfo)}>
+                    <div className={inLikesPage ? cx(s.avatar_img, s.small) : s.avatar_img}>
                         {!showInfo && <div className={s.top}>
                             <h2 className={s.name}>{profile.first_name}, {profile.age}</h2>
                             <Item className={s.item} text={getInterest(profile.dating_purpose)} img={heart} />
@@ -81,19 +92,19 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                         >
                             {profile.images.map((img) => (
                                 <SwiperSlide className={s.slide} key={img.id}>
-                                    <img className={s.image} src={"http://localhost:8000" + img.image} alt="Profile" />
+                                    <img className={s.image} src={BACKEND_URL + img.image} alt="Profile" />
                                 </SwiperSlide>
                             ))}
-                        <div className="swiper-button-prev"></div>
-                        <div className="swiper-button-next"></div>
+                            <div className="swiper-button-prev"></div>
+                            <div className="swiper-button-next"></div>
                         </Swiper>
                         {
                             !showInfo && <div className={s.short_info}>
                                 {profile.description !== null && <>
-                                <h2 className={s.desc}>
-                                    <img src={white_quote} />
-                                    {profile.description}
-                                </h2>
+                                    <h2 className={s.desc}>
+                                        <img src={white_quote} />
+                                        {profile.description}
+                                    </h2>
                                 </>}
                             </div>
                         }
@@ -114,10 +125,12 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                         <div className={showInfo ? cx(s.all_info, s.show) : cx(s.all_info, s.hide)}>
                             <div className={s.all_info_inner}>
                                 <h2 className={cx(s.name, s.black)}>{profile.first_name}, {profile.age}</h2>
+                                {profile.description !== null && <>
                                     <h2 className={cx(s.desc, s.black)}>
                                         <img src={quote} />
                                         {profile.description}
                                     </h2>
+                                </>}
                                 <div>
                                     <h3 className={s.subtitle}>Основное</h3>
                                     <div className={s.items}>

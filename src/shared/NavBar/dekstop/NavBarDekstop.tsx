@@ -1,6 +1,5 @@
 import Button from "../../ui/Button/Button"
 import s from "../Navbar.module.css"
-import butterfly from "../../../assets/butterfly.svg"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Routes } from "../../../app/router/router.config"
 import { useAuthStore } from "../../../app/store/store"
@@ -10,23 +9,23 @@ import chats from "../assets/chats.svg"
 import profile from "../assets/profile.svg"
 import filters from "../assets/filters.svg"
 import ankets from "../assets/ankets.svg"
-import { useProfileStore } from "../../../pages/Profile/store/store"
 import { useFiltersStore } from "../../Filters/store/store"
 import NavItem from "../NavItem/NavItem"
+import { useUnseenChats } from "../../../pages/Chats/store/store"
 
 export const NavbarDekstop = () => {
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isAuth = useAuthStore(state => state.isAuth);
-  const { first_name } = useProfileStore();
   const setShowFilters = useFiltersStore(state => state.setShowFilters);
+
+  const unseenChats = useUnseenChats(state => state.unseenChats);
 
   return (
     <div className={isAuth ? cx(s.navbar, s.auth) : s.navbar}>
       <div className={isAuth ? s.nav_frame : s.nav_frame_public}>
         <div className={s['navbar__logo-box']} onClick={() => isAuth ? navigate(Routes.PROFILE) : navigate(Routes.START_PAGE)}>
-          <img src={butterfly} alt="butterfly" />
           <h1 className={s.title}>DipLove</h1>
         </div>
         {
@@ -45,15 +44,12 @@ export const NavbarDekstop = () => {
               <NavItem to={Routes.LIKES} img={likes}>
                 Лайки
               </NavItem>
-              <NavItem to={Routes.CHATS} img={chats}>
+              <NavItem to={Routes.CHATS} img={chats} className={s.nav_item_chats}>
                 Чаты
+                {unseenChats > 0 && <div className={s.unseen_chats}>{unseenChats}</div>}
               </NavItem>
               <NavItem to={Routes.PROFILE} img={profile}>
-                {
-                  first_name.length > 15
-                    ? first_name.substring(0, 15) + "..."
-                    : first_name
-                }
+                Профиль
               </NavItem>
             </div>
             <NavItem onClick={() => setShowFilters(true)} img={filters}>

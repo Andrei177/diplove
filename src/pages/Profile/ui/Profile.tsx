@@ -32,29 +32,17 @@ export const Profile = () => {
           }
         })
     }
-
-    // if (imageUrl.length === 0) {
-    //   getImages()
-    //     .then(res => {
-    //       setImageUrl(res.filter(img => img.is_main_image).sort((a, b) => b.id - a.id)[0].image)
-
-    //     }) 
-    //     .catch(err => {
-    //       console.log(err, "Ошибка при получении фото")
-    //       setImageUrl("");
-    //       if(err.status === 401){
-    //         setHasRefreshed(false)
-    //       }
-    //     })
-    // }
   }, [])
+
+  const [image, setImage] = useState<File | null>(null);
+  const [selectedImages, setSelectedImages] = useState<(File)[]>([]);
 
   return (
     <MainLayout>
-      <ProfileTop isEdit={isEdit} setIsEdit={setIsEdit} />
+      <ProfileTop isEdit={isEdit} setIsEdit={setIsEdit} image={image} setImage={setImage} selectedImages={selectedImages} setSelectedImages={setSelectedImages}/>
       {
         isEdit
-          ? <ProfileContentEdit />
+          ? <ProfileContentEdit setImage={setImage} selectedImages={selectedImages} setSelectedImages={setSelectedImages}/>
           : <ProfileContent />
       }
     </MainLayout>

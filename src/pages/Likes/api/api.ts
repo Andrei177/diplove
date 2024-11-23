@@ -14,7 +14,12 @@ export interface ILikesResponse {
 }
 
 export const getLikes = async () => {
-    const res = await $privateApi.get<ILikesResponse[]>("/profile/likes/");
+    const res = await $privateApi.get<ILikesResponse[]>("/profile/likes/")
 
     return res.data
 } 
+export const deleteLike = async (likeId: number) => {
+    const res = await $privateApi.delete(`/profile/like/${likeId}/delete/`)
+
+    return res.data
+}

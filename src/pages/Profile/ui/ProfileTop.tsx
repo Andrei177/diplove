@@ -1,8 +1,8 @@
 import { useProfileStore } from "../store/store"
 import s from "./ProfileTop.module.css"
 import done from "../assets/done.svg"
-import { FC, useState } from "react"
-import { addImage, updateProfile } from "../api/api"
+import { FC, useEffect, useState } from "react"
+import { addImages, updateProfile } from "../api/api"
 import { Loader } from "../../../shared/ui/Loader"
 import UploadImage from "./UploadImage/UploadImage"
 import ava from "../../../assets/ava.svg"
@@ -16,27 +16,32 @@ import { EditPen } from "../../../shared/ui/EditPen/EditPen"
 import { Settings } from "./Settings/Settings"
 import { useMediaQuery } from "react-responsive"
 import { getImageUrl } from "../../../shared/helpers/getImageUrl"
+import Button from "../../../shared/ui/Button/Button"
 
 interface IPropsProfileTop {
     isEdit: boolean;
     setIsEdit: (bool: boolean) => void;
+    image: File | null;
+    setImage: (newImg: File | null) => void;
+    selectedImages: File[];
+    setSelectedImages: (newFiles: File[]) => void;
 }
 
-export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
+export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, setImage, selectedImages, setSelectedImages }) => {
 
     const profileInfo = useProfileStore();
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [image, setImage] = useState<File | null>(null);
-
+    const [haveAvatar, setHaveAvatar] = useState(false);
     const [showSettings, setShowSettings] = useState<boolean>(false);
+    const [showQuestionLocation, setShowQuestionLocation] = useState<boolean>(false);
 
     const isMobile = useMediaQuery({ maxWidth: "625px" });
 
     const setAvatar = () => {
-        if(profileInfo.images.length){
+        if (profileInfo.images.length) {
             return getImageUrl(profileInfo.images.filter(img => img.is_main_image).sort((a, b) => b.id - a.id)[0]?.image)
         }
-        return ava 
+        return ava
     }
 
     const handleClick = () => {
@@ -51,18 +56,49 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
                     setIsLoading(false);
                 })
 
-            if (image) {
-                addImage(image, true)
-                    .then((res) => {
-                        setImage(null)
-                        profileInfo.setImages([...profileInfo.images, res[0]]) //добавляю в стор новую фотку
-                        console.log(res, "ответ при добавлении фото профиля");
-                    })
-                    .catch(err => console.log(err, "Ошибка при добавлении фото"))
+            if (image || selectedImages.length > 0) {
+                if (image) {
+                    addImages([...selectedImages, image], true)
+                        .then((res) => {
+                            setImage(null)
+                            setSelectedImages([])
+                            profileInfo.setImages([...profileInfo.images, ...res]) //добавляю в стор новые фотки
+                            console.log(res, "ответ при добавлении фото профиля");
+                        })
+                        .catch(err => console.log(err, "Ошибка при добавлении фото"))
+                }
+                else {
+                    addImages([...selectedImages])
+                        .then((res) => {
+                            setImage(null)
+                            setSelectedImages([])
+                            profileInfo.setImages([...profileInfo.images, ...res]) //добавляю в стор новые фотки
+                            console.log(res, "ответ при добавлении фото профиля");
+                        })
+                        .catch(err => console.log(err, "Ошибка при добавлении фото"))
+                }
             }
         }
         else setIsEdit(!isEdit)
     }
+
+    const updateLocation = () => {
+        const geo = navigator.geolocation;
+        geo.getCurrentPosition((position) => {
+            console.log(position, "обновлённая локация");
+            profileInfo.setLocation({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            });
+        },
+            err => console.log(err, "ошибка при получении позиции")
+        )
+        setShowQuestionLocation(false);
+    }
+
+    useEffect(() => {
+        setHaveAvatar(!!profileInfo.images.find(img => img.is_main_image));
+    }, [isEdit])
 
     return (
         <>
@@ -95,12 +131,23 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
                         {isEdit
                             ? image
                                 ? <img className={s.img} src={URL.createObjectURL(image)} />
-                                : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
+                                : haveAvatar
+                                    ? <img className={s.img} src={setAvatar()} />
+                                    : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
                             : <img className={s.img} src={setAvatar()} />}
                     </div>
                     <div className={s.main_info}>
-                        <h2 className={s.name}>{profileInfo.first_name}, {profileInfo.age}</h2>
-                        <h3 className={s.geo}><img src={point}/>{profileInfo.address.slice(profileInfo.address.lastIndexOf(',') + 1)}</h3>
+                        <h2 className={s.name}>
+                            {profileInfo.first_name.length > 15
+                                ? profileInfo.first_name.substring(0, 15) + "..."
+                                : profileInfo.first_name},
+                            {profileInfo.age}
+                        </h2>
+                        <h3 className={s.geo}>
+                            <img src={point} />
+                            {profileInfo.address.slice(profileInfo.address.lastIndexOf(',') + 1)}
+                            {isEdit && <EditPen onClick={() => setShowQuestionLocation(true)} />}
+                        </h3>
                         <Item className={s.interes} text={getInterest(profileInfo.dating_purpose)} img={heart} />
                     </div>
                 </div>
@@ -133,6 +180,16 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit }) => {
                 setShowModal={setShowSettings}
             >
                 <Settings setShowSettings={setShowSettings} />
+            </Modal>
+            <Modal
+                showModal={showQuestionLocation}
+                setShowModal={setShowQuestionLocation}
+            >
+                <div className={s.update_geo}>
+                <h3 className={s.title_geo}>Обновление местоположения</h3>
+                <h2 className={s.subtitle_geo}>Не забудьте сохранить изменения после обновления</h2>
+                <Button className={s.btn} onClick={updateLocation}>Обновить местоположение</Button>
+                </div>
             </Modal>
         </>
     )

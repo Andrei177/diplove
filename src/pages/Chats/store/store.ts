@@ -82,3 +82,14 @@ export const useUsersActivity = create<IUsersActivity>(set => ({
     usersActivity: [],
     setUsersActivity: (newActivity) => set({usersActivity: newActivity})
 }))
+
+
+interface IUnseenChatsStore {
+    unseenChats: number;
+    setUnseenChats: (newCount: number) => void;
+}
+
+export const useUnseenChats = create<IUnseenChatsStore>(set => ({
+    unseenChats: 0,
+    setUnseenChats: (newCount) => set({unseenChats: newCount})
+}))

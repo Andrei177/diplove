@@ -9,6 +9,7 @@ import { getInterest } from "../../Profile/helpers/getInterest";
 import 'swiper/css/bundle';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { BACKEND_URL } from "../../../app/api/privateApi";
 
 interface IPropsForm {
     profile: IProfileResponse;
@@ -53,7 +54,7 @@ export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => 
                         >
                             {profile.images.map((img) => (
                                 <SwiperSlide className={s.slide} key={img.id}>
-                                    <img className={s.image} src={"http://localhost:8000" + img.image} alt="Profile" />
+                                    <img className={s.image} src={BACKEND_URL + img.image} alt="Profile" />
                                 </SwiperSlide>
                             ))}
                             <div className="swiper-button-prev" />

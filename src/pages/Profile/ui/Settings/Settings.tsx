@@ -10,6 +10,8 @@ import { Routes } from "../../../../app/router/router.config"
 import { useProfileStore } from "../../store/store"
 import { emptyStore } from "../../helpers/emptyStore"
 import { useChatsListStore, useChatStore } from "../../../Chats/store/store"
+import { useLoginStore } from "../../../../shared/loginStore/loginStore"
+import { useQuestionsStore } from "../../../../shared/questionsStore/store"
 
 interface IPropsSettings {
     setShowSettings: (bool: boolean) => void
@@ -21,14 +23,31 @@ export const Settings: FC<IPropsSettings> = ({ setShowSettings }) => {
     const { is_active, setIsActive, setAll} = useProfileStore();
     const setEmty = useChatStore(state => state.setEmpty);
     const setChats = useChatsListStore(state => state.setChats);
+    const { setLogin, setPassword } = useLoginStore();
+    const { setGender, setBirthday, setFirstName, setInteres, setLocation, setSearchingGender } = useQuestionsStore();
+
     const navigate = useNavigate();
 
     const exitAndDelFunc = () => {
         localStorage.removeItem("token")
+
+        
         setIsAuth(false)
-        setEmty();
-        setAll(emptyStore)
+        setEmty(); // очиска какого-то выбранного чата
+        setAll(emptyStore) // очистка профиля
         setChats([])
+        setLogin("")
+        setPassword("")
+        setGender("")
+        setBirthday("2000-01-01")
+        setLocation({
+            latitude: 53.196860,
+            longitude: 50.158323
+        })
+        setFirstName("")
+        setInteres("")
+        setSearchingGender("")
+
         navigate(Routes.START_PAGE)
     }
 

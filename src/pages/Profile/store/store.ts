@@ -22,9 +22,9 @@ interface IProfileStore extends IProfileResponse{
     setIsActive: (bool: boolean) => void,
     setAll: (profileData: IProfileResponse) => void,
     setAddress: (newAddress: string) => void,
-    setLocation: (newLocation: ILocation) => void; 
     setImages: (newImages: IImage[]) => void, 
-    setHobbies: (newHobbies: IHobbies[]) => void
+    setHobbies: (newHobbies: IHobbies[]) => void,
+    setLocation: (newLocation: ILocation) => void,
 }
 
 export const useProfileStore = create<IProfileStore>((set) => ({
@@ -45,12 +45,12 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     age: null, 
     is_active: undefined, 
     address: "",
+    images: [],
+    hobbies: [],
     location: {
         latitude: 53.196860,
         longitude: 50.158323
     },
-    images: [],
-    hobbies: [],
 
     setId: (newId) => set({id: newId}),
     setUserId: (newUserId) => set({user_id: newUserId}),
@@ -69,9 +69,10 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     setAge: (newAge) => set({age: newAge}), 
     setIsActive: (bool) => set({is_active: bool}),
     setAddress: (newAddress) => set({address: newAddress}),
-    setLocation: (newLocation) => set({location: newLocation}),
     setImages: (newImages) => set({images: newImages}), 
     setHobbies: (newHobbies) => set({hobbies: newHobbies}),
+    setLocation: (newLocation) => set({location: {...newLocation}}),
+
 
     setAll: (profileData) => set({...profileData})
 }))

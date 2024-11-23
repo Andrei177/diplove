@@ -19,6 +19,7 @@ const Hobbies: FC<IPropsHobbies> = ({ setShowHobby }) => {
     useEffect(() => {
         getHobbiesList()
             .then(res => {
+                console.log(res, "Все хобби");
                 const processedArr: IHobbiesProcessed[] = [];
                 for (let i = 0; i < res.length; i++) {
                     if (!hobbies.find(h => h.name == res[i].name)) {
@@ -28,13 +29,12 @@ const Hobbies: FC<IPropsHobbies> = ({ setShowHobby }) => {
                 setHobbiesList(processedArr)
             })
             .catch(err => console.log(err, "Ошибка при получении всех хобби"))
-    }, [])
+    }, [hobbies])
 
     const handleAddHobbies = (hobby: IHobbies) => {
         setHobbiesList(hobbiesList.map(h => {
             if (h.name == hobby.name) {
                 h.selected = !h.selected
-                return h
             }
             return h
         }))

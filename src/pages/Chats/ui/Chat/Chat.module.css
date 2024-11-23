@@ -32,6 +32,7 @@
 }
 .chat_textarea{
     padding: 10px;
+    padding-bottom: 0px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -70,6 +71,7 @@
     font-size: 19px;
     font-weight: 400;
     padding: 0px;
+    height: 36px;
 }
 .send{
     cursor: pointer;

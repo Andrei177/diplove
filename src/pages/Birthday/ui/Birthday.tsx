@@ -11,11 +11,15 @@ export const Birthday = () => {
   //2024-10-04 такой формат строки с датой
 
   return (
-    <QuestionLayout prevRoute={Routes.NAME} nextRoute={Routes.INTERES}>
+    <QuestionLayout prevRoute={Routes.NAME} nextRoute={(new Date().getFullYear() - new Date(birthday).getFullYear()) >= 18 ? Routes.INTERES : ""}>
       <div className={s.content}>
         <h1 className={s.title}>{name}, укажи дату рождения</h1>
-        <h2 className={s.subtitle}>Вам должно быть не менее 18 лет для<br/>регистрации на Morfix.</h2>
+        <h2 className={s.subtitle}>Вам должно быть не менее 18 лет для<br/>регистрации на DipLove.</h2>
         <Input type="date" className={s.inp} value={birthday} onChange={e => setBirthday(e.target.value)}/>
+        {
+        (new Date().getFullYear() - new Date(birthday).getFullYear()) < 18
+         && <div className={s.info}>Возраст должен быть не менее 18 лет</div>
+        }
       </div>
     </QuestionLayout>
   )
