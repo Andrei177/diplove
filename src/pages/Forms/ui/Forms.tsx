@@ -34,7 +34,6 @@ export const Forms = () => {
     getProfiles(distance, minAge, maxAge)
       .then(res => setProfiles(res))
       .catch(err => {
-        console.log(err, "Ошибка при получении анкет")
         if (err.status === 401) {
           setHasRefreshed(false)
         }

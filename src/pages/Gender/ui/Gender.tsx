@@ -14,7 +14,6 @@ export const GenderComponent = () => {
   useEffect(() => {
     const geo = navigator.geolocation;
     geo.getCurrentPosition((position) => {
-      console.log(position, "локация вновь зареганного пользователя");
       setLocation({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
@@ -23,9 +22,7 @@ export const GenderComponent = () => {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude
       });
-    },
-      err => console.log(err, "ошибка при получении позиции")
-    )
+    })
   }, [])
 
   return (

@@ -59,17 +59,11 @@ export const Settings: FC<IPropsSettings> = ({ setShowSettings }) => {
             .then(() => {
                 exitAndDelFunc()
             })
-            .catch(err => {
-                console.log(err, "Не удалось выйти из аккаунта")
-            })
     }
     const del = () => {
         deleteProfile()
             .then(() => {
                 exitAndDelFunc()
-            })
-            .catch(err => {
-                console.log(err, "Не удалось удалить аккаунт")
             })
     }
 

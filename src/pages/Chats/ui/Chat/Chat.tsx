@@ -51,7 +51,6 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
                     });
                     setMessages(sortedMessages);
                 })
-                .catch(err => console.log(err, "Ошибка при получении сообщений чата"))
                 .finally(() => setIsLoadingMsgs(false))
         }
     }, [chat_id])

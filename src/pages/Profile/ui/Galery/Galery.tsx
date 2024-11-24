@@ -23,8 +23,6 @@ const Galery: FC<IPropsGalery> = ({ myImages, setShowQuestion, selectedImages, s
     const handleOnChangeOnUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setShowQuestion(true);
         if (e.target.files) {
-            console.log(e.target.files);
-
             const options = {
                 maxSizeMB: 1,
                 maxWidthOrHeight: 1920,
@@ -54,8 +52,6 @@ const Galery: FC<IPropsGalery> = ({ myImages, setShowQuestion, selectedImages, s
         }
         else setSortedImages(myImages);
         const indexOpenPhotoInArray = sortedImages.findIndex(img => img?.id == clickedImage.id);
-
-        console.log(indexOpenPhotoInArray, "это я посчитал какое фото по счёту");
 
         setIndexOpenPhoto(indexOpenPhotoInArray == -1 ? 0 : indexOpenPhotoInArray);
         setShowFullDisplayImages(true);

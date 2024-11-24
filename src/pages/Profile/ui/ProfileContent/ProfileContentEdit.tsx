@@ -34,7 +34,6 @@ export const ProfileContentEdit: FC<IPropsProfileContentEdit> = ({ setImage, sel
         .then(res => {
             setMyImages(res.filter(img => img.is_main_image == false))
         })
-        .catch(err => console.log(err, "Ошибка при получении фотографий в редактировании"))
     }, [images])
 
     const handlePositiveAnswer = () => {

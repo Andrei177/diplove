@@ -27,7 +27,6 @@ export const Chats = () => {
     getChats()
       .then(res => setChats(res))
       .catch(err => {
-        console.log(err, "Ошибка при получении чатов")
         setChats([]);
         if (err.status === 401) {
           setHasRefreshed(false)
@@ -47,21 +46,9 @@ export const Chats = () => {
         `${import.meta.env.VITE_WSS_URL}/ws/chat/${chat_id}/?token=${localStorage.getItem("token")}`
       );
 
-      socketChat.onopen = () => {
-        console.log("Подключился к чату");
-      };
-
       socketChat.onmessage = (event) => {
         const message = JSON.parse(event.data);
         addMessage(message.message)
-      };
-
-      socketChat.onerror = (error) => {
-        console.error("Ошибка в чате:", error);
-      };
-
-      socketChat.onclose = () => {
-        console.log("Соединение закрыто");
       };
 
       // Устанавливаем новый WebSocket

@@ -4,7 +4,6 @@ import { IMessage } from "../types/IMessage";
 
 export const getChats = async () => {
     const res = await $privateApi.get<IChatInfo[]>("/chat/list/");
-    console.log(res.data, "чаты");
     
     return res.data;
 }

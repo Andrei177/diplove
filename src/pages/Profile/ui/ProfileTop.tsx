@@ -52,11 +52,9 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                 setImage(null)
                 setSelectedImages([])
                 profileInfo.setImages([...profileInfo.images, ...res]) //добавляю в стор новые фотки
-                console.log(res, "ответ при добавлении фото профиля");
             })
-            .catch(err => {
+            .catch(() => {
                 alert("Не удалось загрузить новые фото, вероятнее всего слишком большой размер фото")
-                console.log(err, "Ошибка при добавлении фото")
             })
     }
 
@@ -66,7 +64,6 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
 
             updateProfile({ ...profileInfo })
                 .then(res => profileInfo.setAll(res))
-                .catch(err => console.log(err, "Ошибка при обновлении профиля"))
                 .finally(() => {
                     setIsEdit(!isEdit)
                     setIsLoading(false);
@@ -82,9 +79,6 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
 
                     try {
                         const compressedFile = await imageCompression(image, options);
-                        console.log(image.size, "до сжатия");
-
-                        console.log(compressedFile.size, "после сжатия");
 
                         addImagesFn([...selectedImages, compressedFile], true)
                     } catch (error) {
@@ -105,15 +99,13 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
     const updateLocation = () => {
         const geo = navigator.geolocation;
         geo.getCurrentPosition((position) => {
-            console.log(position, "обновлённая локация");
             profileInfo.setLocation({
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
             });
         },
-            err => {
+            () => {
                 alert("Возникла ошибка при получении позиции, возможно вы не включили её или не дали разрешение")
-                console.log(err, "Ошибка при обновлении позиции");
             }
         )
         setShowQuestionLocation(false);
@@ -156,7 +148,7 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                                 ? <img className={s.img} src={URL.createObjectURL(image)} />
                                 : haveAvatar
                                     ? <img className={s.img} src={setAvatar()} />
-                                    : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
+                                    : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]) }} />
                             : <img className={cx(s.img, !haveAvatar && s.default_ava)} src={setAvatar()} />}
                     </div>
                     <div className={s.main_info}>

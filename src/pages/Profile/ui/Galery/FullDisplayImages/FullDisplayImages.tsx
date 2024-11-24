@@ -22,16 +22,12 @@ const FullDisplayImages: FC<IPropsFullDispalyImages> = ({ images, setShowFullDis
 
   const setImages = useProfileStore(state => state.setImages)
 
-  console.log(currentPhoto, "а это в компоненте");
-
   useEffect(() => {
     setCurrentPhoto(indexOpenPhoto)
   }, [indexOpenPhoto])
 
   const deleteImg = () => {
     delImg(images[currentPhoto].id)
-    .then(res => console.log(res, "ответ при удалении фото"))
-    .catch(err => console.log(err, "ошибка при удалении фото"))
 
     setShowFullDisplayImages(false);
 

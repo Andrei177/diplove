@@ -1,7 +1,7 @@
 import s from "./Form.module.css"
 import dislike from "../assets/dislike.svg"
 import like from "../assets/like.svg"
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { IProfileResponse } from "../types/TypesResponseApi";
 import { createLike } from "../api/createLikeApi";
 import Item from "../../../shared/ui/Item/Item";
@@ -19,21 +19,10 @@ interface IPropsForm {
 
 export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => {
 
-    //В ЭТОМ КОМПОНЕНТЕ ПЕРЕДЕЛАТЬ, ЧТОБЫ БЫЛО НЕ ОДНО ФОТО А ВСЕ ФОТО ПОЛЬЗОВАТЕЛЯ В АНКЕТЕ МОЖНО БЫЛО ЛИСТАТЬ
-    // const imageUrl: string = profile.images.length
-    //     ? "http://localhost:8000" + profile.images.filter(img => img.is_main_image)?.sort((a, b) => b.id - a.id)[0]?.image
-    //     : "";
-
-    useEffect(() => {
-        console.log(profile, "чья то анкета");
-    }, [])
-
     const handleLike = () => {
         incrementIndex();
 
         if (profile.id) createLike(profile.id)
-            .then(res => console.log(res.detail, "ответ при создании лайка"))
-            .catch(err => console.log(err, "Ошибка при создании лайка"))
     }
 
     return (

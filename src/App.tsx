@@ -23,8 +23,7 @@ function App() {
         setIsAuth(true)
         navigate(Routes.PROFILE)
       })
-      .catch((err) => {
-        console.log(err, "Ошибка при загрузке страницы старт или логинов, потому что запрос на рефреш вернулся в ошибкой");
+      .catch(() => {
         setIsAuth(false)
       })
       .finally(() => setIsLoading(false))

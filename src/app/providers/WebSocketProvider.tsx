@@ -20,7 +20,6 @@ const WebSocketProvider: FC<IPropsWebSocketProvider> = ({ children }) => {
 
         socket.onmessage = (event) => {
             const msg = JSON.parse(event.data);
-            console.log('Received message:', event);
             if (msg.type == "send.event.update") {
                 if (msg.last_message_first_name && msg.last_message_datetime) {
                     updateChats(msg.chat_id, msg.last_message_datetime, msg.last_message_text, msg.last_message_first_name, msg.unseen_messages_length)
