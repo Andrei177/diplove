@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from "react"
 import { addImages, updateProfile } from "../api/api"
 import { Loader } from "../../../shared/ui/Loader"
 import UploadImage from "./UploadImage/UploadImage"
-import ava from "../../../assets/ava.svg"
+import ava from "../assets/default_ava.svg"
 import heart from "../assets/heart.svg"
 import settings from "../assets/settings.svg"
 import point from "../assets/point.svg"
@@ -17,6 +17,7 @@ import { Settings } from "./Settings/Settings"
 import { useMediaQuery } from "react-responsive"
 import { getImageUrl } from "../../../shared/helpers/getImageUrl"
 import Button from "../../../shared/ui/Button/Button"
+import cx from "classnames"
 
 interface IPropsProfileTop {
     isEdit: boolean;
@@ -65,7 +66,10 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                             profileInfo.setImages([...profileInfo.images, ...res]) //добавляю в стор новые фотки
                             console.log(res, "ответ при добавлении фото профиля");
                         })
-                        .catch(err => console.log(err, "Ошибка при добавлении фото"))
+                        .catch(err => {
+                            alert("Не удалось загрузить новые фото, вероятнее всего слишком большой размер фото")
+                            console.log(err, "Ошибка при добавлении фото")
+                        })
                 }
                 else {
                     addImages([...selectedImages])
@@ -91,7 +95,10 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                 longitude: position.coords.longitude
             });
         },
-            err => console.log(err, "ошибка при получении позиции")
+            err => {
+                alert("Возникла ошибка при получении позиции, возможно вы не включили её или не дали разрешение")
+                console.log(err, "Ошибка при обновлении позиции");
+            }
         )
         setShowQuestionLocation(false);
     }
@@ -134,14 +141,14 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                                 : haveAvatar
                                     ? <img className={s.img} src={setAvatar()} />
                                     : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
-                            : <img className={s.img} src={setAvatar()} />}
+                            : <img className={cx(s.img, !haveAvatar && s.default_ava)} src={setAvatar()}/>}
                     </div>
                     <div className={s.main_info}>
                         <h2 className={s.name}>
-                            {profileInfo.first_name.length > 15
-                                ? profileInfo.first_name.substring(0, 15) + "..."
+                            {profileInfo.first_name.length > 20 && isMobile
+                                ? profileInfo.first_name.substring(0, 20) + "..."
                                 : profileInfo.first_name},
-                            {profileInfo.age}
+                            {" " + profileInfo.age}
                         </h2>
                         <h3 className={s.geo}>
                             <img src={point} />
@@ -186,9 +193,10 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                 setShowModal={setShowQuestionLocation}
             >
                 <div className={s.update_geo}>
-                <h3 className={s.title_geo}>Обновление местоположения</h3>
-                <h2 className={s.subtitle_geo}>Не забудьте сохранить изменения после обновления</h2>
-                <Button className={s.btn} onClick={updateLocation}>Обновить местоположение</Button>
+                    <h3 className={s.title_geo}>Обновление местоположения</h3>
+                    <h2 className={s.subtitle_geo}>Не забудьте сохранить изменения после обновления</h2>
+                    <h2 className={s.subtitle_geo}>Перед обновлением проверьте <br /> включена ли геопозиция на вашем устройстве <br /> и дано ли разрешение <br /> на его определение нашему сайту</h2>
+                    <Button className={s.btn} onClick={updateLocation}>Обновить местоположение</Button>
                 </div>
             </Modal>
         </>

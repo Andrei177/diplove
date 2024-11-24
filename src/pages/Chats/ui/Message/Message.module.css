@@ -31,4 +31,6 @@
 }
 .next_day{
     text-align: center;
+    color:rgba(105, 105, 105, 1);
+    font-size: 15px;
 }

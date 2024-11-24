@@ -33,7 +33,7 @@
     gap: 5px;
     flex-wrap: wrap;
     padding: 25px;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 66%;
 }
 .hobby_item{

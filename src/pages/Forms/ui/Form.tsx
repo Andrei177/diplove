@@ -52,9 +52,9 @@ export const Form: FC<IPropsForm> = ({ profile, incrementIndex, isVisible }) => 
                             modules={[Navigation]} // Включаем Navigation в модули
                             className={s.swiper}
                         >
-                            {profile.images.map((img) => (
+                            {profile.images.sort((a, b) => +(b.is_main_image === true) - +(a.is_main_image === true)).map((img) => (
                                 <SwiperSlide className={s.slide} key={img.id}>
-                                    <img className={s.image} src={BACKEND_URL + img.image} alt="Profile" />
+                                    <img className={s.image} src={BACKEND_URL + img.image} alt="profile" />
                                 </SwiperSlide>
                             ))}
                             <div className="swiper-button-prev" />

@@ -40,7 +40,7 @@
 .info {
   width: 365px;
   padding-left: 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
   height: 560px;
 }
 .about_profile{

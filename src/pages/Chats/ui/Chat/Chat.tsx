@@ -10,6 +10,7 @@ import ava from "../../../../assets/ava.svg"
 import { getMessages } from "../../api/api"
 import { formatDateActivity } from "../../utils/formatDateActivity"
 import { BACKEND_URL } from "../../../../app/api/privateApi"
+import { Loader } from "../../../../shared/ui/Loader"
 
 interface IPropsChat {
     text: string;
@@ -28,6 +29,8 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
     const [online, setOnline] = useState(false);
     const [lastActivity, setLastActivity] = useState("")
 
+    const [isLoadingMsgs, setIsLoadingMsgs] = useState(false)
+
     useEffect(() => {
         const candidate = usersActivity.find(activity => activity.chat_id == chat_id)
         if (candidate) {
@@ -38,9 +41,18 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
 
     useEffect(() => {
         if (chat_id) {
+            setIsLoadingMsgs(true)
             getMessages(chat_id)
-                .then(res => setMessages(res))
+                .then(res => {
+                    const sortedMessages = res.sort((a, b) => {
+                        const timeA = new Date(a.datetime).getTime();
+                        const timeB = new Date(b.datetime).getTime(); 
+                        return timeA - timeB;
+                    });
+                    setMessages(sortedMessages);
+                })
                 .catch(err => console.log(err, "Ошибка при получении сообщений чата"))
+                .finally(() => setIsLoadingMsgs(false))
         }
     }, [chat_id])
 
@@ -66,11 +78,11 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
                     </div>
                     {
                         other_profile_first_name && <div className={s.chat_user_name}>
-                            <h3>{other_profile_first_name}</h3>
+                            <h3 className={s.first_name}>{other_profile_first_name}</h3>
                             {
                                 online
                                     ? <h4 className={s.on}>В сети</h4>
-                                    : <h4 className={s.off}>был(a) {formatDateActivity(lastActivity)}</h4>
+                                    : lastActivity && <h4 className={s.off}>был(a) {formatDateActivity(lastActivity)}</h4>
                             }
 
                         </div>
@@ -78,7 +90,11 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
                 </div>
             </div>
             {!alone && <hr />}
-            <Messages />
+            {
+                isLoadingMsgs
+                ? <Loader className={s.loader}/>
+                : <Messages />
+            }
             {!alone && <hr />}
             <div className={alone ? cx(s.chat_textarea, s.mobile_txt) : s.chat_textarea} onKeyDown={e => handleKeyDown(e)}>
                 <Textarea

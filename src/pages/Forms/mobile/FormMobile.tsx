@@ -23,8 +23,8 @@ interface IPropsForm {
     isVisible?: boolean;
     inLikesPage?: boolean;
     likeId?: number;
-    ankets: ILikesResponse[];
-    setAnkets: (newAnkets: ILikesResponse[]) => void;
+    ankets?: ILikesResponse[];
+    setAnkets?: (newAnkets: ILikesResponse[]) => void;
 }
 
 export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible = true, inLikesPage = false, likeId, ankets, setAnkets }) => {
@@ -35,7 +35,7 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
 
     const handleLike = () => {
         if(inLikesPage){
-            setAnkets([...ankets.filter(anket => anket.like.id !== likeId)])
+            if(setAnkets && ankets) setAnkets([...ankets.filter(anket => anket.like.id !== likeId)])
             return;
         }
         if (incrementIndex) incrementIndex();
@@ -45,6 +45,8 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
             .catch(err => console.log(err, "Ошибка при создании лайка"))
     }
 
+    const [isScrolling, setIsScrolling] = useState(false);
+
     const [showAnket, setShowAnket] = useState(true);
     const handleDislike = () => {
         if(inLikesPage){
@@ -52,9 +54,8 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                 deleteLike(likeId)
                 .then(res => console.log(res, "Ответ при удалении лайка"))
                 .catch(err => console.log(err, "Ошибка при удалении лайка"))
-                .finally(() => setAnkets([...ankets.filter(anket => anket.like.id !== likeId)]))
+                .finally(() => {if(setAnkets && ankets) setAnkets([...ankets.filter(anket => anket.like.id !== likeId)])})
             }
-            return;
         }
         if (incrementIndex) incrementIndex();
 
@@ -63,11 +64,19 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
 
     const [showInfo, setShowInfo] = useState<boolean>(false)
     const handlers = useSwipeable({
-        onSwipedUp: () => setShowInfo(true),
-        onSwipedDown: () => setShowInfo(false),
+        onSwipedUp: () => !isScrolling && setShowInfo(true),
+        onSwipedDown: () => !isScrolling && setShowInfo(false),
         preventScrollOnSwipe: true,
         trackMouse: true
     });
+
+    const handleScrollStart = () => {
+        setIsScrolling(true);
+    };
+
+    const handleScrollEnd = () => {
+        setIsScrolling(false);
+    };
 
     return (
         <>{isVisible &&
@@ -87,12 +96,12 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                                 nextEl: '.swiper-button-next',
                                 prevEl: '.swiper-button-prev',
                             }}
-                            modules={[Navigation]} // Включаем Navigation в модули
+                            modules={[Navigation]}
                             className={s.swiper}
                         >
-                            {profile.images.map((img) => (
+                            {profile.images.sort((a, b) => +(b.is_main_image === true) - +(a.is_main_image === true)).map((img) => (
                                 <SwiperSlide className={s.slide} key={img.id}>
-                                    <img className={s.image} src={BACKEND_URL + img.image} alt="Profile" />
+                                    <img className={s.image} src={BACKEND_URL + img.image} alt="profile" />
                                 </SwiperSlide>
                             ))}
                             <div className="swiper-button-prev"></div>
@@ -122,7 +131,12 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
                                 <img src={like} alt="like" />
                             </div>
                         </div>
-                        <div className={showInfo ? cx(s.all_info, s.show) : cx(s.all_info, s.hide)}>
+                        <div className={showInfo ? cx(s.all_info, s.show) : cx(s.all_info, s.hide)}
+                            onTouchMove={handleScrollStart}
+                            onScroll={handleScrollStart}
+                            onMouseLeave={handleScrollEnd} // Для мыши
+                            onTouchEnd={handleScrollEnd}
+                        >
                             <div className={s.all_info_inner}>
                                 <h2 className={cx(s.name, s.black)}>{profile.first_name}, {profile.age}</h2>
                                 {profile.description !== null && <>
