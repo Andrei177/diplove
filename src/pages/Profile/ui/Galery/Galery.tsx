@@ -7,6 +7,7 @@ import UploadImage from "../UploadImage/UploadImage";
 import Modal from "../../../../shared/ui/Modal/Modal";
 import FullDisplayImages from "./FullDisplayImages/FullDisplayImages";
 import { useProfileStore } from "../../store/store";
+import imageCompression from "browser-image-compression";
 
 interface IPropsGalery {
     myImages: IImage[];
@@ -19,12 +20,24 @@ const Galery: FC<IPropsGalery> = ({ myImages, setShowQuestion, selectedImages, s
 
     const isMobile = useMediaQuery({ maxWidth: "490px" });
 
-    const handleOnChangeOnUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleOnChangeOnUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         setShowQuestion(true);
         if (e.target.files) {
             console.log(e.target.files);
 
-            setSelectedImages([...selectedImages, e.target.files[0]])
+            const options = {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 1920,
+                useWebWorker: true,
+            };
+        
+            try {
+                const compressedFile = await imageCompression(e.target.files[0], options);
+                setSelectedImages([...selectedImages, compressedFile])
+            } catch (error) {
+                console.error(error);
+                setSelectedImages([...selectedImages, e.target.files[0]])
+            }
         }
     }
 

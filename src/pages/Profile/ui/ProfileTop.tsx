@@ -18,6 +18,7 @@ import { useMediaQuery } from "react-responsive"
 import { getImageUrl } from "../../../shared/helpers/getImageUrl"
 import Button from "../../../shared/ui/Button/Button"
 import cx from "classnames"
+import imageCompression from "browser-image-compression";
 
 interface IPropsProfileTop {
     isEdit: boolean;
@@ -45,7 +46,7 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
         return ava
     }
 
-    const handleClick = () => {
+    const handleClick = async () => {
         if (isEdit) {
             setIsLoading(true);
 
@@ -59,6 +60,24 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
 
             if (image || selectedImages.length > 0) {
                 if (image) {
+                    const options = {
+                        maxSizeMB: 1,
+                        maxWidthOrHeight: 1920,
+                        useWebWorker: true,
+                    
+                    };
+                
+                    try {
+                        const compressedFile = await imageCompression(image, options);
+                        console.log(image.size, "до сжатия");
+                        
+                        console.log(compressedFile.size, "после сжатия");
+                        
+                        setSelectedImages([...selectedImages, compressedFile])
+                    } catch (error) {
+                        console.error(error);
+                        setSelectedImages([...selectedImages, image])
+                    }
                     addImages([...selectedImages, image], true)
                         .then((res) => {
                             setImage(null)

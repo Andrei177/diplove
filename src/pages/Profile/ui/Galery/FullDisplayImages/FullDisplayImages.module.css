@@ -30,7 +30,7 @@
     max-height: 100%;
 } */
 .top_bar{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
