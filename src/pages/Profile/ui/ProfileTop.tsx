@@ -46,6 +46,20 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
         return ava
     }
 
+    const addImagesFn = (imgs: Blob[], withAva: boolean = false) => {
+        addImages(imgs, withAva)
+            .then((res) => {
+                setImage(null)
+                setSelectedImages([])
+                profileInfo.setImages([...profileInfo.images, ...res]) //добавляю в стор новые фотки
+                console.log(res, "ответ при добавлении фото профиля");
+            })
+            .catch(err => {
+                alert("Не удалось загрузить новые фото, вероятнее всего слишком большой размер фото")
+                console.log(err, "Ошибка при добавлении фото")
+            })
+    }
+
     const handleClick = async () => {
         if (isEdit) {
             setIsLoading(true);
@@ -64,41 +78,24 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                         maxSizeMB: 1,
                         maxWidthOrHeight: 1920,
                         useWebWorker: true,
-                    
                     };
-                
+
                     try {
                         const compressedFile = await imageCompression(image, options);
                         console.log(image.size, "до сжатия");
-                        
+
                         console.log(compressedFile.size, "после сжатия");
-                        
-                        setSelectedImages([...selectedImages, compressedFile])
+
+                        addImagesFn([...selectedImages, compressedFile], true)
                     } catch (error) {
                         console.error(error);
                         setSelectedImages([...selectedImages, image])
+
+                        addImagesFn([...selectedImages, image], true)
                     }
-                    addImages([...selectedImages, image], true)
-                        .then((res) => {
-                            setImage(null)
-                            setSelectedImages([])
-                            profileInfo.setImages([...profileInfo.images, ...res]) //добавляю в стор новые фотки
-                            console.log(res, "ответ при добавлении фото профиля");
-                        })
-                        .catch(err => {
-                            alert("Не удалось загрузить новые фото, вероятнее всего слишком большой размер фото")
-                            console.log(err, "Ошибка при добавлении фото")
-                        })
                 }
                 else {
-                    addImages([...selectedImages])
-                        .then((res) => {
-                            setImage(null)
-                            setSelectedImages([])
-                            profileInfo.setImages([...profileInfo.images, ...res]) //добавляю в стор новые фотки
-                            console.log(res, "ответ при добавлении фото профиля");
-                        })
-                        .catch(err => console.log(err, "Ошибка при добавлении фото"))
+                    addImagesFn([...selectedImages])
                 }
             }
         }
@@ -160,7 +157,7 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
                                 : haveAvatar
                                     ? <img className={s.img} src={setAvatar()} />
                                     : <UploadImage onChange={(e) => { e.target.files && setImage(e.target.files[0]); console.log(e.target.files, "прикрепленное фото"); }} />
-                            : <img className={cx(s.img, !haveAvatar && s.default_ava)} src={setAvatar()}/>}
+                            : <img className={cx(s.img, !haveAvatar && s.default_ava)} src={setAvatar()} />}
                     </div>
                     <div className={s.main_info}>
                         <h2 className={s.name}>
