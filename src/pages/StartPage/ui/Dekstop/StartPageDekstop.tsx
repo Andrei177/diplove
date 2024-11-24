@@ -12,9 +12,10 @@ export const StartPageDekstop = () => {
       <h1 className={s.title}>DipLove</h1>
       <Button variant={VARIANT.black} className={s.btn} onClick={() => navigate(Routes.REGISTRATION)}>Создать профиль</Button>
       <p className={s.description}>
-        Osertad pov plamiment. Säbel<br/>
-        vovis. Hypov nesk, pyrade.<br/>
-        Pseudosere dalig. Operastat åbas.
+        Добро пожаловать! <br />
+        Здесь ты можешь найти новых людей <br />
+        для общения, дружбы или чего-то большего. <br />
+        Присоединяйся и начинай знакомиться!
       </p>
     </div>
   )

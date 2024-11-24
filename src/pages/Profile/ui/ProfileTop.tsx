@@ -105,7 +105,7 @@ export const ProfileTop: FC<IPropsProfileTop> = ({ isEdit, setIsEdit, image, set
 
     useEffect(() => {
         setHaveAvatar(!!profileInfo.images.find(img => img.is_main_image));
-    }, [isEdit])
+    }, [isEdit, profileInfo])
 
     return (
         <>

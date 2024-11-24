@@ -27,7 +27,7 @@ export const Likes = () => {
                     {
                         ankets.length > 0
                         ? ankets.map(anket => <FormMobile key={anket.profile.id} profile={anket.profile} inLikesPage={true} likeId={anket.like.id} ankets={ankets} setAnkets={setAnkets}/>)
-                        : <h3 className={s.nothing}>Всё взаимно</h3>
+                        : <h3 className={s.nothing}>Здесь пока пусто…</h3>
                     }
                 </div>
             </div>

@@ -20,7 +20,18 @@ export const getProfileHobby = async () => {
 }
 
 export const addHobbies = async (hobbies: IHobbies[]) => {
-    const res = await $privateApi.post<IHobbies[]>("/profile/hobbies/add/", hobbies);
+    const res = await $privateApi.post<IHobbies[]>("/profile/hobbies/add/", hobbies)
+
+    return res.data
+}
+
+export const deleteHobbies = async (hobbies: IHobbies[]) => {
+
+    const hobbiesIds = []
+
+    hobbies.forEach(h => hobbiesIds.push({id: h.id}))
+
+    const res = await $privateApi.post("profile/hobbies/delete/", )
 
     return res.data
 }

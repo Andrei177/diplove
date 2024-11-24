@@ -4,7 +4,6 @@ import { Textarea } from "../../../../shared/ui/Textarea/Textarea"
 import { gendersOptions, interestOptions } from "../../constants/gendersAndInterests"
 import { useProfileStore } from "../../store/store"
 import s from "./ProfileContentEdit.module.css"
-import heart from "../../assets/heart.svg"
 import cx from "classnames"
 import { FC, useEffect, useState } from "react"
 import Modal from "../../../../shared/ui/Modal/Modal"
@@ -24,7 +23,7 @@ interface IPropsProfileContentEdit {
 
 export const ProfileContentEdit: FC<IPropsProfileContentEdit> = ({ setImage, selectedImages, setSelectedImages }) => {
 
-    const { first_name, gender, birthday, job, dating_purpose, education, description, setFirstName, setBirthday, setGender, setDatingPurpose, setDescription, setEducation, setJob, hobbies } = useProfileStore();
+    const { first_name, gender, birthday, job, dating_purpose, education, description, setFirstName, setBirthday, setGender, setDatingPurpose, setDescription, setEducation, setJob, hobbies, images } = useProfileStore();
     const [showHobby, setShowHobby] = useState<boolean>(false);
     const [showQuestion, setShowQuestion] = useState<boolean>(false);
 
@@ -36,7 +35,7 @@ export const ProfileContentEdit: FC<IPropsProfileContentEdit> = ({ setImage, sel
             setMyImages(res.filter(img => img.is_main_image == false))
         })
         .catch(err => console.log(err, "Ошибка при получении фотографий в редактировании"))
-    }, [])
+    }, [images])
 
     const handlePositiveAnswer = () => {
         setImage(selectedImages[selectedImages.length - 1])
@@ -88,7 +87,6 @@ export const ProfileContentEdit: FC<IPropsProfileContentEdit> = ({ setImage, sel
                     <div>
                         <h3>Я ищу</h3>
                         <div className={s.interes}>
-                            <img src={heart} className={s.heart_img} />
                             <Select
                                 value={dating_purpose}
                                 options={interestOptions}
@@ -146,64 +144,3 @@ export const ProfileContentEdit: FC<IPropsProfileContentEdit> = ({ setImage, sel
         </>
     )
 }
-
-{/* <div className={s.name_birth}>
-                    <div className={s.name}>
-                        <h3>Имя</h3>
-                        <Input
-                            placeholder="Введите имя"
-                            className={s.inp}
-                            value={first_name}
-                            onChange={e => setFirstName(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <h3>Дата рождения</h3>
-                        <Input
-                            type="date"
-                            className={s.inp}
-                            value={birthday}
-                            onChange={e => setBirthday(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className={s.gender_search}>
-                    <div className={s.gender}>
-                        <h3>Пол</h3>
-                        <Select
-                            value={gender}
-                            options={gendersOptions}
-                            className={s.slct}
-                            onChange={e => setGender(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <h3>Я ищу</h3>
-                        <Select
-                            value={dating_purpose}
-                            options={interestOptions}
-                            className={s.slct}
-                            onChange={e => setDatingPurpose(e.target.value)}
-                        />
-                    </div>
-                </div>
-                <div className={s.education_job}>
-                    <div className={s.education}>
-                        <h3>Образование</h3>
-                        <Input
-                            placeholder="Укажите образование"
-                            className={s.inp}
-                            value={education}
-                            onChange={e => setEducation(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <h3>Работа</h3>
-                        <Input
-                            placeholder="Укажите проффесию"
-                            className={s.inp}
-                            value={job}
-                            onChange={e => setJob(e.target.value)}
-                        />
-                    </div>
-                </div> */}

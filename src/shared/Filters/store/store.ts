@@ -14,7 +14,7 @@ interface IFiltersStore {
 export const useFiltersStore = create<IFiltersStore>(set => ({
     showFilters: false,
     setShowFilters: (bool) => set({showFilters: bool}),
-    minAge: 0,
+    minAge: 18,
     maxAge: 100,
     distance: 30,
     setMinAge: (newValue: number) => set({minAge: newValue}),

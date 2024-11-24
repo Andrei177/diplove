@@ -13,8 +13,6 @@ interface IPropsSidebar {
 }
 
 export const Sidebar: FC<IPropsSidebar> = memo(({ alone, setShowSidebar }) => {
-
-    const isPlanshet = useMediaQuery({ maxWidth: "685px" });
     const isMobile = useMediaQuery({ maxWidth: "625px" });
     const { chats } = useChatsListStore();
     const { setChatId, setOtherProfileFirstName, setOtherProfileImage, setMessages } = useChatStore();
@@ -25,24 +23,20 @@ export const Sidebar: FC<IPropsSidebar> = memo(({ alone, setShowSidebar }) => {
         setChatId(chatInfo.chat_id)
         setOtherProfileFirstName(chatInfo.other_profile_first_name)
         setOtherProfileImage(chatInfo.other_profile_image)
-        if(isMobile){
+        if (isMobile) {
             setMessages([])
         }
     }
 
     return (
         <div className={alone ? cx(s.sidebar, s.alone) : s.sidebar}>
-            {
-                isMobile
-                    ? <h2>Чаты</h2>
-                    : <hr />
-            }
+            <h2 className={s.chats_title}>Чаты</h2>
+            {!isMobile && <hr />}
             <div className={s.sidebar_chats}>
-                {(!isPlanshet || isMobile) && "Сообщения"}
                 {
                     chats.length !== 0
-                        ? <>{chats.sort(compareLastMsgDatetime).map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo} onClick={() => handleClickOnChatInfo(chatInfo)}/>)}</>
-                        : <h3>Пока нет чатов</h3>
+                        ? <>{chats.sort(compareLastMsgDatetime).map(chatInfo => <ChatInfo key={chatInfo.chat_id} chatInfo={chatInfo} onClick={() => handleClickOnChatInfo(chatInfo)} />)}</>
+                        : <h3 className={s.empty_in_chats}>Здесь пока пусто…</h3>
                 }
             </div>
         </div>

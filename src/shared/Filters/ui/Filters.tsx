@@ -38,7 +38,7 @@ export const Filters = () => {
           <div className={s.item_range}>
             <Slider
               range
-              min={0}
+              min={18}
               max={100}
               value={[localMinAge, localMaxAge]}
               onChange={(value) => {
@@ -56,7 +56,7 @@ export const Filters = () => {
             <div className={s.value}>{localDistance} км</div>
           </div>
           <div className={s.item_range}>
-            <input className="range" type="range" value={localDistance} onChange={e => setLocalDistance(+e.target.value)} />
+            <input className="range" type="range" min={0} max={1000} value={localDistance} onChange={e => setLocalDistance(+e.target.value)} />
           </div>
         </div>
       </div>

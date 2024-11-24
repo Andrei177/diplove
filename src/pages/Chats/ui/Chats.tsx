@@ -74,30 +74,6 @@ export const Chats = () => {
     }
   }, [chat_id]);
 
-
-  // const timer = useRef<number | null>(null);
-
-  // const setUsersActivity = useUsersActivity(state => state.setUsersActivity)
-
-  // useEffect(() => {
-
-  //   timer.current = setInterval(() => {
-  //     getChatsUsersActivity()
-  //       .then(res => {
-  //         setUsersActivity(res);
-  //         console.log(res, "Ответ при обновлении активности юзеров чатов")
-  //       })
-  //       .catch(err => console.log(err, "Ошибка при обновлении активности юзеров чатов"));
-  //   }, 10000);
-
-  //   return () => {
-  //     if (timer.current) {
-  //       clearInterval(timer.current);
-  //     }
-  //   };
-  // }, []);
-
-
   const sendMessage = () => {
     if (!text) return
     chatSocket?.send(JSON.stringify({

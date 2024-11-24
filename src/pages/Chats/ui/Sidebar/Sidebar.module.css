@@ -1,6 +1,6 @@
 .sidebar{
     padding: 15px;
-    padding-top: 90px;
+    padding-top: 40px;
     width: 47%;
 }
 .sidebar_chats{
@@ -8,6 +8,17 @@
     padding: 20px;
     overflow-y: auto;
     height: 95%;
+}
+.empty_in_chats{
+    color: rgba(105, 105, 105, 1);
+    font-size: 14px;
+    font-weight: 400;
+}
+.chats_title{
+    padding-left: 10px;
+    padding-bottom: 5px;
+    font-size: 32px;
+    font-weight: 600;
 }
 .alone{
     width: 80%;
@@ -30,6 +41,9 @@
     }
     .alone{
         width: 90%;
+    }
+    .chats_title{
+        font-size: 24px;
     }
 }
 @media (max-width: 505px){

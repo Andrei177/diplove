@@ -34,15 +34,16 @@ export const FormMobile: FC<IPropsForm> = ({ profile, incrementIndex, isVisible 
     }, [])
 
     const handleLike = () => {
-        if(inLikesPage){
-            if(setAnkets && ankets) setAnkets([...ankets.filter(anket => anket.like.id !== likeId)])
-            return;
-        }
         if (incrementIndex) incrementIndex();
 
         if (profile.id) createLike(profile.id)
             .then(res => console.log(res.detail, "ответ при создании лайка"))
             .catch(err => console.log(err, "Ошибка при создании лайка"))
+            
+        if(inLikesPage){
+            if(setAnkets && ankets) setAnkets([...ankets.filter(anket => anket.like.id !== likeId)])
+            return;
+        }
     }
 
     const [isScrolling, setIsScrolling] = useState(false);

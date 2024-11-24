@@ -36,6 +36,9 @@
   min-height: 100%;
   object-fit: cover;
 }
+.none_padding{
+  padding: 0px;
+}
 @media (max-width: 760px) {
   .galery {
     height: 200px;
