@@ -12,7 +12,7 @@ const WebSocketProvider: FC<IPropsWebSocketProvider> = ({ children }) => {
     const setUnseenChats = useUnseenChats(state => state.setUnseenChats);
 
     useEffect(() => {
-        const socket = new WebSocket(`ws://127.0.0.1:8000/ws/chats/?token=${localStorage.getItem("token")}`);
+        const socket = new WebSocket(`${import.meta.env.VITE_WSS_URL}/ws/chats/?token=${localStorage.getItem("token")}`);
 
         socket.onopen = () => {
             console.log('Connected to the WebSocket server');

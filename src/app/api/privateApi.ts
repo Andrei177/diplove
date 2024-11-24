@@ -2,8 +2,8 @@ import axios, { AxiosError } from "axios";
 
 //http://localhost:8000/api
 //http://localhost:8000
-export const API_URL = "http://localhost:8000/api"; //"https://api.dipluv.ru/api";
-export const BACKEND_URL = "http://localhost:8000"; //"https://api.dipluv.ru";
+export const API_URL = `${import.meta.env.VITE_API_URL}`;
+export const BACKEND_URL = `${import.meta.env.VITE_BACKEND_URL}`;
 
 export const $privateApi = axios.create({
   baseURL: API_URL,

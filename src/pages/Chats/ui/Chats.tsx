@@ -44,7 +44,7 @@ export const Chats = () => {
 
       // Создаем новое подключение WebSocket для нового chat_id
       const socketChat = new WebSocket(
-        `ws://127.0.0.1:8000/ws/chat/${chat_id}/?token=${localStorage.getItem("token")}`
+        `${import.meta.env.VITE_WSS_URL}/ws/chat/${chat_id}/?token=${localStorage.getItem("token")}`
       );
 
       socketChat.onopen = () => {
