@@ -34,6 +34,10 @@ const FullDisplayImages: FC<IPropsFullDispalyImages> = ({ images, setShowFullDis
     setImages(images.filter((img) => img.id !== images[currentPhoto].id))
   }
 
+  const handleSlideChange = (swiper: { activeIndex: number }) => {
+    setCurrentPhoto(swiper.activeIndex);
+  };
+
   return (
     <div className={s.full_display_wrapper}>
       <div className={s.top_bar}>
@@ -54,14 +58,15 @@ const FullDisplayImages: FC<IPropsFullDispalyImages> = ({ images, setShowFullDis
         modules={[Navigation]}
         className={s.swiper}
         initialSlide={currentPhoto}
+        onSlideChange={handleSlideChange}
       >
         {images.map((img) => (
           <SwiperSlide className={s.slide} key={img.id}>
             {<img className={s.image} src={BACKEND_URL + img.image} />}
           </SwiperSlide>
         ))}
-        <div className="swiper-button-prev" onClick={() => setCurrentPhoto(prev => prev - 1)} />
-        <div className="swiper-button-next" onClick={() => setCurrentPhoto(prev => prev + 1)} />
+        <div className="swiper-button-prev" />
+        <div className="swiper-button-next" />
       </Swiper>
     </div>
   )
