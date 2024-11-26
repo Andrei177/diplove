@@ -13,6 +13,7 @@
     background-color: rgba(210, 210, 210, 1);
     padding: 17px;
     margin: 5px 0px;
+    font-size: 15.5px;
 }
 .message.me{
     background: rgb(14,48,174);

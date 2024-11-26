@@ -7,6 +7,65 @@
     display: flex;
     flex-direction: column;
     justify-content: end;
+    position: relative;
+}
+.generate_wrapper{
+    position: sticky;
+    display: flex;
+    align-items: end;
+    gap: 3px;
+    bottom: 0;
+    left: 0;
+}
+.question{
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    color: rgba(159, 159, 159, 1);
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    padding-top: 4px;
+}
+.star_img{
+    position: absolute;
+    left: 0;
+    height: 35px;
+    width: 35px;
+}
+.star_wrapper{
+    display: flex;
+    position: relative;
+    height: 35px;
+    width: 35px;
+}
+.generated_text{
+    font-size: 11px;
+    font-weight: 600;
+    width: 197px;
+    color: rgba(105, 105, 105, 1);
+    background-color: rgba(253, 255, 154, 1);
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(159, 159, 159, 1);
+    animation: show-text 0.5s ease;
+}
+@keyframes show-text{
+    from {
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.copy{
+    height: 17px;
+    cursor: pointer;
 }
 @media(max-width: 625px){
     .messages{

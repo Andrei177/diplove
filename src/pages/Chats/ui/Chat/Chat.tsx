@@ -92,7 +92,7 @@ export const Chat: FC<IPropsChat> = ({ text, setText, alone, setShowSidebar, sen
             {
                 isLoadingMsgs
                 ? <Loader className={s.loader}/>
-                : <Messages />
+                : <Messages/>
             }
             {!alone && <hr />}
             <div className={alone ? cx(s.chat_textarea, s.mobile_txt) : s.chat_textarea} onKeyDown={e => handleKeyDown(e)}>
